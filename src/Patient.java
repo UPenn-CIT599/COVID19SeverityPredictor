@@ -56,7 +56,7 @@ public class Patient {
 	 * Gets whether or not has co-morbid diseases
 	 * @return comorbid
 	 */
-	public boolean isComorbid() {
+	public boolean getComorbid() {
 		return comorbid;
 	}
 	/**

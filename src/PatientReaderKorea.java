@@ -26,6 +26,7 @@ public class PatientReaderKorea
 			fileParser.nextLine();
 			while(fileParser.hasNextLine())
 			{
+				System.out.println("Hi");
 				String row = fileParser.nextLine();
 				String[] rowElements = row.split(",");
 				//System.out.println(Arrays.toString(rowElements));
@@ -66,57 +67,39 @@ public class PatientReaderKorea
 				boolean comorbid = !rowElements[8].equals("");
 				boolean healthcareRelatedExposure = Pattern.matches(".*\\bpatient\\b.*", rowElements[9]);
 				
-				//It seems that many of the excel rows read in only 10-15 columns, therefore
-				//array index out of bounds exceptions occur when accessing the later elements; 
-				//exception handling code below stores these missing column values simply as ""
+				//Handle blank cells in the csv and check ensure the row index accessed is not out of bounds
+				//Remember, NullPointerException is an unchecked exception
 				String ageAsDecade = "";
-				try
+				if (4 < rowElements.length)  
 				{
 					ageAsDecade = rowElements[4];
-				}
-				catch (ArrayIndexOutOfBoundsException e)
-				{
-				}
+				}		
 				String symptomOnsetDate = "";
-				try
+				if (13 < rowElements.length)
 				{
 					symptomOnsetDate = rowElements[13];
 				}
-				catch (ArrayIndexOutOfBoundsException e)
-				{
-				}
 				String confirmedDate = "";
-				try
+				if (14 < rowElements.length)
 				{
 					confirmedDate = rowElements[14];
 				}
-				catch (ArrayIndexOutOfBoundsException e)
-				{
-				}
 				String releasedDate = "";
-				try
+				if (15 < rowElements.length)
 				{
 					releasedDate = rowElements[15];
 				}
-				catch (ArrayIndexOutOfBoundsException e)
-				{
-				}
 				String deceasedDate = "";
-				try
+				if (16 < rowElements.length)
 				{
 					deceasedDate = rowElements[16];
 				}
-				catch (ArrayIndexOutOfBoundsException e)
-				{
-				}
 				String state = "";
-				try
+				if (17 < rowElements.length)
 				{
 					state = rowElements[17];
 				}
-				catch (ArrayIndexOutOfBoundsException e)
-				{
-				}
+
 				Patient patient = new Patient(gender, age, ageAsDecade, comorbid, healthcareRelatedExposure, symptomOnsetDate, confirmedDate, releasedDate, deceasedDate, state);
 				patients.add(patient);
 			}

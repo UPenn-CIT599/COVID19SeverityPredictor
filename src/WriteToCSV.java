@@ -9,23 +9,21 @@ import java.io.PrintWriter;
  */
 public class WriteToCSV {
 	
-	//Declare instance variable
 	private DataAnalysis analysis;
-	
-	//Constructor
+
 	public WriteToCSV(DataAnalysis analysis)
 	{
 		this.analysis = analysis;
 	}
 	/**
 	 * Writes out pertinent data to .csv file in 
-	 * preparation for machine learning classification
+	 * preparation for classification
 	 */
 	public void write()
 	{
 		try
 		{
-			File f = new File("PatientInfoDistilled");
+			File f = new File("PatientInfoClean");
 			PrintWriter out = new PrintWriter(f);
 			
 			//Method body..
