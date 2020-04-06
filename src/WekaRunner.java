@@ -2,20 +2,18 @@ import java.io.BufferedReader;
 
 import weka.classifiers.Classifier;
 import weka.classifiers.Evaluation;
-import weka.classifiers.bayes.NaiveBayes;
-import weka.classifiers.functions.Logistic;
-import weka.classifiers.functions.MultilayerPerceptron;
-import weka.classifiers.functions.SimpleLogistic;
-import weka.classifiers.rules.DecisionTable;
-import weka.classifiers.rules.PART;
-import weka.classifiers.trees.DecisionStump;
-import weka.classifiers.trees.J48;
-import weka.classifiers.trees.RandomForest;
 import weka.core.FastVector;
 import weka.core.Instances;
 
 public class WekaRunner {
-
+    
+    	/**
+    	 * Training pipeline
+    	 * Evaluates performance of various models
+    	 * on the dataset
+    	 * @param args
+    	 * @throws Exception
+    	 */
 	public static void main(String[] args) throws Exception {
 	    	BufferedReader datafile = WekaFileReader.readDataFile("breast-cancer.txt");
 
@@ -29,39 +27,8 @@ public class WekaRunner {
 		Instances[] trainingSplits = split[0];
 		Instances[] testingSplits = split[1];
 		
-		String[] mlpOptions = new String[7];
-		mlpOptions[0] = "-L"; 
-		mlpOptions[1] = "0.001";
-		mlpOptions[2] = "-M"; 
-		mlpOptions[3] = "0.9";
-		mlpOptions[4] = "-N"; 
-		mlpOptions[5] = "-100"; 
-		mlpOptions[6] = "-D"; 
-		MultilayerPerceptron mlp = new MultilayerPerceptron();
-		mlp.setOptions(mlpOptions);
+		Classifier[] models = WekaClassifier.getModels();
 		
-		
-		String[] rfOptions = new String[4];
-		RandomForest rf = new RandomForest();
-		rfOptions[0] = "-I";
-		rfOptions[1] = "50";
-		rfOptions[2] = "-depth";
-		rfOptions[3] = "2";
-		rf.setOptions(rfOptions);
-
-		// Use a set of classifiers
-		Classifier[] models = { 
-				new J48(), // a decision tree
-				new PART(), 
-				new DecisionTable(),//decision table majority classifier
-				new DecisionStump(), //one-level decision tree
-				new NaiveBayes(),
-				rf,
-				new SimpleLogistic(),
-				mlp
-				
-		};
-
 		// Run for each model
 		for (int j = 0; j < models.length; j++) {
 
