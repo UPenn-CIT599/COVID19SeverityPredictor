@@ -16,7 +16,10 @@ import java.util.regex.Pattern;
 public class PatientReaderKorea 
 {
 	private static ArrayList<Patient> patients;
-	
+	/**
+	 * Reads in data from a CSV file and stores in arraylist of 
+	 * Patient objects
+	 */
 	public static void readCSV()
 	{
 		patients = new ArrayList<Patient>();

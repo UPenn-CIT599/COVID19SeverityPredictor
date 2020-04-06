@@ -43,21 +43,21 @@ public class DataAnalysis {
 	}
 	
 	/**
-	 * Maps date to number infected, data for time series line chart
+	 * Maps date to number infected, data for chart
 	 * @return date, number infected
 	 */
 	public HashMap<String, Integer> getDateToNumInfected()
 	{
 	}
 	/**
-	 * Maps date to no number released, data for time series line chart
+	 * Maps date to no number released, data for chart
 	 * @return date, number released
 	 */
 	public HashMap<String, Integer> getDateToNumReleased()
 	{
 	}
 	/**
-	 * Maps date to number deceased, data for line chart
+	 * Maps date to number deceased, data for chart
 	 * @return date, number deceased
 	 */
 	public HashMap<String, Integer> getDateToNumDeceased()
@@ -91,15 +91,6 @@ public class DataAnalysis {
 	 * @return gender, number deceased
 	 */
 	public HashMap<Boolean, Integer> getHealthcareExposureToNumberDeceased()
-	{
-	}
-
-	/**
-	 * Utility method to calculate average age
-	 * @param pArray
-	 * @return average age
-	 */
-	public static double getAverageAge() 
 	{
 	}
 }

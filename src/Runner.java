@@ -10,7 +10,5 @@ public class Runner {
 	 */
 	public static void main(String[] args)
 	{
-		PatientReaderKorea.readCSV();
-		DataAnalysis d = new DataAnalysis(PatientReaderKorea.getPatients());
 	}
 }
