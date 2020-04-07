@@ -120,5 +120,21 @@ public class WekaClassifier {
 		return models;
 	    
 	}
- 
+	
+	
+	/**
+	 * Predict on test instance (user input)
+	 * @param model
+	 * @param evaluation
+	 * @param testingSet
+	 * @return
+	 * @throws Exception
+	 */
+	public static Evaluation predict(Classifier model, Evaluation evaluation,
+		Instances testingSet) throws Exception {
+
+	evaluation.evaluateModel(model, testingSet);
+
+	return evaluation;
+}
 }

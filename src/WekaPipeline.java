@@ -2,19 +2,21 @@ import java.io.BufferedReader;
 
 import weka.classifiers.Classifier;
 import weka.classifiers.Evaluation;
+import weka.classifiers.trees.J48;
 import weka.core.FastVector;
 import weka.core.Instances;
 
-public class WekaRunner {
+public class WekaPipeline {
     
     	/**
     	 * Training pipeline
-    	 * Evaluates performance of various models
+    	 * Evaluates performance of various models and returns
+    	 * accuracy scores
     	 * on the dataset
     	 * @param args
     	 * @throws Exception
     	 */
-	public static void main(String[] args) throws Exception {
+	public static Double[] pipeline() throws Exception {
 	    	BufferedReader datafile = WekaFileReader.readDataFile("breast-cancer.txt");
 
 		Instances data = new Instances(datafile);
@@ -28,6 +30,8 @@ public class WekaRunner {
 		Instances[] testingSplits = split[1];
 		
 		Classifier[] models = WekaClassifier.getModels();
+		
+		Double[] scores = new Double[models.length];
 		
 		// Run for each model
 		for (int j = 0; j < models.length; j++) {
@@ -47,6 +51,7 @@ public class WekaRunner {
 
 			// Calculate overall accuracy of current classifier on all splits
 			double accuracy = WekaClassifier.calculateAccuracy(predictions);
+			scores[j] = accuracy;
 
 			// Print current classifier's name and accuracy in a complicated,
 			// but nice-looking way.
@@ -54,7 +59,48 @@ public class WekaRunner {
 					+ String.format("%.2f%%", accuracy)
 					+ "\n---------------------------------");
 		}
+		return scores;
 
 	}
 
+	/**
+	 * Selects best score based on accuracy scores
+	 * of several models (weka classifiers)
+	 * @param scores
+	 * @param models
+	 * @return
+	 */
+	public static Classifier selectBestModel(Double[] scores, Classifier[] models) {
+	    double max_score = 0.0;
+	    Classifier best_classifier = new J48(); // initialize as any classifier
+	    for (int i=0; i < scores.length; i++) {
+		if (scores[i] > max_score) {
+		    best_classifier = models[i];
+		    max_score = scores[i];
+		}
+	    }
+	    
+	    return best_classifier;
+	}
+	
+	
+	/**
+	 * [WIP] Collects data from users and predicts risk
+	 * 
+	 * @param model
+	 * @param userInput
+	 * @param evaluation
+	 * @return
+	 * @throws Exception
+	 */
+	public static double predictOnUserInput(Classifier model, Instances userInput,
+		Evaluation evaluation) throws Exception {
+	    double risk_score = 0.0;
+	    evaluation = WekaClassifier.predict(model, evaluation, userInput);
+	    FastVector predictions = new FastVector();
+	    predictions.appendElements(evaluation.predictions());
+	    risk_score = predictions.size();
+	    return risk_score;
+	}
+	
 }
