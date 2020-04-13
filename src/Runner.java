@@ -1,5 +1,5 @@
 /**
- * Driver class for the COVID19 prognosticator
+ * Driver class for the COVID19 risk predictor
  * @author cbusc
  *
  */
