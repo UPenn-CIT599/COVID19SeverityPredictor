@@ -29,7 +29,6 @@ public class PatientReaderKorea
 			fileParser.nextLine();
 			while(fileParser.hasNextLine())
 			{
-				System.out.println("Hi");
 				String row = fileParser.nextLine();
 				String[] rowElements = row.split(",");
 				//System.out.println(Arrays.toString(rowElements));

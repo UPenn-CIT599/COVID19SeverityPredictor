@@ -63,7 +63,7 @@ public class Patient {
 	 * Gets whether or not exposure was healthcare related
 	 * @return healthcareRelatedExposure
 	 */
-	public boolean isHealthcareRelatedExposure() {
+	public boolean getHealthcareRelatedExposure() {
 		return healthcareRelatedExposure;
 	}
 	/**
