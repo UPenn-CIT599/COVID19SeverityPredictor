@@ -29,6 +29,7 @@ public class WriteToCSV {
 			
 			//Get patient ArrayList
 			ArrayList<Patient> patients = analysis.getPatients();
+			out.print("Gender," + "Age," + "AgeAsDecade," + "Comorbid," + "HealthcareRelatedExposure," + "SymptomOnsetDate," + "ConfirmedDate," + "ReleasedDate," + "DeceasedDate," + "State\n");
 			for (Patient p : patients)
 			{
 				out.print(p.getGender() + "," + p.getAge() + "," + p.getAgeAsDecade() + "," + p.getComorbid() + "," + p.getHealthcareRelatedExposure() 

@@ -99,7 +99,7 @@ public class PatientReaderKorea
 				String state = "";
 				if (17 < rowElements.length)
 				{
-					state = rowElements[17];
+					state = rowElements[17].toLowerCase();
 				}
 
 				Patient patient = new Patient(gender, age, ageAsDecade, comorbid, healthcareRelatedExposure, symptomOnsetDate, confirmedDate, releasedDate, deceasedDate, state);

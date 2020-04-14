@@ -14,13 +14,13 @@ import org.jfree.ui.RefineryUtilities;
  * @author cbusc
  *
  */
-public class TimeSeries_AWT extends ApplicationFrame
+public class TimeSeriesAWT extends ApplicationFrame
 {
 	/**
 	 * Constructor, which implements ChartPanel for interfacing with JSwing
 	 * @param title
 	 */
-	public TimeSeries_AWT(String title)
+	public TimeSeriesAWT(String title)
 	{
 	}
 	

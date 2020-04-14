@@ -1,3 +1,5 @@
+import java.util.Map;
+
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
@@ -11,17 +13,17 @@ import org.jfree.ui.RefineryUtilities;
  * @author cbusc
  *
  */
-public class StackedBarChart_AWT extends ApplicationFrame
+public class StackedBarChartAWT extends ApplicationFrame
 {
 	//Constructor, which implements ChartPanel for interfacing with JSwing
-	public StackedBarChart_AWT(String applicationTitle, String chartTitle)
+	public StackedBarChartAWT(String applicationTitle, String chartTitle, DataAnalysis d)
 	{
 		super(applicationTitle);
 		JFreeChart stackedBarChart = ChartFactory.createStackedBarChart(
 				chartTitle,     //title
 				"Age",      //category (X) axis
-				"Number of patients",      //value (Y) axis
-				createDataset(),
+				"Probability of Outcome",      //value (Y) axis
+				createDataset(d),
 				PlotOrientation.HORIZONTAL,
 				true, true, false);       //legends, tooltips, URLS
 			
@@ -36,43 +38,26 @@ public class StackedBarChart_AWT extends ApplicationFrame
 	 * Data Analysis class
 	 * @return CategoryDataset
 	 */
-	private CategoryDataset createDataset()
-	{
-		//Initialize category names
-			final String ISOLATED = "Isolated";
-			final String RELEASED = "Released";
-			final String DECEASED = "Deceased";
-			
-			final String zeroToNine = "0-9";
-			final String tenToNineteen = "10-19";
-			final String twentyToTwentynine = "20-29";
-			final String thirtyToThirtynine = "30-39";
-			
+	private CategoryDataset createDataset(DataAnalysis d)
+	{	
 			final DefaultCategoryDataset DATASET = new DefaultCategoryDataset();
-			//Iterate through HashMap of age as decade to num patients with outcome
-			//value = numPatients with outcome in age bracket
-			//rowKey = ageAsDecade
-			//columnKey = outcome
+			//value = probability of outcome
+			//rowKey = outcome
+			//columnKey = ageAsDecade
 			
-			//Example values provided below
-			//Iterate through HashMap ageAsDecadeToNumIsolated	
-			DATASET.addValue(20, ISOLATED, thirtyToThirtynine);
-			DATASET.addValue(10, ISOLATED, twentyToTwentynine);
-			DATASET.addValue(20, ISOLATED, tenToNineteen);
-			DATASET.addValue(30, ISOLATED, zeroToNine);
+			//Iterate through hashmap to fill released dataset
+			Map<String, Double> ageAsDecadeToProbReleased = d.getAgeAsDecadeToProbReleased();
+			for (String age : ageAsDecadeToProbReleased.keySet())
+			{
+				DATASET.addValue(ageAsDecadeToProbReleased.get(age), "Released", age);   //value, row key, column key
+			}
 			
-			//Iterate through HashMap ageAsDecadeToNumReleased	
-			DATASET.addValue(20, RELEASED, thirtyToThirtynine);
-			DATASET.addValue(4, RELEASED, twentyToTwentynine);
-			DATASET.addValue(80, RELEASED, tenToNineteen);
-			DATASET.addValue(50, RELEASED, zeroToNine);
-			
-			//Iterate through HashMap ageAsDecadeToNumDeceased
-			DATASET.addValue(20, DECEASED, thirtyToThirtynine);
-			DATASET.addValue(20, DECEASED, twentyToTwentynine);
-			DATASET.addValue(20, DECEASED, tenToNineteen);
-			DATASET.addValue(10, DECEASED, zeroToNine);
-		
+			//Iterate through hashmap to fill deceased dataset
+			Map<String, Double> ageAsDecadeToProbDeceased = d.getAgeAsDecadeToProbDeceased();
+			for (String age : ageAsDecadeToProbDeceased.keySet())
+			{
+				DATASET.addValue(ageAsDecadeToProbDeceased.get(age), "Deceased", age);
+			}
 		return DATASET;
 	}
 }
