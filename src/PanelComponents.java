@@ -3,7 +3,6 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JPasswordField;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField; 
 public class PanelComponents {
@@ -16,6 +15,10 @@ public class PanelComponents {
     public PanelComponents() {
     	
     }
+    
+    /**
+     * This method create a JFrame and a JPanel. Then add components like label, text area, button, radio Button to the panel. 
+     */
     public void placeComponents() {
     	
     	// Create JFrame

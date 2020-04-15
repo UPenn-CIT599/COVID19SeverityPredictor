@@ -12,5 +12,8 @@ public class UserInformationCollector {
 	public int[] collect() {
 		int[] result = new int[6];
 		return result;
+		
+		
+		
 	}
 }
