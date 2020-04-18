@@ -11,6 +11,9 @@ import javax.swing.JRadioButton;
 import javax.swing.JTextField; 
 public class PanelComponents extends JFrame implements ActionListener{
     
+	/**
+	 * create panel components
+	 */
 	private JFrame frame;
 	private JPanel panel;
     private JLabel ageLabel;
@@ -227,9 +230,15 @@ public class PanelComponents extends JFrame implements ActionListener{
     
     
     /**
-	 *This method will loop through the radio button in PanelCompoents and collect the
+	 *This method will go through the textFields and radio buttons in PanelCompoents and collect the
 	 *informations user puts in. Then return an array of integers as inputs for classifier.
-	 * @return int[6]
+	 * @return int[]:This array contains 6 elements. 
+	 * int[0] = age
+	 * int[1] = Gender, 1 for male and 0 for female.
+	 * int[2] = History of chronic disease, 1 for Yea and 0 for No.
+	 * int[3] = Healthcare-related exposure, 1 for Yes and 0 for No.
+	 * int[4] = Days since symptom onset.
+	 * int[5] = Days since tested positive.
 	 */
     public int[] collect() {
 		
@@ -240,12 +249,19 @@ public class PanelComponents extends JFrame implements ActionListener{
 		int chronicDisease = 1;
 		int healthCare = 1;
 		
+		/**
+		 * get user's age
+		 */
 		ageString = ageText.getText();
 		int ageInt = Integer.parseInt(ageString);
-		
+		/**
+		 * get days since symptom onset
+		 */
 		daysSymptonString = symptomText.getText();
 		int daysSympton = Integer.parseInt(daysSymptonString);
-		
+		/**
+		 * get days since tested positive
+		 */
 		daysPositiveString = testText.getText();
 		int daysPositive = Integer.parseInt(daysPositiveString);
 		
@@ -279,6 +295,9 @@ public class PanelComponents extends JFrame implements ActionListener{
 			healthCare = 0;
 		}
     	
+		/**
+		 * add 6 elements to the array
+		 */
 		userInfo[0] = ageInt;
 		userInfo[1] = Gender;
 		userInfo[2] = chronicDisease;
