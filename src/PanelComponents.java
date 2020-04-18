@@ -1,3 +1,7 @@
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.Arrays;
+
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -5,16 +9,30 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField; 
-public class PanelComponents {
+public class PanelComponents extends JFrame implements ActionListener{
     
-    public static void main(String[] args) {    
-        PanelComponents panel = new PanelComponents();
-        panel.placeComponents();
-    }
-    
-    public PanelComponents() {
-    	
-    }
+	private JFrame frame;
+	private JPanel panel;
+    private JLabel ageLabel;
+    private JTextField ageText;
+    private JLabel genderLabel;
+    private JRadioButton rMale;
+    private JRadioButton rFemale;
+    private ButtonGroup bgGender;
+    private JLabel chronicLabel;
+    private JRadioButton rChronicDiseaseY;
+    private JRadioButton rChronicDiseaseN;
+    private ButtonGroup bgChronic;
+    private JLabel healthercareLabel;
+    private JRadioButton healthcareY;
+    private JRadioButton healthcareN;
+    private ButtonGroup bgHealthcare;
+    private JLabel symptomLabel;
+    private JTextField symptomText;
+    private JLabel testLabel;
+    private JTextField testText;
+    private JButton calculateButton;
+    int[] userInfo = new int[6];
     
     /**
      * This method create a JFrame and a JPanel. Then add components like label, text area, button, radio Button to the panel. 
@@ -22,7 +40,7 @@ public class PanelComponents {
     public void placeComponents() {
     	
     	// Create JFrame
-        JFrame frame = new JFrame("COVID19 morality predictor");
+        frame = new JFrame("COVID19 morality predictor");
         // Setting the width and height of frame
         frame.setSize(400, 400);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -30,7 +48,7 @@ public class PanelComponents {
         /* 
          * Create a panel
          */
-        JPanel panel = new JPanel();    
+        panel = new JPanel();    
         /**
          * Add panel to frame
          */
@@ -49,7 +67,7 @@ public class PanelComponents {
         panel.setLayout(null);
 
         // create label for age
-        JLabel ageLabel = new JLabel("Age (years):");
+        ageLabel = new JLabel("Age (years):");
         /* 
          * Set the size and position of label
          */
@@ -59,7 +77,7 @@ public class PanelComponents {
         /* 
          * Set text area for user's input
          */
-        JTextField ageText = new JTextField(20);
+        ageText = new JTextField(20);
         ageText.setBounds(200,20,40,25);
         panel.add(ageText);
         
@@ -68,15 +86,15 @@ public class PanelComponents {
         /**
          * Create label for gender
          */
-        JLabel genderLabel = new JLabel("Gender:");
+        genderLabel = new JLabel("Gender:");
         genderLabel.setBounds(10,50,80,25);
         panel.add(genderLabel);
         
         /**
          * Create radio button for "Male" and "Female"
          */
-        JRadioButton rMale = new JRadioButton("Male");
-        JRadioButton rFemale = new JRadioButton("Female");
+        rMale = new JRadioButton("Male");
+        rFemale = new JRadioButton("Female");
         
         /**
          * Set the size and position of buttons
@@ -87,7 +105,7 @@ public class PanelComponents {
         /**
          * Group the buttons, so that only one in the group can be selected
          */
-        ButtonGroup bgGender = new ButtonGroup();
+        bgGender = new ButtonGroup();
         bgGender.add(rMale);
         bgGender.add(rFemale);
         
@@ -101,14 +119,14 @@ public class PanelComponents {
         /**
          * Create label for gender
          */
-        JLabel chronicLabel = new JLabel("History of chronic disease:");
+        chronicLabel = new JLabel("History of chronic disease:");
         chronicLabel.setBounds(10,80,200,25);
         panel.add(chronicLabel);
         /**
          * Create radio button for ChronicDisease
          */
-        JRadioButton rChronicDiseaseY = new JRadioButton("Yes");
-        JRadioButton rChronicDiseaseN = new JRadioButton("No");
+        rChronicDiseaseY = new JRadioButton("Yes");
+        rChronicDiseaseN = new JRadioButton("No");
         
         /**
          * Set the size and position of buttons
@@ -119,9 +137,9 @@ public class PanelComponents {
         /**
          * Group the buttons, so that only one in the group can be selected
          */
-        ButtonGroup bgChronic = new ButtonGroup();
-        bgChronic.add(rMale);
-        bgChronic.add(rFemale);
+        bgChronic = new ButtonGroup();
+        bgChronic.add(rChronicDiseaseY);
+        bgChronic.add(rChronicDiseaseN);
         
         /**
          * Add button to the panel
@@ -134,14 +152,14 @@ public class PanelComponents {
         /**
          * Create label for gender
          */
-        JLabel healthercareLabel = new JLabel("Healthcare-related exposure:");
+        healthercareLabel = new JLabel("Healthcare-related exposure:");
         healthercareLabel.setBounds(10,110,200,25);
         panel.add(healthercareLabel);
         /**
          * Create radio button for Healthcare
          */
-        JRadioButton healthcareY = new JRadioButton("Yes");
-        JRadioButton healthcareN = new JRadioButton("No");
+        healthcareY = new JRadioButton("Yes");
+        healthcareN = new JRadioButton("No");
         
         /**
          * Set the size and position of buttons
@@ -152,7 +170,7 @@ public class PanelComponents {
         /**
          * Group the buttons, so that only one in the group can be selected
          */
-        ButtonGroup bgHealthcare = new ButtonGroup();
+        bgHealthcare = new ButtonGroup();
         bgHealthcare.add(healthcareY);
         bgHealthcare.add(healthcareN);
         
@@ -167,7 +185,7 @@ public class PanelComponents {
         /**
          * Create new label
          */
-        JLabel symptomLabel = new JLabel("Days since symptom onset:");
+        symptomLabel = new JLabel("Days since symptom onset:");
         /**
          * Set the size and position of the label
          */
@@ -177,7 +195,7 @@ public class PanelComponents {
         /**
          * Create the text area user's answer
          */
-        JTextField symptomText = new JTextField(20);
+        symptomText = new JTextField(20);
         symptomText.setBounds(200,140,40,25);
         panel.add(symptomText);
         
@@ -185,7 +203,7 @@ public class PanelComponents {
         /**
          * Create new label
          */
-        JLabel testLabel = new JLabel("Days since tested positive:");
+        testLabel = new JLabel("Days since tested positive:");
         /**
          * Set the size and position of the label
          */
@@ -195,15 +213,92 @@ public class PanelComponents {
         /**
          * Create the text area user's answer
          */
-        JTextField testText = new JTextField(20);
+        testText = new JTextField(20);
         testText.setBounds(200,170,40,25);
         panel.add(testText);
         
 
         //Create button
-        JButton calculateButton = new JButton("Calculate");
+        calculateButton = new JButton("Calculate");
         calculateButton.setBounds(130, 220, 100, 25);
+        calculateButton.addActionListener(this);
         panel.add(calculateButton);
     }
+    
+    
+    /**
+	 *This method will loop through the radio button in PanelCompoents and collect the
+	 *informations user puts in. Then return an array of integers as inputs for classifier.
+	 * @return int[6]
+	 */
+    public int[] collect() {
+		
+    	String ageString = new String();
+		String daysSymptonString = new String();
+		String daysPositiveString = new String();
+		int Gender = 1;
+		int chronicDisease = 1;
+		int healthCare = 1;
+		
+		ageString = ageText.getText();
+		int ageInt = Integer.parseInt(ageString);
+		
+		daysSymptonString = symptomText.getText();
+		int daysSympton = Integer.parseInt(daysSymptonString);
+		
+		daysPositiveString = testText.getText();
+		int daysPositive = Integer.parseInt(daysPositiveString);
+		
+		/**
+		 * get user's gender information
+		 */
+		if(rMale.isSelected()) {
+			Gender = 1;
+		}
+		else if (rFemale.isSelected()) {
+			Gender = 0;
+		}
+		
+		/**
+		 * get user's history of chronic disease information
+		 */
+		if(rChronicDiseaseY.isSelected()) {
+			chronicDisease = 1;
+		}
+		else if (rChronicDiseaseN.isSelected()) {
+			chronicDisease = 0;
+		}
+		
+		/**
+		 * get user's health-care exposure information
+		 */
+		if( healthcareY.isSelected()) {
+			healthCare = 1;
+		}
+		else if ( healthcareN.isSelected()) {
+			healthCare = 0;
+		}
+    	
+		userInfo[0] = ageInt;
+		userInfo[1] = Gender;
+		userInfo[2] = chronicDisease;
+		userInfo[3] = healthCare;
+		userInfo[4] = daysSympton;
+		userInfo[5] = daysPositive;
+		
+		//System.out.println(Arrays.toString(userInfo));
+		return userInfo;
+    }
+    
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		ClickResponse resp = new ClickResponse();
+		if(e.getSource() == calculateButton) {
+		
+		//resp.response(this.collect());	 
+		System.out.println(Arrays.toString(this.collect()));
+		
+		}
+	}
 
 }
