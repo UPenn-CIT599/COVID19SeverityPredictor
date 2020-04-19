@@ -14,9 +14,9 @@ public class ClickResponse {
 	
 	
 	public double response(int[] userInfo){
-	    double risk_score = 0.0;
+		double risk_score = 1.0;
 	    for (int i : userInfo) {
-			risk_score +=i;
+			risk_score += i;
 		}
 	    return risk_score;
 	}

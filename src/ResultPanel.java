@@ -20,7 +20,7 @@ public class ResultPanel{
 	 * This method will create a new JFrame and a JPanel. Then take the output from classifier and data analysis class, add the final risk score and two
 	 * graphs as three components.
 	 */
-	public void placeComponents() {
+	public void placeComponents(Double score) {
 		
 		JFrame frame;
 		JPanel panel;
@@ -58,13 +58,8 @@ public class ResultPanel{
         riskScoreLabel.setBounds(100,100,200,100);
         panel.add(riskScoreLabel);
         
-        PanelComponents panelC = new PanelComponents();
-        int[] userInfo = panelC.collect();
-        
-        ClickResponse resp = new ClickResponse();
-        Double Score = resp.response(userInfo);
-        String scoreString = String.valueOf(Score);
-        riskScore = new JLabel("50");
+        String scoreString = String.valueOf(score);
+        riskScore = new JLabel(scoreString);
         riskScore.setBounds(300,100,200,100);
         panel.add(riskScore);
         
