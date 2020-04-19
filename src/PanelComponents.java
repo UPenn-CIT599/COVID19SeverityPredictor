@@ -313,9 +313,10 @@ public class PanelComponents extends JFrame implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		ClickResponse resp = new ClickResponse();
 		if(e.getSource() == calculateButton) {
-		
+	        ResultPanel resultPanel = new ResultPanel();
+	        resultPanel.placeComponents();
 		//resp.response(this.collect());	 
-		System.out.println(Arrays.toString(this.collect()));
+		//System.out.println(Arrays.toString(this.collect()));
 		
 		}
 	}
