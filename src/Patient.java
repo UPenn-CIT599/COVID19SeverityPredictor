@@ -12,23 +12,15 @@ public class Patient {
 	String ageAsDecade;
 	private boolean comorbid;
 	private boolean healthcareRelatedExposure;
-	private String symptomOnsetDate;
-	private String confirmedDate;
-	private String releasedDate;
-	private String deceasedDate;
 	private String state;
 	
-	public Patient(String gender, int age, String ageAsDecade, boolean comorbid, boolean healthcareRelatedExposure, String symptomOnsetDate, String confirmedDate, String releasedDate, String deceasedDate, String state)
+	public Patient(String gender, int age, String ageAsDecade, boolean comorbid, boolean healthcareRelatedExposure, String state)
 	{
 		this.gender = gender;
 		this.age = age;
 		this.ageAsDecade = ageAsDecade;
 		this.comorbid = comorbid;
 		this.healthcareRelatedExposure = healthcareRelatedExposure;
-		this.symptomOnsetDate = symptomOnsetDate;
-		this.confirmedDate = confirmedDate;
-		this.releasedDate = releasedDate;
-		this.deceasedDate = deceasedDate;
 		this.state = state;
 	}
 	/**
@@ -65,34 +57,6 @@ public class Patient {
 	 */
 	public boolean getHealthcareRelatedExposure() {
 		return healthcareRelatedExposure;
-	}
-	/**
-	 * Gets symptomOnsetDate
-	 * @return symptomOnsetDate
-	 */
-	public String getSymptomOnsetDate() {
-		return symptomOnsetDate;
-	}
-	/**
-	 * Gets confirmedDate
-	 * @return confirmedDate
-	 */
-	public String getConfirmedDate() {
-		return confirmedDate;
-	}
-	/**
-	 * Gets releasedDate
-	 * @return releasedDate
-	 */
-	public String getReleasedDate() {
-		return releasedDate;
-	}
-	/**
-	 * Gets deceasedDate
-	 * @return deceasedDate
-	 */
-	public String getDeceasedDate() {
-		return deceasedDate;
 	}
 	/**
 	 * Gets state

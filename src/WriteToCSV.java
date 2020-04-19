@@ -24,20 +24,20 @@ public class WriteToCSV {
 	{
 		try
 		{
-			FileWriter fw = new FileWriter("PatientInfoClean");
+			FileWriter fw = new FileWriter("PatientInfoClean.csv");
 			PrintWriter out = new PrintWriter(fw);
 			
 			//Get patient ArrayList
 			ArrayList<Patient> patients = analysis.getPatients();
-			out.print("Gender," + "Age," + "AgeAsDecade," + "Comorbid," + "HealthcareRelatedExposure," + "SymptomOnsetDate," + "ConfirmedDate," + "ReleasedDate," + "DeceasedDate," + "State\n");
+			out.print("Gender," + "Age," + "AgeAsDecade," + "Comorbid," + "HealthcareRelatedExposure," + "State\n");
 			for (Patient p : patients)
 			{
-				out.print(p.getGender() + "," + p.getAge() + "," + p.getAgeAsDecade() + "," + p.getComorbid() + "," + p.getHealthcareRelatedExposure() 
-				+ "," + p.getSymptomOnsetDate() + "," + p.getConfirmedDate() + "," + p.getReleasedDate() + "," + p.getDeceasedDate() + "," + p.getState() + "\n");
+				out.print(p.getGender() + "," + p.getAge() + "," + p.getAgeAsDecade() + "," + p.getComorbid() + "," + p.getHealthcareRelatedExposure()
+				+ "," + p.getState() + "\n");
 			}	
 			out.flush();
 			out.close();
-			System.out.println("You have written cleaned data to 'PatientInfoClean.csv'");
+			System.out.println("You have written cleaned data to 'PatientInfoClean.csv'");           //TEST CODE
 		}
 		catch (IOException e)
 		{

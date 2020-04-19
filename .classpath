@@ -6,5 +6,6 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/5"/>
 	<classpathentry kind="lib" path="C:/Users/cbusc/eclipse/ext_libraries/jfreechart-1.0.19/lib/jcommon-1.0.23.jar"/>
 	<classpathentry kind="lib" path="C:/Users/cbusc/eclipse/ext_libraries/jfreechart-1.0.19/lib/jfreechart-1.0.19.jar"/>
+	<classpathentry kind="lib" path="C:/Users/cbusc/eclipse/ext_libraries/Weka/weka/weka.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

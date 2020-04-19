@@ -36,6 +36,7 @@ public class DataAnalysis {
 	{
 		//Map age as decade to num released
 		Map<String, Double> ageAsDecadeToNumReleased = initAgeAsDecadeToNumReleased();
+
 		//Map age as decade to num deceased
 		Map<String, Double> ageAsDecadeToNumDeceased = initAgeAsDecadeToNumDeceased();
 
@@ -49,7 +50,6 @@ public class DataAnalysis {
 				{
 					Double probReleased = ageAsDecadeToNumReleased.get(age1) / (ageAsDecadeToNumReleased.get(age1) + ageAsDecadeToNumDeceased.get(age2));
 					ageAsDecadeToProbReleased.put(age1, probReleased);
-					System.out.println("Age: " + age1 + " Probability of release: " + probReleased);
 				}
 			}
 		}
@@ -68,61 +68,46 @@ public class DataAnalysis {
 		for (String age : ageAsDecadeToProbReleased.keySet())
 		{
 			ageAsDecadeToProbDeceased.put(age, 1.0 - ageAsDecadeToProbReleased.get(age));
-			System.out.println("Age: " + age + " Probability of decease: " + (ageAsDecadeToProbDeceased.get(age)));
 		}
 		return ageAsDecadeToProbDeceased;
-	}
-	
-	/**
-	 * Maps date to number infected, data for chart
-	 * @return date, number infected
-	 */
-	public HashMap<String, Integer> getDateToNumInfected()
-	{
-	}
-	/**
-	 * Maps date to no number released, data for chart
-	 * @return date, number released
-	 */
-	public HashMap<String, Integer> getDateToNumReleased()
-	{
-	}
-	/**
-	 * Maps date to number deceased, data for chart
-	 * @return date, number deceased
-	 */
-	public HashMap<String, Integer> getDateToNumDeceased()
-	{
 	}
 	
 	/**
 	 * Maps gender to number released, data for chart
 	 * @return gender, number released
 	 */
-	public HashMap<String, Integer> getGenderToNumberReleased()
+	public Map<String, Integer> getGenderToNumberReleased()
 	{
+		Map<String, Integer> h = new HashMap<>();
+		return h;
 	}
 	/**
 	 * Maps gender to number deceased, data for chart
 	 * @return gender, number deceased
 	 */
-	public HashMap<String, Integer> getGenderToNumberDeceased()
+	public Map<String, Integer> getGenderToNumberDeceased()
 	{
+		Map<String, Integer> h = new HashMap<>();
+		return h;
 	}
 	
 	/**
 	 * Maps healthcare-exposure to number released, data for chart
 	 * @return gender, number released
 	 */
-	public HashMap<Boolean, Integer> getHealthcareExposureToNumberReleased()
+	public Map<Boolean, Integer> getHealthcareExposureToNumberReleased()
 	{
+		Map<Boolean, Integer> h = new HashMap<>();
+		return h;
 	}
 	/**
 	 * Maps healthcare-exposure to number deceased, data for chart
 	 * @return gender, number deceased
 	 */
-	public HashMap<Boolean, Integer> getHealthcareExposureToNumberDeceased()
+	public Map<Boolean, Integer> getHealthcareExposureToNumberDeceased()
 	{
+		Map<Boolean, Integer> h = new HashMap<>();
+		return h;
 	}
 	/**
 	 * Helper method that initializes a hashmap linking age as decade to 

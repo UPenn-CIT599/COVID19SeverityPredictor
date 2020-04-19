@@ -41,14 +41,6 @@ class PatientReaderKoreaTest {
 		Boolean expected = true;
 		assertEquals(expected, PatientReaderKorea.getPatients().get(851).getComorbid());
 	}
-	
-	@Test
-	void testSymptomOnsetDateInput()
-	{
-		PatientReaderKorea.readCSV();
-		String expected = "";
-		assertEquals(expected, PatientReaderKorea.getPatients().get(240).getSymptomOnsetDate());
-	}
 
 	@Test
 	void testStateInput()

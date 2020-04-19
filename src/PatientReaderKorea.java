@@ -10,6 +10,12 @@ import java.util.regex.Pattern;
  * The KoreaPatientReader class reads in and stores in an arraylist of Patient objects the csv
  * data from the "Data Science for COVID-19 (DSC4)" dataset available on Kaggle.com.
  * 
+ * UPDATED 4/18: Deleted symptom onset and confirmed diagnosis date features since this severely
+ * limited the number of complete rows. Now, this reads in 1835 patients with complete data to an array list,
+ * with a total of 4 features (age is included both as continuous and as a decade).
+ * However, only ~400 of patients have a state of "released" or "deceased"; the majority are still "isolated."
+ * Can we generate either released or deceased based on age and/or other features?
+ * 
  * @author cbusc
  *
  */
@@ -25,19 +31,26 @@ public class PatientReaderKorea
 		patients = new ArrayList<Patient>();
 		try
 		{
+			int completeRows = 0;                									//TEST CODE
+			int incompleteRows = 0;                 								 //TEST CODE
 			Scanner fileParser = new Scanner(new File("PatientInfo.csv"));
 			fileParser.nextLine();
 			while(fileParser.hasNextLine())
 			{
 				String row = fileParser.nextLine();
 				String[] rowElements = row.split(",");
-				//System.out.println(Arrays.toString(rowElements));
 
-				//store useful elements of each line in variables
+				//Running boolean check whether column data has any empty cell
+				boolean bAllValidData = true;
+				
+				if (rowElements.equals(""))
+				{
+					bAllValidData = false;
+				}
 				String gender = rowElements[2];
 				
 				//store age as -1 default; update to age if given; else update to decade
-				//integer between 1 and 9 if given
+				//integer between 1 and 9, if available
 				int age = -1;
 				if (!rowElements[3].equals(""))
 				{
@@ -52,6 +65,8 @@ public class PatientReaderKorea
 				}
 				else
 				{
+					//If decade is present, then add to decade a randomly generated number between 1 and 9 to yield age
+					//Else, we are not able to discover an age, so flag this as invalid data
 					if (!rowElements[4].equals(""))
 					{
 						String decade = rowElements[4].substring(0, rowElements[4].indexOf("s"));
@@ -65,47 +80,58 @@ public class PatientReaderKorea
 							e.printStackTrace();
 						}
 					}
-				}	
-				boolean comorbid = !rowElements[8].equals("");
+					else
+					{
+						bAllValidData = false;
+					}
+				}
+				
+				//Presence of comorbidity will always be complete since cell contains either TRUE or are blank
+				boolean comorbid = !rowElements[8].equals("");   
+				
+				//Check for blank cell in healthcare related exposure column
+				if (rowElements[9].equals(""))
+				{
+					bAllValidData = false;
+				}
 				boolean healthcareRelatedExposure = Pattern.matches(".*\\bpatient\\b.*", rowElements[9]);
 				
-				//Handle blank cells in the csv and check ensure the row index accessed is not out of bounds
-				//Remember, NullPointerException is an unchecked exception
-				String ageAsDecade = "";
-				if (4 < rowElements.length)  
+				//Check the row index accessed is not out of bounds in later columns with early empty cells, 
+				//as this has caused index out of bounds exceptions
+				String ageAsDecade = "-1";
+				if (4 < rowElements.length) 
 				{
 					ageAsDecade = rowElements[4];
-				}		
-				String symptomOnsetDate = "";
-				if (13 < rowElements.length)
-				{
-					symptomOnsetDate = rowElements[13];
 				}
-				String confirmedDate = "";
-				if (14 < rowElements.length)
+				if (ageAsDecade.equals("-1"))
 				{
-					confirmedDate = rowElements[14];
+					bAllValidData = false;
 				}
-				String releasedDate = "";
-				if (15 < rowElements.length)
-				{
-					releasedDate = rowElements[15];
-				}
-				String deceasedDate = "";
-				if (16 < rowElements.length)
-				{
-					deceasedDate = rowElements[16];
-				}
-				String state = "";
+				
+				String state = "-1";
 				if (17 < rowElements.length)
 				{
-					state = rowElements[17].toLowerCase();
+					state = rowElements[17];
 				}
-
-				Patient patient = new Patient(gender, age, ageAsDecade, comorbid, healthcareRelatedExposure, symptomOnsetDate, confirmedDate, releasedDate, deceasedDate, state);
-				patients.add(patient);
+				if (state.equals("-1"))
+				{
+					bAllValidData = false;
+				}
+				
+				//Initialize patient object if all of the column data was present
+				if (bAllValidData == true)
+				{
+					Patient patient = new Patient(gender, age, ageAsDecade, comorbid, healthcareRelatedExposure, state);
+					patients.add(patient);
+					completeRows++;                          //TEST CODE
+				}
+				else
+				{
+					incompleteRows++;                       //TEST CODE
+				}
 			}
 			fileParser.close();
+			System.out.println("Complete rows: " + completeRows + "\nIncomplete rows: " + incompleteRows);             //TEST CODE
 		}
 		catch (FileNotFoundException e)
 		{
