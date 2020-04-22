@@ -20,36 +20,36 @@ public class StackedBarChart
 		
 		//Change colors red blue
 		System.out.println("You have wrote to 'StackedBarChart.jpeg'");
-		final DefaultCategoryDataset DATASET = new DefaultCategoryDataset();
+		final DefaultCategoryDataset dataset = new DefaultCategoryDataset();
 		//Iterate through HashMap of age as decade to num patients with outcome
 		//value = numPatients with outcome in age bracket
 		//rowKey = outcome
 		//columnKey = ageAsDecade
 		
-		PatientReaderKorea.readCSV();
-		DataAnalysis d = new DataAnalysis(PatientReaderKorea.getPatients());
+		PatientReader.readCSV();
+		DataAnalysis d = new DataAnalysis(PatientReader.getPatients());
 		
+
 		//Iterate through HashMap: ageAsDecadeToNumReleased	
 		Map<String, Double> ageAsDecadeToProbReleased = d.getAgeAsDecadeToProbReleased();
 		for (String age : ageAsDecadeToProbReleased.keySet())
 		{
-			DATASET.addValue(ageAsDecadeToProbReleased.get(age), "Released", age);
+			dataset.addValue(ageAsDecadeToProbReleased.get(age), "Released", age);
 		}
 		
 		//Iterate through HashMap: ageAsDecadeToNumDeceased
 		Map<String, Double> ageAsDecadeToProbDeceased = d.getAgeAsDecadeToProbDeceased();
 		for (String age : ageAsDecadeToProbDeceased.keySet())
 		{
-			DATASET.addValue(ageAsDecadeToProbDeceased.get(age), "Deceased", age);
+			dataset.addValue(ageAsDecadeToProbDeceased.get(age), "Deceased", age);
 		}
-		
 		
 		
 		JFreeChart stackedBarChart = ChartFactory.createStackedBarChart(
 				"COVID19 Pandemic",     //title
 				"Age",      //category (X) axis
 				"Probability of Outcome",      //value (Y) axis
-				DATASET,
+				dataset,
 				PlotOrientation.HORIZONTAL,
 				true, true, false);       //legends, tooltips, URLS
 		int width = 600;

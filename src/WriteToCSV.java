@@ -29,11 +29,16 @@ public class WriteToCSV {
 			
 			//Get patient ArrayList
 			ArrayList<Patient> patients = analysis.getPatients();
-			out.print("Gender," + "Age," + "AgeAsDecade," + "Comorbid," + "HealthcareRelatedExposure," + "State\n");
+			out.print("Gender," + "Age," + "AgeAsDecade," + "Comorbid," + "HealthcareRelatedExposure," + "Outcome,"
+					+ "CurrentSmoker," + "RespiratoryRateGreaterThan24," + "TemperatureGreaterThan37," + "WBC," + 
+					"LymphocyteCount," + "Platelets," + "LactateDehydrogenase," + "TroponinI," + 
+					"Interleukin6," + "GroundGlassOpacity\n");
 			for (Patient p : patients)
 			{
 				out.print(p.getGender() + "," + p.getAge() + "," + p.getAgeAsDecade() + "," + p.getComorbid() + "," + p.getHealthcareRelatedExposure()
-				+ "," + p.getState() + "\n");
+				+ "," + p.getOutcome() + "," + p.isCurrentSmoker() + "," + p.isRespiratoryRateGreaterThan24() + "," + p.isTemperatureGreaterThan37() + 
+				"," + p.getWbc() + "," + p.getLymphocyteCount() + "," + p.getPlatelets() + "," + p.getLactateDehydrogenase() + "," + p.getTroponinI() + ","
+				+ p.getInterleukin6() + "," + p.isGroundGlassOpacity() + "\n");
 			}	
 			out.flush();
 			out.close();

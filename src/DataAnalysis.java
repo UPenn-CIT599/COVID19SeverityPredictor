@@ -123,7 +123,7 @@ public class DataAnalysis {
 			{
 				if (ageAsDecadeToNumReleased.containsKey(p.getAgeAsDecade()))
 				{
-					if (p.getState().equals("released"))
+					if (p.getOutcome().equals("released"))
 					{
 						Double currReleased = ageAsDecadeToNumReleased.get(p.getAgeAsDecade());
 						ageAsDecadeToNumReleased.put(p.getAgeAsDecade(), currReleased + 1.0);
@@ -131,7 +131,7 @@ public class DataAnalysis {
 				}			
 				else 
 				{
-					if (p.getState().equals("released"))
+					if (p.getOutcome().equals("released"))
 					{
 						ageAsDecadeToNumReleased.put(p.getAgeAsDecade(), 1.0);
 					}
@@ -154,7 +154,7 @@ public class DataAnalysis {
 			{
 				if (ageAsDecadeToNumDeceased.containsKey(p.getAgeAsDecade()))
 				{
-					if (p.getState().equals("deceased"))
+					if (p.getOutcome().equals("deceased"))
 					{
 						Double currDeceased = ageAsDecadeToNumDeceased.get(p.getAgeAsDecade());
 						ageAsDecadeToNumDeceased.put(p.getAgeAsDecade(), currDeceased + 1.0);
@@ -162,7 +162,7 @@ public class DataAnalysis {
 				}
 				else
 				{	
-					if (p.getState().equals("deceased"))   //Set first value to 1 if deceased
+					if (p.getOutcome().equals("deceased"))   //Set first value to 1 if deceased
 					{
 						ageAsDecadeToNumDeceased.put(p.getAgeAsDecade(), 1.0);
 					}

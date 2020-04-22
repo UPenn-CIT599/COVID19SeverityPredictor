@@ -10,8 +10,9 @@ public class Runner {
 	 */
 	public static void main(String[] args)
 	{
-		PatientReaderKorea.readCSV();
-		DataAnalysis d = new DataAnalysis(PatientReaderKorea.getPatients());
+		RiskFactorReader.readCSV();
+		PatientReader.readCSV();
+		DataAnalysis d = new DataAnalysis(PatientReader.getPatients());
 		//System.out.println(PatientReaderKorea.countCompleteRows());
 		WriteToCSV w = new WriteToCSV(d);
 		w.write();

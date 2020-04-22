@@ -13,3 +13,8 @@ To import jar file in your Eclipse IDE, follow the steps given below.
 - Click and Apply and Ok
 
 https://www.edureka.co/community/4028/how-to-import-a-jar-file-in-eclipse
+
+
+To enable the JFreeChart library, please start by clicking the green button "download latest version" on the following web page, https://sourceforge.net/projects/jfreechart/files/
+
+Unzip the file, add both jfreechart.jar and jcommon.jar to your library path of Java project in Eclipse following the instructions above, analogous to Weka. Note, these two .jar files are located in the 'lib' subfolder after unzipping.
