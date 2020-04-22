@@ -112,6 +112,11 @@ public class PatientReader
 				{
 					outcome = rowElements[17];
 				}
+				//Change terminology 'released' to 'recovered' for clarity
+				if (outcome.equals("released"))
+				{
+					outcome = "recovered";
+				}
 				if (outcome.equals("-1") || outcome.equals("isolated"))
 				{
 					bAllValidData = false;
@@ -166,16 +171,6 @@ public class PatientReader
 					interleukin6 = randomBetweenRange(RiskFactorReader.getRiskfactorToRangeAlive().get("interleukin6")[0], 
 							RiskFactorReader.getRiskfactorToRangeAlive().get("interleukin6")[1]);
 				}
-				
-				
-				/*
-				 * 		this.platelets = platelets;
-		this.lactateDehydrogenase = lactateDehydrogenase;
-		this.troponinI = troponinI;
-		this.ferritin = ferritin;
-		this.interleukin6 = interleukin6;
-		this.groundGlassOpacity = groundGlassOpacity;
-				 */
 				
 				//Initialize patient object if all of the column data was present
 				if (bAllValidData == true)

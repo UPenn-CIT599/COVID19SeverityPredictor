@@ -75,14 +75,14 @@ public class Patient {
 	 * Gets whether or not has co-morbid diseases
 	 * @return comorbid
 	 */
-	public boolean getComorbid() {
+	public boolean isComorbid() {
 		return comorbid;
 	}
 	/**
 	 * Gets whether or not exposure was healthcare related
 	 * @return healthcareRelatedExposure
 	 */
-	public boolean getHealthcareRelatedExposure() {
+	public boolean isHealthcareRelatedExposure() {
 		return healthcareRelatedExposure;
 	}
 	/**

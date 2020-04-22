@@ -10,29 +10,95 @@ import java.util.Map;
  */
 public class DataAnalysis {
 	
-	private ArrayList<Patient> patients;
+	//Local instance variable of patients arraylist to avoid continual
+	//reference to the PatientReader class for calculations
+	private static ArrayList<Patient> patients;
+
 	/**
-	 * Constructor which initializes patients array list
-	 * @param patients
+	 * Gets patients array list from PatientReader
 	 */
-	public DataAnalysis(ArrayList<Patient> patients)
+	public static void initializePatients()
 	{
-		this.patients = patients;
+		patients = PatientReader.getPatients();
 	}
 	
+	//Map<Test, <Outcome, [n1, n2]>>
+	//Deceased = 1; Recovered = 0
+//	public static HashMap<String, HashMap<String, int[]>> getCategoryToOutcomeToNumPatients()
+//	{
+//		//Map outcome to number of patients with that outcome
+//		Map<String, int[]> outcomeToNumPatients = new HashMap<>();
+//		
+//		
+//
+//		
+//		
+//		
+//		
+//		
+//		
+//		
+//		
+//		
+//		
+//		
+//		HashMap<String, HashMap<String, int[]>> eg = new HashMap<>();
+//		return eg;
+//	}
+//	
+//	public static int getNumDeceased()
+//	{
+//		int num = 0;
+//		for (Patient p : patients)
+//		{
+//			if (p.() == true && p.getOutcome().equals("deceased"))
+//			{
+//				num++;
+//			}
+//		}
+//		return num;
+//	}
 	/**
-	 * Gets patients
-	 * @return patients
+	 * Gets number of patients who have a comorbid disease and are deceased
+	 * @return
 	 */
-	public ArrayList<Patient> getPatients() {
-		return patients;
+	public static int getComorbidAndDeceased()
+	{
+		int num = 0;
+		for (Patient p : patients)
+		{
+			if (p.isComorbid() == true && p.getOutcome().equals("deceased"))
+			{
+				num++;
+			}
+		}
+		return num;
 	}
+	/**
+	 * Gets number of patients who have a comorbid disease and are recovered
+	 * @return
+	 */
+	public static int getComorbidAndRecovered()
+	{
+		int num = 0;
+		for (Patient p : patients)
+		{
+			if (p.isComorbid() == true && p.getOutcome().equals("recovered"))
+			{
+				num++;
+			}
+		}
+		return num;
+	}
+	
+	
+	
 	
 	/**
 	 * Maps age as decade to probability of being released
 	 * @return ageAsDecadeToProbReleased
 	 */
-	public Map<String, Double> getAgeAsDecadeToProbReleased()
+	public static Map<String, Double> getAgeAsDecadeToProbReleased()
 	{
 		//Map age as decade to num released
 		Map<String, Double> ageAsDecadeToNumReleased = initAgeAsDecadeToNumReleased();
@@ -59,7 +125,7 @@ public class DataAnalysis {
 	 * Maps age as decade to probability of being deceased
 	 * @return decade, numb deceased
 	 */
-	public Map<String, Double> getAgeAsDecadeToProbDeceased()
+	public static Map<String, Double> getAgeAsDecadeToProbDeceased()
 	{
 		//Set default hashmap to age as decade to prob released, then subtract probability 
 		//from 1 to get probability of being deceased
@@ -114,7 +180,7 @@ public class DataAnalysis {
 	 * number of patients released
 	 * @return ageAsDecadeToNumReleased
 	 */
-	public Map<String, Double> initAgeAsDecadeToNumReleased()
+	public static Map<String, Double> initAgeAsDecadeToNumReleased()
 	{
 		Map<String, Double> ageAsDecadeToNumReleased = new HashMap<>();
 		for (Patient p : patients)
@@ -123,7 +189,7 @@ public class DataAnalysis {
 			{
 				if (ageAsDecadeToNumReleased.containsKey(p.getAgeAsDecade()))
 				{
-					if (p.getOutcome().equals("released"))
+					if (p.getOutcome().equals("recovered"))
 					{
 						Double currReleased = ageAsDecadeToNumReleased.get(p.getAgeAsDecade());
 						ageAsDecadeToNumReleased.put(p.getAgeAsDecade(), currReleased + 1.0);
@@ -131,7 +197,7 @@ public class DataAnalysis {
 				}			
 				else 
 				{
-					if (p.getOutcome().equals("released"))
+					if (p.getOutcome().equals("recovered"))
 					{
 						ageAsDecadeToNumReleased.put(p.getAgeAsDecade(), 1.0);
 					}
@@ -145,7 +211,7 @@ public class DataAnalysis {
 	 * number of patients deceased
 	 * @return ageAsDecadeToNumDeceased
 	 */
-	public Map<String, Double> initAgeAsDecadeToNumDeceased()
+	public static Map<String, Double> initAgeAsDecadeToNumDeceased()
 	{
 		Map<String, Double> ageAsDecadeToNumDeceased = new HashMap<>();
 		for (Patient p : patients)

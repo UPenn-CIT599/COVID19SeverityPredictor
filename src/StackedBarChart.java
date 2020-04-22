@@ -26,19 +26,20 @@ public class StackedBarChart
 		//rowKey = outcome
 		//columnKey = ageAsDecade
 		
+		RiskFactorReader.readCSV();
 		PatientReader.readCSV();
-		DataAnalysis d = new DataAnalysis(PatientReader.getPatients());
+		DataAnalysis.initializePatients();
 		
 
 		//Iterate through HashMap: ageAsDecadeToNumReleased	
-		Map<String, Double> ageAsDecadeToProbReleased = d.getAgeAsDecadeToProbReleased();
+		Map<String, Double> ageAsDecadeToProbReleased = DataAnalysis.getAgeAsDecadeToProbReleased();
 		for (String age : ageAsDecadeToProbReleased.keySet())
 		{
 			dataset.addValue(ageAsDecadeToProbReleased.get(age), "Released", age);
 		}
 		
 		//Iterate through HashMap: ageAsDecadeToNumDeceased
-		Map<String, Double> ageAsDecadeToProbDeceased = d.getAgeAsDecadeToProbDeceased();
+		Map<String, Double> ageAsDecadeToProbDeceased = DataAnalysis.getAgeAsDecadeToProbDeceased();
 		for (String age : ageAsDecadeToProbDeceased.keySet())
 		{
 			dataset.addValue(ageAsDecadeToProbDeceased.get(age), "Deceased", age);

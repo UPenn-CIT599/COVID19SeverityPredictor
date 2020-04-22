@@ -39,7 +39,7 @@ class PatientReaderKoreaTest {
 	{
 		PatientReader.readCSV();
 		Boolean expected = true;
-		assertEquals(expected, PatientReader.getPatients().get(851).getComorbid());
+		assertEquals(expected, PatientReader.getPatients().get(851).isComorbid());
 	}
 
 	@Test
