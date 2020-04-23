@@ -8,14 +8,16 @@
 public class Patient {
 
 	private String gender;
-	private double age;
+	private String outcome;
 	String ageAsDecade;
+	private double age;
 	private boolean comorbidity;
 	private boolean healthcareRelatedExposure;
 	//Here list features estimated modeled on extant literature
 	private boolean currentSmoker;
 	private boolean respiratoryRateGreaterThan24;
 	private boolean temperatureGreaterThan37;
+	private boolean groundGlassOpacity;
 	private double wbc;
 	private double lymphocyteCount;
 	private double platelets;
@@ -23,13 +25,12 @@ public class Patient {
 	private double troponinI;
 	private double ferritin;
 	private double interleukin6;
-	private boolean groundGlassOpacity;
 	
-	private String outcome;
+	
 	
 	public Patient(String gender, double age, String ageAsDecade, boolean comorbid, boolean healthcareRelatedExposure, 
 			String outcome, boolean currentSmoker, boolean respiratoryRateGreaterThan24, boolean temperatureGreaterThan37, 
-			double wbc, double lymphocyteCount, double platelets, double lactateDehydrogenase, double troponinI,
+			double wbc, double lymphocyteCount, double platelets, double lactateDehydrogenase, double troponinI, double ferritin, 
 			double interleukin6, boolean groundGlassOpacity)
 	{
 		this.gender = gender;
@@ -46,7 +47,7 @@ public class Patient {
 		this.platelets = platelets;
 		this.lactateDehydrogenase = lactateDehydrogenase;
 		this.troponinI = troponinI;
-//		this.ferritin = ferritin;
+		this.ferritin = ferritin;
 		this.interleukin6 = interleukin6;
 		this.groundGlassOpacity = groundGlassOpacity;
 	}

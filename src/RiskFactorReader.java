@@ -23,6 +23,7 @@ public class RiskFactorReader {
 	//Map risk factors reported with continuous data to range of values
 	private static Map<String, Double[]> riskfactorToRangeDeceased; 
 	private static Map<String, Double[]> riskfactorToRangeAlive;
+	private static double mortalityRate;
 	
 	/*
 	 * Reads in data from CSV file and stores risk factor 
@@ -39,59 +40,72 @@ public class RiskFactorReader {
 			Scanner fileParser = new Scanner(new File("riskFactors.csv"));
 			//fileParser.nextLine();
 			int count = 0;
+			double totalDeceased;
+			double totalRecovered;
 			while(fileParser.hasNextLine())
 			{
 				String row = fileParser.nextLine();
 				String[] rowElements = row.split(",");
 				
-//				//Total deceased and surivor values are in the first row
-//				if (count == 1)
-//				{
-//					rowElements[4]
-//				}
+				//Total deceased and surivor values are in the first row
+				if (count == 0)
+				{
+					totalDeceased = getNum(rowElements[3]);
+					totalRecovered = getNum(rowElements[4]);
+					mortalityRate = totalDeceased / (totalDeceased + totalRecovered);
+					System.out.println(totalDeceased + "\n" + totalRecovered + "\n" + mortalityRate);
+				}
+				
+				//Age is row 1
+				if (count == 1)
+				{
+					riskfactorToRangeDeceased.put("Age", getRange(rowElements[4]));
+					riskfactorToRangeAlive.put("Age", getRange(rowElements[5]));
+					System.out.println("Age");
+				}
 				
 				//White blood cell count is row 36
 				if (count == 36)
 				{
-					riskfactorToRangeDeceased.put("wbc", getRange(rowElements[4]));
-					riskfactorToRangeAlive.put("wbc", getRange(rowElements[5]));
+					riskfactorToRangeDeceased.put("White blood cell count", getRange(rowElements[4]));
+					riskfactorToRangeAlive.put("White blood cell count", getRange(rowElements[5]));
 				}
 				//Lymphocyte count is row 40
 				if (count == 40)
 				{
-					riskfactorToRangeDeceased.put("lymphocyteCount", getRange(rowElements[4]));
-					riskfactorToRangeAlive.put("lymphocyteCount", getRange(rowElements[5]));
+					riskfactorToRangeDeceased.put("Lymphocyte count", getRange(rowElements[4]));
+					riskfactorToRangeAlive.put("Lymphocyte count", getRange(rowElements[5]));
 				}
 				//Platelet count is row 44
 				if (count == 44)
 				{
 					//platelet
-					riskfactorToRangeDeceased.put("platelets", getRange(rowElements[4]));
-					riskfactorToRangeAlive.put("platelets", getRange(rowElements[5]));
+					riskfactorToRangeDeceased.put("Platelets", getRange(rowElements[4]));
+					riskfactorToRangeAlive.put("Platelets", getRange(rowElements[5]));
 				}
 				//LactateDehydrogenase is row 50
 				if (count == 50)
 				{
-					riskfactorToRangeDeceased.put("lactateDehydrogenase", getRange(rowElements[4]));
-					riskfactorToRangeAlive.put("lactateDehydrogenase", getRange(rowElements[5]));
+					riskfactorToRangeDeceased.put("Lactate Dehydrogenase", getRange(rowElements[4]));
+					riskfactorToRangeAlive.put("Lactate Dehydrogenase", getRange(rowElements[5]));
 				}
 				//TroponinI is row 54
 				if (count == 54)
 				{
-					riskfactorToRangeDeceased.put("troponinI", getRange(rowElements[4]));
-					riskfactorToRangeAlive.put("troponinI", getRange(rowElements[5]));
+					riskfactorToRangeDeceased.put("Troponin I", getRange(rowElements[4]));
+					riskfactorToRangeAlive.put("Troponin I", getRange(rowElements[5]));
 				}
-//				//Ferritin is row 64
-//				if (count == 64)
-//				{
-//					riskfactorToRangeDeceased.put("ferritin", getRange(rowElements[4]));
-//					riskfactorToRangeAlive.put("ferritin", getRange(rowElements[5]));
-//				}
+				//Ferritin is row 64
+				if (count == 63)
+				{
+					riskfactorToRangeDeceased.put("Ferritin", getRange(rowElements[4]));
+					riskfactorToRangeAlive.put("Ferritin", getRange(rowElements[5]));
+				}
 				//Interleukin6 is row 65
 				if (count == 65)
 				{
-					riskfactorToRangeDeceased.put("interleukin6", getRange(rowElements[4]));
-					riskfactorToRangeAlive.put("interleukin6", getRange(rowElements[5]));
+					riskfactorToRangeDeceased.put("Interleukin 6", getRange(rowElements[4]));
+					riskfactorToRangeAlive.put("Interleukin 6", getRange(rowElements[5]));
 				}
 				count++;
 			}
@@ -105,22 +119,22 @@ public class RiskFactorReader {
 	}
 	
 	/**
-	 * Extracts double from string read from table
+	 * Parses range of doubles from string in a table cell
 	 * @param string
-	 * @return
+	 * @return range of lab value
 	 */
 	public static Double[] getRange(String string)
 	{
 		Double[] range = new Double[2];
 		String cleanString = string.replaceAll("·", ".");
 		
-		//Clean min
+		//Extract minimum number
 		String min = cleanString.substring(cleanString.indexOf("(") + 1);
 		min = min.substring(0, min.indexOf("–"));
 		try { range[0] = new Double(Double.parseDouble(min)); }
 		catch (NumberFormatException e) { }
 		
-		//Clean max
+		//Extract maximum number
 		String max = cleanString.substring(cleanString.indexOf("–") + 1);
 		max = max.substring(0, max.indexOf(")"));
 		try { range[1] = new Double(Double.parseDouble(max)); }
@@ -128,15 +142,31 @@ public class RiskFactorReader {
 
 		return range;
 	}
-
 	
 	/**
-	 * Calculates attributable risk for a given risk factor
+	 * Parses double from excel cell String
+	 * @param str
+	 * @return double
 	 */
-	public static double getAttributableRisk()
+	public static double getNum(String str)
 	{
-		return 0.0;
+		String s = str.substring(str.indexOf("=") + 1);
+		s = s.substring(0, s.indexOf(")"));
+		double sDouble = 0.0;
+		try { sDouble = Double.parseDouble(s); }
+		catch (NumberFormatException e) { }
+		
+		return sDouble;
 	}
+	
+	
+//	/**
+//	 * Calculates attributable risk for a given risk factor
+//	 */
+//	public static double getAttributableRisk()
+//	{
+//		return 0.0;
+//	}
 
 	public static Map<String, Double[]> getRiskfactorToRangeDeceased() {
 		return riskfactorToRangeDeceased;
@@ -144,6 +174,11 @@ public class RiskFactorReader {
 
 	public static Map<String, Double[]> getRiskfactorToRangeAlive() {
 		return riskfactorToRangeAlive;
+	}
+	
+	public static double getMortalityRate()
+	{
+		return mortalityRate;
 	}
 	
 	public static void main(String[] args)

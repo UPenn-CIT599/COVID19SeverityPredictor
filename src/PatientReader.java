@@ -135,37 +135,37 @@ public class PatientReader
 				double wbc, lymphocyteCount, platelets, lactateDehydrogenase, troponinI, ferritin, interleukin6 = -1;
 				if (outcome.equals("deceased"))
 				{
-					wbc = randomBetweenRange(RiskFactorReader.getRiskfactorToRangeDeceased().get("wbc")[0],
-							RiskFactorReader.getRiskfactorToRangeDeceased().get("wbc")[1]);
-					lymphocyteCount = randomBetweenRange(RiskFactorReader.getRiskfactorToRangeDeceased().get("lymphocyteCount")[0],
-							RiskFactorReader.getRiskfactorToRangeDeceased().get("lymphocyteCount")[1]);
-					platelets = randomBetweenRange(RiskFactorReader.getRiskfactorToRangeDeceased().get("platelets")[0],
-							RiskFactorReader.getRiskfactorToRangeDeceased().get("platelets")[1]);
-					lactateDehydrogenase = randomBetweenRange(RiskFactorReader.getRiskfactorToRangeDeceased().get("lactateDehydrogenase")[0],
-							RiskFactorReader.getRiskfactorToRangeDeceased().get("lactateDehydrogenase")[1]);
-					troponinI = randomBetweenRange(RiskFactorReader.getRiskfactorToRangeDeceased().get("troponinI")[0],
-							RiskFactorReader.getRiskfactorToRangeDeceased().get("troponinI")[1]);
-//					ferritin = randomBetweenRange(RiskFactorReader.getRiskfactorToRangeDeceased().get("ferritin")[0],
-//							RiskFactorReader.getRiskfactorToRangeDeceased().get("ferritin")[1]);
-					interleukin6 = randomBetweenRange(RiskFactorReader.getRiskfactorToRangeDeceased().get("interleukin6")[0],
-							RiskFactorReader.getRiskfactorToRangeDeceased().get("interleukin6")[1]);
+					wbc = randomBetweenRange(RiskFactorReader.getRiskfactorToRangeDeceased().get("White blood cell count")[0],
+							RiskFactorReader.getRiskfactorToRangeDeceased().get("White blood cell count")[1]);
+					lymphocyteCount = randomBetweenRange(RiskFactorReader.getRiskfactorToRangeDeceased().get("Lymphocyte count")[0],
+							RiskFactorReader.getRiskfactorToRangeDeceased().get("Lymphocyte count")[1]);
+					platelets = randomBetweenRange(RiskFactorReader.getRiskfactorToRangeDeceased().get("Platelets")[0],
+							RiskFactorReader.getRiskfactorToRangeDeceased().get("Platelets")[1]);
+					lactateDehydrogenase = randomBetweenRange(RiskFactorReader.getRiskfactorToRangeDeceased().get("Lactate Dehydrogenase")[0],
+							RiskFactorReader.getRiskfactorToRangeDeceased().get("Lactate Dehydrogenase")[1]);
+					troponinI = randomBetweenRange(RiskFactorReader.getRiskfactorToRangeDeceased().get("Troponin I")[0],
+							RiskFactorReader.getRiskfactorToRangeDeceased().get("Troponin I")[1]);
+					ferritin = randomBetweenRange(RiskFactorReader.getRiskfactorToRangeDeceased().get("Ferritin")[0],
+							RiskFactorReader.getRiskfactorToRangeDeceased().get("Ferritin")[1]);
+					interleukin6 = randomBetweenRange(RiskFactorReader.getRiskfactorToRangeDeceased().get("Interleukin 6")[0],
+							RiskFactorReader.getRiskfactorToRangeDeceased().get("Interleukin 6")[1]);
 				}
 				else
 				{
-					wbc = randomBetweenRange(RiskFactorReader.getRiskfactorToRangeAlive().get("wbc")[0], 
-							RiskFactorReader.getRiskfactorToRangeAlive().get("wbc")[1]);
-					lymphocyteCount = randomBetweenRange(RiskFactorReader.getRiskfactorToRangeAlive().get("lymphocyteCount")[0], 
-							RiskFactorReader.getRiskfactorToRangeAlive().get("lymphocyteCount")[1]);
-					platelets = randomBetweenRange(RiskFactorReader.getRiskfactorToRangeAlive().get("platelets")[0], 
-							RiskFactorReader.getRiskfactorToRangeAlive().get("platelets")[1]);
-					lactateDehydrogenase = randomBetweenRange(RiskFactorReader.getRiskfactorToRangeAlive().get("lactateDehydrogenase")[0], 
-							RiskFactorReader.getRiskfactorToRangeAlive().get("lactateDehydrogenase")[1]);
-					troponinI = randomBetweenRange(RiskFactorReader.getRiskfactorToRangeAlive().get("troponinI")[0], 
-							RiskFactorReader.getRiskfactorToRangeAlive().get("troponinI")[1]);
-//					ferritin = randomBetweenRange(RiskFactorReader.getRiskfactorToRangeAlive().get("ferritin")[0], 
-//							RiskFactorReader.getRiskfactorToRangeAlive().get("ferritin")[1]);
-					interleukin6 = randomBetweenRange(RiskFactorReader.getRiskfactorToRangeAlive().get("interleukin6")[0], 
-							RiskFactorReader.getRiskfactorToRangeAlive().get("interleukin6")[1]);
+					wbc = randomBetweenRange(RiskFactorReader.getRiskfactorToRangeAlive().get("White blood cell count")[0], 
+							RiskFactorReader.getRiskfactorToRangeAlive().get("White blood cell count")[1]);
+					lymphocyteCount = randomBetweenRange(RiskFactorReader.getRiskfactorToRangeAlive().get("Lymphocyte count")[0], 
+							RiskFactorReader.getRiskfactorToRangeAlive().get("Lymphocyte count")[1]);
+					platelets = randomBetweenRange(RiskFactorReader.getRiskfactorToRangeAlive().get("Platelets")[0], 
+							RiskFactorReader.getRiskfactorToRangeAlive().get("Platelets")[1]);
+					lactateDehydrogenase = randomBetweenRange(RiskFactorReader.getRiskfactorToRangeAlive().get("Lactate Dehydrogenase")[0], 
+							RiskFactorReader.getRiskfactorToRangeAlive().get("Lactate Dehydrogenase")[1]);
+					troponinI = randomBetweenRange(RiskFactorReader.getRiskfactorToRangeAlive().get("Troponin I")[0], 
+							RiskFactorReader.getRiskfactorToRangeAlive().get("Troponin I")[1]);
+					ferritin = randomBetweenRange(RiskFactorReader.getRiskfactorToRangeAlive().get("Ferritin")[0], 
+							RiskFactorReader.getRiskfactorToRangeAlive().get("Ferritin")[1]);
+					interleukin6 = randomBetweenRange(RiskFactorReader.getRiskfactorToRangeAlive().get("Interleukin 6")[0], 
+							RiskFactorReader.getRiskfactorToRangeAlive().get("Interleukin 6")[1]);
 				}
 				
 				//Initialize patient object if all of the column data was present
@@ -173,7 +173,7 @@ public class PatientReader
 				{
 					Patient patient = new Patient(gender, age, ageAsDecade, comorbidity, healthcareRelatedExposure, 
 							outcome, currentSmoker, respiratoryRateGreaterThan24, temperatureGreaterThan37, wbc, 
-							lymphocyteCount, platelets, lactateDehydrogenase, troponinI, interleukin6, groundGlassOpacity);
+							lymphocyteCount, platelets, lactateDehydrogenase, troponinI, ferritin, interleukin6, groundGlassOpacity);
 					patients.add(patient);
 				}
 			}
