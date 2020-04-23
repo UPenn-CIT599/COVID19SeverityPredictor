@@ -34,6 +34,7 @@ public class WekaClassifier {
  
 		model.buildClassifier(trainingSet);
 		evaluation.evaluateModel(model, testingSet);
+		System.out.println(evaluation.toSummaryString("\nResults\n======\n", false));
  
 		return evaluation;
 	}
