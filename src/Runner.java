@@ -13,7 +13,7 @@ public class Runner {
 	public static void main(String[] args)
 	{
 		RiskFactorReader.readCSV();
-		PatientReader.readCSV();
+		PatientGenerator.generatePatients();
 		DataAnalysis.initializePatients();
 		WriteToCSV.write();
 
@@ -22,10 +22,5 @@ public class Runner {
 		chart.pack();
 		RefineryUtilities.centerFrameOnScreen(chart);
 		chart.setVisible(true);
-		
-		BarChart2 chart2 = new BarChart2("Age Versus Probability of Mortality");
-		chart2.pack();
-		RefineryUtilities.centerFrameOnScreen(chart2);
-		chart2.setVisible(true);
 	}
 }

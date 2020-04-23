@@ -7,13 +7,11 @@
  */
 public class Patient {
 
-	private String gender;
-	private String outcome;
-	String ageAsDecade;
+
 	private double age;
+	private boolean gender;
 	private boolean comorbidity;
 	private boolean healthcareRelatedExposure;
-	//Here list features estimated modeled on extant literature
 	private boolean currentSmoker;
 	private boolean respiratoryRateGreaterThan24;
 	private boolean temperatureGreaterThan37;
@@ -21,21 +19,22 @@ public class Patient {
 	private double wbc;
 	private double lymphocyteCount;
 	private double platelets;
+	private double albumin;
 	private double lactateDehydrogenase;
 	private double troponinI;
+	private double dDimer;
 	private double ferritin;
 	private double interleukin6;
 	
+	private String outcome;
 	
-	
-	public Patient(String gender, double age, String ageAsDecade, boolean comorbid, boolean healthcareRelatedExposure, 
+	public Patient(boolean gender, double age, boolean comorbid, boolean healthcareRelatedExposure, 
 			String outcome, boolean currentSmoker, boolean respiratoryRateGreaterThan24, boolean temperatureGreaterThan37, 
-			double wbc, double lymphocyteCount, double platelets, double lactateDehydrogenase, double troponinI, double ferritin, 
-			double interleukin6, boolean groundGlassOpacity)
+			double wbc, double lymphocyteCount, double platelets, double albumin, double lactateDehydrogenase, double troponinI, 
+			double dDimer, double ferritin, double interleukin6, boolean groundGlassOpacity)
 	{
 		this.gender = gender;
 		this.age = age;
-		this.ageAsDecade = ageAsDecade;
 		this.comorbidity = comorbid;
 		this.healthcareRelatedExposure = healthcareRelatedExposure;
 		this.outcome = outcome;
@@ -45,8 +44,10 @@ public class Patient {
 		this.wbc = wbc;
 		this.lymphocyteCount = lymphocyteCount;
 		this.platelets = platelets;
+		this.albumin = albumin;
 		this.lactateDehydrogenase = lactateDehydrogenase;
 		this.troponinI = troponinI;
+		this.dDimer = dDimer;
 		this.ferritin = ferritin;
 		this.interleukin6 = interleukin6;
 		this.groundGlassOpacity = groundGlassOpacity;
@@ -55,7 +56,7 @@ public class Patient {
 	 * Gets gender
 	 * @return gender
 	 */
-	public String getGender() {
+	public boolean getGender() {
 		return gender;
 	}
 	/**
@@ -64,13 +65,6 @@ public class Patient {
 	 */
 	public double getAge() {
 		return age;
-	}
-	/**
-	 * Gets ageAsDecade
-	 * @return ageAsDecade
-	 */
-	public String getAgeAsDecade() {
-		return ageAsDecade;
 	}
 	/**
 	 * Gets whether or not has co-morbid diseases
@@ -112,11 +106,17 @@ public class Patient {
 	public double getPlatelets() {
 		return platelets;
 	}
+	public double getAlbumin() {
+		return albumin;
+	}
 	public double getLactateDehydrogenase() {
 		return lactateDehydrogenase;
 	}
 	public double getTroponinI() {
 		return troponinI;
+	}
+	public double getdDimer() {
+		return dDimer;
 	}
 	public double getFerritin() {
 		return ferritin;

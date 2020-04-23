@@ -79,10 +79,16 @@ public class RiskFactorReader {
 				//Platelet count is row 44
 				if (count == 44)
 				{
-					//platelet
 					riskfactorToRangeDeceased.put("Platelets", getRange(rowElements[4]));
 					riskfactorToRangeAlive.put("Platelets", getRange(rowElements[5]));
 				}
+				//Albumin is row 46
+				if (count == 46)
+				{
+					riskfactorToRangeDeceased.put("Albumin", getRange(rowElements[4]));
+					riskfactorToRangeAlive.put("Albumin", getRange(rowElements[5]));
+				}
+				
 				//LactateDehydrogenase is row 50
 				if (count == 50)
 				{
@@ -94,6 +100,12 @@ public class RiskFactorReader {
 				{
 					riskfactorToRangeDeceased.put("Troponin I", getRange(rowElements[4]));
 					riskfactorToRangeAlive.put("Troponin I", getRange(rowElements[5]));
+				}
+				//D-dimer is row 59
+				if (count == 59)
+				{
+					riskfactorToRangeDeceased.put("D-dimer", getRange(rowElements[4]));
+					riskfactorToRangeAlive.put("D-dimer", getRange(rowElements[5]));
 				}
 				//Ferritin is row 64
 				if (count == 63)
@@ -158,7 +170,6 @@ public class RiskFactorReader {
 		
 		return sDouble;
 	}
-	
 	
 //	/**
 //	 * Calculates attributable risk for a given risk factor

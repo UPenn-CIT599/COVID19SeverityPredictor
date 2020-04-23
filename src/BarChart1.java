@@ -126,7 +126,7 @@ public class BarChart1 extends ApplicationFrame
 	public static void main(String[] args)
 	{
 		RiskFactorReader.readCSV();
-		PatientReader.readCSV();
+		PatientGenerator.generatePatients();
 		DataAnalysis.initializePatients();
 		
 		//Create a chart
@@ -136,9 +136,9 @@ public class BarChart1 extends ApplicationFrame
 		RefineryUtilities.centerFrameOnScreen(chart1);
 		chart1.setVisible(true);
 		
-		BarChart2 chart2 = new BarChart2("Age Versus Probability of Mortality");
-		chart2.pack();
-		RefineryUtilities.centerFrameOnScreen(chart2);
-		chart2.setVisible(true);
+//		BarChart2 chart2 = new BarChart2("Age Versus Probability of Mortality");
+//		chart2.pack();
+//		RefineryUtilities.centerFrameOnScreen(chart2);
+//		chart2.setVisible(true);
 	}
 }
