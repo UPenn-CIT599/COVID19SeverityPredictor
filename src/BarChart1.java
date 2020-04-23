@@ -20,14 +20,14 @@ import org.jfree.ui.RefineryUtilities;
 	 * @author cbusc
 	 *
 	 */
-public class BarChart extends ApplicationFrame 
+public class BarChart1 extends ApplicationFrame 
 {
 	/**
 	 * Creates a new BarChart instance
 	 * 
 	 * @param title (the frame title)
 	 */
-	public BarChart(String title)
+	public BarChart1(String title)
 	{
 		//Superclass constructor
 		super(title);
@@ -56,7 +56,7 @@ public class BarChart extends ApplicationFrame
 		
 		//Column keys
 		String comorbidity = "Comorbidity";
-		String healthcareRelated = "Healthcare exposure";
+		String healthcareRelated = "Healthcare worker";
 		String currentSmoker = "Current smoker";
 		String rrGreaterThan24 = "Respiratory Rate > 24";   //respiratory rate; respirations per minute
 		String tempGreaterThan37 = "T > 37.3 °C";   //degrees celsius
@@ -92,8 +92,8 @@ public class BarChart extends ApplicationFrame
 	private static JFreeChart createChart(CategoryDataset dataset)
 	{
 		JFreeChart chart = ChartFactory.createBarChart(
-			"Patient Characteristics and COVID-19 Mortality",  			//chart title
-			"Patient Features",    					   				  //domain axis label
+			"Relationship Between Patient Characteristics at Admission and COVID-19 Mortality",  			//chart title
+			"Patient Feature",    					   				  //domain axis label
 			"Number Of Patients With Feature",		  				//range axis label
 			dataset, 												  //data
 			PlotOrientation.VERTICAL,								  //orientation
@@ -128,9 +128,17 @@ public class BarChart extends ApplicationFrame
 		RiskFactorReader.readCSV();
 		PatientReader.readCSV();
 		DataAnalysis.initializePatients();
-		BarChart chart = new BarChart("Binary Patient Characteristics and COVID-19 Mortality");
-		chart.pack();
-		RefineryUtilities.centerFrameOnScreen(chart);
-		chart.setVisible(true);
+		
+		//Create a chart
+		BarChart1 chart1 = new BarChart1("Relationship Between Patient Characteristics at Admission and COVID-19 Mortality");
+		//Use .pack() and .setVisible() to visualize the chart. These methods are inherited from Window. 
+		chart1.pack();
+		RefineryUtilities.centerFrameOnScreen(chart1);
+		chart1.setVisible(true);
+		
+		BarChart2 chart2 = new BarChart2("Age Versus Probability of Mortality");
+		chart2.pack();
+		RefineryUtilities.centerFrameOnScreen(chart2);
+		chart2.setVisible(true);
 	}
 }

@@ -22,16 +22,16 @@ public class WriteToCSV {
 			
 			//Get patient ArrayList
 			ArrayList<Patient> patients = PatientReader.getPatients();
-			out.print("Gender," + "Age," + "AgeAsDecade," + "Comorbid," + "HealthcareRelatedExposure," + "Outcome,"
+			out.print("Gender," + "Age," + "AgeAsDecade," + "Comorbid," + "HealthcareRelatedExposure,"
 					+ "CurrentSmoker," + "RespiratoryRateGreaterThan24," + "TemperatureGreaterThan37," + "WBC," + 
 					"LymphocyteCount," + "Platelets," + "LactateDehydrogenase," + "TroponinI," + 
-					"Interleukin6," + "GroundGlassOpacity\n");
+					"Interleukin6," + "GroundGlassOpacity,"+ "Outcome\n");
 			for (Patient p : patients)
 			{
 				out.print(p.getGender() + "," + p.getAge() + "," + p.getAgeAsDecade() + "," + p.isComorbid() + "," + p.isHealthcareRelatedExposure()
-				+ "," + p.getOutcome() + "," + p.isCurrentSmoker() + "," + p.isRespiratoryRateGreaterThan24() + "," + p.isTemperatureGreaterThan37() + 
+				+ "," + p.isCurrentSmoker() + "," + p.isRespiratoryRateGreaterThan24() + "," + p.isTemperatureGreaterThan37() + 
 				"," + p.getWbc() + "," + p.getLymphocyteCount() + "," + p.getPlatelets() + "," + p.getLactateDehydrogenase() + "," + p.getTroponinI() + ","
-				+ p.getInterleukin6() + "," + p.isGroundGlassOpacity() + "\n");
+				+ p.getInterleukin6() + "," + p.isGroundGlassOpacity() + "," + p.getOutcome() + "\n");
 			}	
 			out.flush();
 			out.close();

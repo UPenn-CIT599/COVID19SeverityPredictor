@@ -11,12 +11,6 @@ import java.util.regex.Pattern;
  * The KoreaPatientReader class reads in and stores in an arraylist of Patient objects the csv
  * data from the "Data Science for COVID-19 (DSC4)" dataset available on Kaggle.com.
  * 
- * UPDATED 4/18: Deleted symptom onset and confirmed diagnosis date features since this severely
- * limited the number of complete rows. Now, this reads in 1835 patients with complete data to an array list,
- * with a total of 4 features (age is included both as continuous and as a decade).
- * However, only ~400 of patients have a state of "released" or "deceased"; the majority are still "isolated."
- * Can we generate either released or deceased based on age and/or other features?
- * 
  * @author cbusc
  *
  */
@@ -191,6 +185,7 @@ public class PatientReader
 			e.printStackTrace();
 		}
 	}
+
 	/**
 	 * Gets array list of patients
 	 * @return ArrayList patients

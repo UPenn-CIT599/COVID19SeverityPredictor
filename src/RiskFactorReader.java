@@ -133,7 +133,7 @@ public class RiskFactorReader {
 	/**
 	 * Calculates attributable risk for a given risk factor
 	 */
-	public static double calculateAttributableRisk()
+	public static double getAttributableRisk()
 	{
 		return 0.0;
 	}

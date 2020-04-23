@@ -175,11 +175,11 @@ public class DataAnalysis {
 		}
 		return outcomeToGGO;
 	}
-
+	
+	
 	/**
-	 * Maps age as decade to probability of being released
-	 * 
-	 * @return ageAsDecadeToProbReleased
+	 * Map boolean comorbidity to probability of deceased
+	 * @return
 	 */
 	public static Map<String, Double> getAgeAsDecadeToProbReleased()
 	{
@@ -204,6 +204,7 @@ public class DataAnalysis {
 		}
 		return ageAsDecadeToProbReleased;
 	}
+
 	/**
 	 * Maps age as decade to probability of being deceased
 	 * 
@@ -289,4 +290,58 @@ public class DataAnalysis {
 		}		
 		return ageAsDecadeToNumDeceased;
 	}
+	
+//	/**
+//	 * Helper method that initializes a hashmap linking age boolean comorbidity
+//	 * to number deceased.
+//	 * @return ageAsDecadeToNumDeceased
+//	 */
+//	public static Map<Boolean, Double> initComorbidityToNumDeceased()
+//	{
+//		Map<Boolean, Double> comorbidityToNumDeceased = new HashMap<>();
+//		for (Patient p : patients)
+//		{
+//			if (comorbidityToNumDeceased.containsKey(p.isComorbid()))
+//			{
+//				if (p.getOutcome().equals("deceased"))
+//				{
+//					Double currDeceased = comorbidityToNumDeceased.get(p.isComorbid());
+//					comorbidityToNumDeceased.put(p.isComorbid(), currDeceased + 1.0);
+//				}
+//			}
+//			else
+//			{
+//				if (p.getOutcome().equals("deceased"))
+//				{
+//					comorbidityToNumDeceased.put(p.isComorbid(), 1.0);
+//				}
+//			}
+//		}
+//		return comorbidityToNumDeceased;
+//	}
+//	
+//	public static Map<Boolean, Double> initComorbidityToNumRecovered()
+//	{
+//		Map<Boolean, Double> comorbidityToNumRecovered = new HashMap<>();
+//		for (Patient p : patients)
+//		{
+//			if (comorbidityToNumRecovered.containsKey(p.isComorbid()))
+//			{
+//				if (p.getOutcome().equals("recovered"))
+//				{
+//					Double currDeceased = comorbidityToNumRecovered.get(p.isComorbid());
+//					comorbidityToNumRecovered.put(p.isComorbid(), currDeceased + 1.0);
+//				}
+//			}
+//			else
+//			{
+//				if (p.getOutcome().equals("recovered"))
+//				{
+//					comorbidityToNumRecovered.put(p.isComorbid(), 1.0);
+//				}
+//			}
+//		}
+//		return comorbidityToNumRecovered;
+//	}
+
 }
