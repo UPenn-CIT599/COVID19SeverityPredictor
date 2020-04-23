@@ -1,5 +1,8 @@
 import java.io.BufferedReader;
+import java.io.File;
 
+import weka.core.converters.CSVLoader;
+import weka.core.converters.ConverterUtils.DataSource;
 import weka.classifiers.Classifier;
 import weka.classifiers.Evaluation;
 import weka.classifiers.trees.J48;
@@ -17,13 +20,20 @@ public class WekaPipeline {
     	 * @throws Exception
     	 */
 	public static Double[] pipeline() throws Exception {
-	    	BufferedReader datafile = WekaFileReader.readDataFile("breast-cancer.txt");
+	    	//BufferedReader datafile = WekaFileReader.readDataFile("breast-cancer.txt");
+	    	
+	    	//CSVLoader loader = new CSVLoader();
+	    	//loader.setSource(new File("filename.csv"));
+	    	//Instances trainingDataSet = loader.getDataSet();
+	    	
+	    	DataSource source = new DataSource("PatientInfo.csv");
+	    	Instances data = source.getDataSet();
 
-		Instances data = new Instances(datafile);
+		// Instances data = new Instances(datafile);
 		data.setClassIndex(data.numAttributes() - 1);
 
 		// Do 10-split cross validation
-		Instances[][] split = WekaClassifier.crossValidationSplit(data, 10);
+		Instances[][] split = WekaClassifier.crossValidationSplit(data, 5);
 
 		// Separate split into training and testing arrays
 		Instances[] trainingSplits = split[0];
