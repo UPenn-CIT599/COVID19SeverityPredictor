@@ -1,4 +1,4 @@
-import java.awt.BorderLayout;
+import java.awt.Font;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -54,12 +54,14 @@ public class ResultPanel{
          */
         panel.setLayout(null);
         
-        riskScoreLabel = new JLabel("The predicted risk score is: ");
+        riskScoreLabel = new JLabel("The predicted risk of fatality is: ");
+        riskScoreLabel.setFont(new Font("Arial", Font.PLAIN, 20));
         riskScoreLabel.setBounds(100,100,200,100);
         panel.add(riskScoreLabel);
         
         String scoreString = String.valueOf(score);
-        riskScore = new JLabel(scoreString);
+        riskScore = new JLabel(scoreString+"%");
+        riskScore.setFont(new Font("Arial", Font.PLAIN, 20));
         riskScore.setBounds(300,100,200,100);
         panel.add(riskScore);
         

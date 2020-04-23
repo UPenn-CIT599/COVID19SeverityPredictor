@@ -12,8 +12,12 @@ public class ClickResponse {
 		
 	}
 	
-	
-	public double response(int[] userInfo){
+	/**
+	 * Just an example. This method will be replaced by Tobi's classifier.
+	 * @param userInfo
+	 * @return
+	 */
+public double response(int[] userInfo){
 		double risk_score = 1.0;
 	    for (int i : userInfo) {
 			risk_score += i;
