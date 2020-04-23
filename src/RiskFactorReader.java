@@ -22,7 +22,7 @@ public class RiskFactorReader {
 	private static Map<String, Double> riskfactorToAttributableRisk;
 	//Map risk factors reported with continuous data to range of values
 	private static Map<String, Double[]> riskfactorToRangeDeceased; 
-	private static Map<String, Double[]> riskfactorToRangeAlive; 
+	private static Map<String, Double[]> riskfactorToRangeAlive;
 	
 	/*
 	 * Reads in data from CSV file and stores risk factor 
@@ -43,6 +43,12 @@ public class RiskFactorReader {
 			{
 				String row = fileParser.nextLine();
 				String[] rowElements = row.split(",");
+				
+//				//Total deceased and surivor values are in the first row
+//				if (count == 1)
+//				{
+//					rowElements[4]
+//				}
 				
 				//White blood cell count is row 36
 				if (count == 36)
@@ -99,7 +105,7 @@ public class RiskFactorReader {
 	}
 	
 	/**
-	 * Extracts double from data table string
+	 * Extracts double from string read from table
 	 * @param string
 	 * @return
 	 */
@@ -122,6 +128,7 @@ public class RiskFactorReader {
 
 		return range;
 	}
+
 	
 	/**
 	 * Calculates attributable risk for a given risk factor
@@ -137,5 +144,10 @@ public class RiskFactorReader {
 
 	public static Map<String, Double[]> getRiskfactorToRangeAlive() {
 		return riskfactorToRangeAlive;
+	}
+	
+	public static void main(String[] args)
+	{
+		RiskFactorReader.readCSV();
 	}
 }

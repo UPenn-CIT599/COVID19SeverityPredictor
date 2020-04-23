@@ -1,76 +1,136 @@
-//import java.util.Map;
-//
-//import org.jfree.data.category.CategoryDataset;
-//import org.jfree.data.category.DefaultCategoryDataset;
-//import org.jfree.ui.ApplicationFrame;
-//
-///**
-//	 * Responsible for creation of bar charts to be implemented in 
-//	 * JSwing. ApplicationFrame is a subclass of javax.swing.JFrame.
-//	 * @author cbusc
-//	 *
-//	 */
-//public class BarChart extends ApplicationFrame 
-//{
-//	/**
-//	 * Creates a new BarChart instance
-//	 * 
-//	 * @param title (the frame title)
-//	 */
-//	public BarChart(String title)
-//	{
-//		//Superclass constructor
-//		super(title);
-//	}
-//	
-//	/**
-//	 * Returns a category dataset. 
-//	 * 
-//	 * CategoryDataset is an interface for a dataset with one or more series (eg. deceased or 
-//	 * recovered), and values (positive/negative findings) associated with categories (temp>24 degrees, 
-//	 * ground glass opacity seen on xray, etc.).
-//	 * 
-//	 * @return a dataset implementing the CategoryDataset interface
-//	 */
-//	private static CategoryDataset createDataset()
-//	{
-//		//Row keys
-//		String deceased = "Deceased";
-//		String recovered = "Recovered";
-//		
-//		//Column keys
-//		String comorbidity = "Comorbidity";
-//		String healthcareRelated = "Healthcare-related exposure";
-//		String currentSmoker = "Current smoker";
-//		String rrGreaterThan24 = "RR > 24";   //respiratory rate; respirations per minute
-//		String tempGreaterThan37 = "T > 37.3 °C";   //degrees celsius
-//		String ggoOnCXR = "GGO on chest x-ray";   //ground glass opacity
-//		
-//		//Create the dataset by iterating through DataAnalysis hashmaps to enumerate patients with positive
-//		//findings for each row key in each category. 
-//		DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-//		
-//		
-//	}
-//	
-//	//Iterate through HashMap of age as decade to num patients with outcome
-//	//value = numPatients with outcome in age bracket
-//	//rowKey = outcome
-//	//columnKey = ageAsDecade
-//	
-////	PatientReader.readCSV();
-////	DataAnalysis.initializePatients();
-////	
-////
-////	//Iterate through HashMap: ageAsDecadeToNumReleased	
-////	Map<String, Double> ageAsDecadeToProbReleased = DataAnalysis.getAgeAsDecadeToProbReleased();
-////	for (String age : ageAsDecadeToProbReleased.keySet())
-////	{
-////		dataset.addValue(ageAsDecadeToProbReleased.get(age), "Released", age);
-////	}
-//
-//	public static void main(String[] args)
-//	{
-//		
-//	}
-//}
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.GradientPaint;
+import java.util.Map;
+
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.CategoryPlot;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.chart.renderer.category.BarRenderer;
+import org.jfree.data.category.CategoryDataset;
+import org.jfree.data.category.DefaultCategoryDataset;
+import org.jfree.ui.ApplicationFrame;
+import org.jfree.ui.RefineryUtilities;
+
+/**
+	 * Responsible for creation of bar charts to be implemented in 
+	 * JSwing. ApplicationFrame is a subclass of javax.swing.JFrame.
+	 * @author cbusc
+	 *
+	 */
+public class BarChart extends ApplicationFrame 
+{
+	/**
+	 * Creates a new BarChart instance
+	 * 
+	 * @param title (the frame title)
+	 */
+	public BarChart(String title)
+	{
+		//Superclass constructor
+		super(title);
+		CategoryDataset dataset = createDataset();
+		JFreeChart chart = createChart(dataset);
+		//ChartPanel extends JPanel
+		ChartPanel chartPanel = new ChartPanel(chart, false);
+		chartPanel.setPreferredSize(new Dimension(500,270));
+		setContentPane(chartPanel);
+	}
+	
+	/**
+	 * Returns a category dataset. 
+	 * 
+	 * CategoryDataset is an interface for a dataset with one or more series (eg. deceased or 
+	 * recovered), and values (positive/negative findings) associated with categories (temp>24 degrees, 
+	 * ground glass opacity seen on xray, etc.).
+	 * 
+	 * @return a dataset implementing the CategoryDataset interface
+	 */
+	private static CategoryDataset createDataset()
+	{
+		//Row keys
+		String deceased = "Deceased";
+		String recovered = "Recovered";
+		
+		//Column keys
+		String comorbidity = "Comorbidity";
+		String healthcareRelated = "Healthcare exposure";
+		String currentSmoker = "Current smoker";
+		String rrGreaterThan24 = "Respiratory Rate > 24";   //respiratory rate; respirations per minute
+		String tempGreaterThan37 = "T > 37.3 °C";   //degrees celsius
+		String ggoOnCXR = "GGO on chest x-ray";   //ground glass opacity
+		
+		//Create the dataset by iterating through DataAnalysis hashmaps to enumerate patients with positive
+		//findings for each row key in each category. 
+		DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+		
+		//Series1
+		dataset.addValue(DataAnalysis.initOutcomeToNumComorbid().get("deceased"), deceased, comorbidity);
+		dataset.addValue(DataAnalysis.initOutcomeToNumHealthcareRelated().get("deceased"), deceased, healthcareRelated);
+		dataset.addValue(DataAnalysis.initOutcomeToNumCurrentSmokers().get("deceased"), deceased, currentSmoker);
+		dataset.addValue(DataAnalysis.initOutcomeRespiratoryRate().get("deceased"), deceased, rrGreaterThan24);
+		dataset.addValue(DataAnalysis.initOutcomeToTempGreaterThan37().get("deceased"), deceased, tempGreaterThan37);
+		
+		//Series2
+		dataset.addValue(DataAnalysis.initOutcomeToNumComorbid().get("recovered"), recovered, comorbidity);
+		dataset.addValue(DataAnalysis.initOutcomeToNumHealthcareRelated().get("recovered"), recovered, healthcareRelated);
+		dataset.addValue(DataAnalysis.initOutcomeToNumCurrentSmokers().get("recovered"), recovered, currentSmoker);
+		dataset.addValue(DataAnalysis.initOutcomeRespiratoryRate().get("recovered"), recovered, rrGreaterThan24);
+		dataset.addValue(DataAnalysis.initOutcomeToTempGreaterThan37().get("recovered"), recovered, tempGreaterThan37);
+		
+		return dataset;
+		
+	}
+	
+	/**
+	 * Creates a bar chart given a parameterized dataset
+	 * @param dataset
+	 * @return bar chart
+	 */
+	private static JFreeChart createChart(CategoryDataset dataset)
+	{
+		JFreeChart chart = ChartFactory.createBarChart(
+			"Patient Characteristics and COVID-19 Mortality",  			//chart title
+			"Patient Features",    					   				  //domain axis label
+			"Number Of Patients With Feature",		  				//range axis label
+			dataset, 												  //data
+			PlotOrientation.VERTICAL,								  //orientation
+			true, 													  //include legend
+			true,													  //tooltips?
+			false													  //URLs?
+		);
+				
+		//Set background color for the chart
+		chart.setBackgroundPaint(Color.white);
+		
+		//Get a reference to the plot in order to further customize.
+		//CategoryPlot uses data from a CategoryDataset and renders each data item.
+		CategoryPlot plot = (CategoryPlot) chart.getPlot();
+		BarRenderer renderer = (BarRenderer) plot.getRenderer();
+		
+		plot.setBackgroundPaint(Color.lightGray);
+		
+		//Set gradient paint for series
+		GradientPaint gpRecovered = new GradientPaint(0.0f, 0.0f, Color.blue, 0.0f, 0.0f, 
+				new Color(0, 0, 64));
+		renderer.setSeriesPaint(1, gpRecovered);
+		GradientPaint gpDeceased = new GradientPaint(0.0f, 0.0f, Color.red, 0.0f, 0.0f, 
+				new Color(0, 0, 64));
+		renderer.setSeriesPaint(0, gpDeceased);
+				
+		return chart;
+	}
+
+	public static void main(String[] args)
+	{
+		RiskFactorReader.readCSV();
+		PatientReader.readCSV();
+		DataAnalysis.initializePatients();
+		BarChart chart = new BarChart("Binary Patient Characteristics and COVID-19 Mortality");
+		chart.pack();
+		RefineryUtilities.centerFrameOnScreen(chart);
+		chart.setVisible(true);
+	}
+}

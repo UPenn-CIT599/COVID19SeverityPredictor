@@ -8,9 +8,9 @@
 public class Patient {
 
 	private String gender;
-	private int age;
+	private double age;
 	String ageAsDecade;
-	private boolean comorbid;
+	private boolean comorbidity;
 	private boolean healthcareRelatedExposure;
 	//Here list features estimated modeled on extant literature
 	private boolean currentSmoker;
@@ -27,7 +27,7 @@ public class Patient {
 	
 	private String outcome;
 	
-	public Patient(String gender, int age, String ageAsDecade, boolean comorbid, boolean healthcareRelatedExposure, 
+	public Patient(String gender, double age, String ageAsDecade, boolean comorbid, boolean healthcareRelatedExposure, 
 			String outcome, boolean currentSmoker, boolean respiratoryRateGreaterThan24, boolean temperatureGreaterThan37, 
 			double wbc, double lymphocyteCount, double platelets, double lactateDehydrogenase, double troponinI,
 			double interleukin6, boolean groundGlassOpacity)
@@ -35,7 +35,7 @@ public class Patient {
 		this.gender = gender;
 		this.age = age;
 		this.ageAsDecade = ageAsDecade;
-		this.comorbid = comorbid;
+		this.comorbidity = comorbid;
 		this.healthcareRelatedExposure = healthcareRelatedExposure;
 		this.outcome = outcome;
 		this.currentSmoker = currentSmoker;
@@ -61,7 +61,7 @@ public class Patient {
 	 * Gets age
 	 * @return age
 	 */
-	public int getAge() {
+	public double getAge() {
 		return age;
 	}
 	/**
@@ -76,7 +76,7 @@ public class Patient {
 	 * @return comorbid
 	 */
 	public boolean isComorbid() {
-		return comorbid;
+		return comorbidity;
 	}
 	/**
 	 * Gets whether or not exposure was healthcare related

@@ -12,8 +12,9 @@ public class Runner {
 	{
 		RiskFactorReader.readCSV();
 		PatientReader.readCSV();
-		//Initializes patients arraylist in the data analysis class
 		DataAnalysis.initializePatients();
-		WriteToCSV.write();
+		System.out.println(DataAnalysis.initOutcomeToNumCurrentSmokers().get("deceased"));
+		System.out.println(DataAnalysis.initOutcomeToNumCurrentSmokers().get("recovered"));
+		//WriteToCSV.write();
 	}
 }

@@ -50,7 +50,7 @@ public class PatientReader
 				
 				//store age as -1 default; update to age if given; else update to decade
 				//integer between 1 and 9, if available
-				int age = -1;
+				double age = -1;
 				if (!rowElements[3].equals(""))
 				{
 					try 
@@ -85,15 +85,15 @@ public class PatientReader
 					}
 				}
 				
-				//Presence of comorbidity will always be complete since cell contains either TRUE or are blank
-				boolean comorbid = !rowElements[8].equals("");   
-				
-				//Check for blank cell in healthcare related exposure column
-				if (rowElements[9].equals(""))
-				{
-					bAllValidData = false;
-				}
-				boolean healthcareRelatedExposure = Pattern.matches(".*\\bpatient\\b.*", rowElements[9]);
+//				//Presence of comorbidity will always be complete since cell contains either TRUE or are blank
+//				boolean comorbid = !rowElements[8].equals("");   
+//				
+//				//Check for blank cell in healthcare related exposure column
+//				if (rowElements[9].equals(""))
+//				{
+//					bAllValidData = false;
+//				}
+//				boolean healthcareRelatedExposure = Pattern.matches(".*\\bpatient\\b.*", rowElements[9]);
 				
 				//Check the row index accessed is not out of bounds in later columns with early empty cells, 
 				//as this has caused index out of bounds exceptions
@@ -107,35 +107,37 @@ public class PatientReader
 					bAllValidData = false;
 				}
 				
+				//Generate outcome "deceased" based on probability: age / 100
+				//Otherwise outcome is set to "recovered." This was done due to scarcity 
+				//of outcomes data (most were still isolated) to train the classifier. 
 				String outcome = "-1";
-				if (17 < rowElements.length)
+				if (probableBoolean(age / 100) && age > 20)
 				{
-					outcome = rowElements[17];
+					outcome = "deceased";
 				}
-				//Change terminology 'released' to 'recovered' for clarity
-				if (outcome.equals("released"))
-				{
-					outcome = "recovered";
-				}
-				if (outcome.equals("-1") || outcome.equals("isolated"))
+				else { outcome = "recovered"; }
+				
+				if (outcome.equals("-1"))
 				{
 					bAllValidData = false;
 				}
 				
-				//Below, generate new data features substantiated to be associated with COVID-19 mortality
-				//Binary data
+				//Generate new data features substantiated to be associated with COVID-19 mortality
+				//Binary data:
 				//If "deceased" this patient will have a 0.8 probability of being rendered a current smoker when initialized
 				//If "released" he will have a 0.2 probability of being rendered a current smoker when initialized
-				boolean currentSmoker = generateBinaryRiskFactor(outcome, 0.58);
+				boolean comorbidity = generateBinaryRiskFactor(outcome, 0.79);
+				boolean healthcareRelatedExposure = generateBinaryRiskFactor(outcome, 0.41);
+				boolean currentSmoker = generateBinaryRiskFactor(outcome, 0.6);
 				boolean respiratoryRateGreaterThan24 = generateBinaryRiskFactor(outcome, 0.72);
-				boolean temperatureGreaterThan37 = generateBinaryRiskFactor(outcome, 0.5);
-				boolean groundGlassOpacity = generateBinaryRiskFactor(outcome, 0.67);
+				boolean temperatureGreaterThan37 = generateBinaryRiskFactor(outcome, 0.66);
+				boolean groundGlassOpacity = generateBinaryRiskFactor(outcome, 0.71);
 				
-				//Continuous data
-				//Pass in outcome, then based on whether the patient deceased or survived, 
+				//Continuous data:
+				//Pass in outcome. Based on whether the patient deceased or survived, 
 				//assign a randomly generated risk factor value generated from the published range.
-				//For example, if "deceased" a patient's white blood cell count will be randomly generated and assigned
-				//between the range 6.9 - 13.9, versus a "survived" patient's from 4.3 - 7.7. 
+				//For example, if "deceased" a patient's white blood cell count will be randomly generated
+				//between the range 6.9 - 13.9, versus a "survived" patient generated between 4.3 - 7.7. 
 				double wbc, lymphocyteCount, platelets, lactateDehydrogenase, troponinI, ferritin, interleukin6 = -1;
 				if (outcome.equals("deceased"))
 				{
@@ -175,7 +177,7 @@ public class PatientReader
 				//Initialize patient object if all of the column data was present
 				if (bAllValidData == true)
 				{
-					Patient patient = new Patient(gender, age, ageAsDecade, comorbid, healthcareRelatedExposure, 
+					Patient patient = new Patient(gender, age, ageAsDecade, comorbidity, healthcareRelatedExposure, 
 							outcome, currentSmoker, respiratoryRateGreaterThan24, temperatureGreaterThan37, wbc, 
 							lymphocyteCount, platelets, lactateDehydrogenase, troponinI, interleukin6, groundGlassOpacity);
 					patients.add(patient);
@@ -196,29 +198,6 @@ public class PatientReader
 	public static ArrayList<Patient> getPatients() {
 		return patients;
 	}
-//
-//	/**
-//	 * Randomly generates 0 or 1 with equal probability
-//	 * @return 1 or 0
-//	 */
-//	public static int random50()
-//	{
-//		return (int) (2 * Math.random());
-//	}
-//	/**
-//	 * Returns true with a 75% probability and false with 25% probability
-//	 * predicated on bitwise operations, bits generated by random50
-//	 * @return true or false
-//	 */
-//	public static boolean random75Boolean()
-//	{
-//		// 0.5 * 0.5 = 0.25
-//		if (random50() == 0 && random50() == 0)
-//		{
-//			return false;
-//		}
-//		return true;
-//	}
 	
 	/**
 	 * Returns true with n probability if the outcome is "deceased,"
