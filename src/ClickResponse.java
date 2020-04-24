@@ -12,6 +12,20 @@ public class ClickResponse {
 		
 	}
 	
+	/**
+	 * Just an example. This method will be replaced by Tobi's classifier.
+	 * @param userInfo
+	 * @return
+	 */
+public double response(double[] userInfo){
+		double risk_score = 0.0;
+	    for (double i : userInfo) {
+			risk_score += i;
+		}
+	    return risk_score;
+	}
+	
+	
 	
 	/**
 	 * when user clicked the "calculation" button, this method will call UserInformationCollector
@@ -20,12 +34,12 @@ public class ClickResponse {
 	 * @throws Exception 
 	 * @return
 	 */
-	public double response(Instances userInput) throws Exception {
-	    double risk_score = 0.0;
-	    Double[] scores = WekaPipeline.pipeline();
-	    Classifier[] models = WekaClassifier.getModels();
-	    Classifier bestModel = WekaPipeline.selectBestModel(scores, models);
-	    risk_score = WekaPipeline.predictOnUserInput(bestModel, userInput, null);
-	    return risk_score;
-	}
+//	public double response(Instances userInput) throws Exception {
+//	    double risk_score = 0.0;
+//	    Double[] scores = WekaPipeline.pipeline();
+//	    Classifier[] models = WekaClassifier.getModels();
+//	    Classifier bestModel = WekaPipeline.selectBestModel(scores, models);
+//	    risk_score = WekaPipeline.predictOnUserInput(bestModel, userInput, null);
+//	    return risk_score;
+//	}
 }
