@@ -37,13 +37,9 @@ public class PatientGenerator
 		patients = new ArrayList<Patient>();
 		for (int i = 0; i < 10001; i++)
 		{
-			//Temporary; will generate these truly at next update
-			double age = 0;
-			boolean gender = true;
-			
-		
-			//Sets outcome to "deceased" with probability defined as the mortality rate
-			//of the predicate published scientific article. Otherwise set to recovered.
+			//Set outcome to "deceased" with probability defined as the mortality rate
+			//of the cited scientific article. Otherwise set to recovered.
+			//All risk factors will be reconstruction predicated on outcome. 
 			String outcome = "-1";
 			if (probableBoolean(mortalityRate))
 			{
@@ -61,15 +57,18 @@ public class PatientGenerator
 			boolean respiratoryRateGreaterThan24 = generateBinaryRiskFactor(outcome, (0.5 + riskfactorToAttributableRisk.get("Respiratory rate > 24")));
 			boolean temperatureGreaterThan37 = generateBinaryRiskFactor(outcome, (0.5 + riskfactorToAttributableRisk.get("Temperature > 37.3")));
 			boolean groundGlassOpacity = generateBinaryRiskFactor(outcome, (0.5 + riskfactorToAttributableRisk.get("Consolidation on x-ray")));
+			boolean gender = generateBinaryRiskFactor(outcome, 0.5);
 			
 			//Continuous data:
 			//Pass in outcome. Based on whether the patient deceased or survived, 
 			//assign a randomly generated risk factor value generated from the published range.
 			//For example, if "deceased" a patient's white blood cell count will be randomly generated
 			//between the range 6.9 - 13.9, versus a "survived" patient generated between 4.3 - 7.7. 
-			double wbc, lymphocyteCount, platelets, albumin, lactateDehydrogenase, troponinI, dDimer, ferritin, interleukin6, procalcitonin = -1;
+			double age, wbc, lymphocyteCount, platelets, albumin, lactateDehydrogenase, troponinI, dDimer, ferritin, interleukin6, procalcitonin = -1;
 			if (outcome.equals("deceased"))
 			{
+				age = randomBetweenRange(riskfactorToRangeDeceased.get("Age")[0],
+						riskfactorToRangeDeceased.get("Age")[1]);
 				wbc = randomBetweenRange(riskfactorToRangeDeceased.get("White blood cell count")[0],
 						riskfactorToRangeDeceased.get("White blood cell count")[1]);
 				lymphocyteCount = randomBetweenRange(riskfactorToRangeDeceased.get("Lymphocyte count")[0],
@@ -93,6 +92,8 @@ public class PatientGenerator
 			}
 			else
 			{
+				age = randomBetweenRange(riskfactorToRangeRecovered.get("Age")[0], 
+						riskfactorToRangeRecovered.get("Age")[1]);
 				wbc = randomBetweenRange(riskfactorToRangeRecovered.get("White blood cell count")[0], 
 						riskfactorToRangeRecovered.get("White blood cell count")[1]);
 				lymphocyteCount = randomBetweenRange(riskfactorToRangeRecovered.get("Lymphocyte count")[0], 
@@ -112,7 +113,7 @@ public class PatientGenerator
 				interleukin6 = randomBetweenRange(riskfactorToRangeRecovered.get("Interleukin 6")[0], 
 						riskfactorToRangeRecovered.get("Interleukin 6")[1]);
 				//Procalcitonin in recovered patients ranges from 0.1 to 0.1; therefore it is impossible to generate
-				//a random value. We simply here use one value, 0.1. 
+				//a random value. We simply here use the one value reported in the literature, 0.1. 
 				procalcitonin = riskfactorToRangeRecovered.get("Procalcitonin")[0];
 			}
 			
@@ -173,5 +174,4 @@ public class PatientGenerator
 	{
 		return ThreadLocalRandom.current().nextDouble(min, max);
 	}
-	
 }

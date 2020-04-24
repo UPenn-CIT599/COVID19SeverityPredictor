@@ -123,7 +123,6 @@ public class StackedBarChart extends ApplicationFrame
 	{
 		RiskFactorReader.readCSV();
 		PatientGenerator.generatePatients();
-		DataAnalysis.initializePatients();
 		
 		//Create a chart
 		StackedBarChart chart1 = new StackedBarChart("Risk Factors at Admission and Probability of COVID-19 Mortality");

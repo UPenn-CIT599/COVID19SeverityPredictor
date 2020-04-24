@@ -181,7 +181,6 @@ public class RiskFactorReader {
 			System.out.println("'riskFactors.csv' not found. Please ensure that you have saved it in this project subfold of the eclipse-workspace");
 		}
 	}
-	
 	/**
 	 * Returns range of lab values (doubles) from string input
 	 * @param string
@@ -227,7 +226,6 @@ public class RiskFactorReader {
 		
 		return num;
 	}
-	
 	/**
 	 * Calculates attributable risk of a given risk factor. We will use this to extrapolate 
 	 * binary risk factors, given that there is not a range of values that we can read in. 
@@ -253,7 +251,6 @@ public class RiskFactorReader {
 	{
 		return riskfactorToAttributableRisk;
 	}
-	
 	/**
 	 * Calculates mortality rate.
 	 * Mortality rate = deceased / (deceased + recovered)
@@ -266,7 +263,7 @@ public class RiskFactorReader {
 //	public static void main(String[] args)
 //	{
 //		RiskFactorReader.readCSV();
-//		System.out.println(riskfactorToAttributableRisk.get("Temperature > 37.3"));
-//		System.out.println(riskfactorToAttributableRisk.get("Respiratory rate > 24"));
+//		System.out.println(Arrays.toString(riskfactorToRangeDeceased.get("Age")));
+//		System.out.println(Arrays.toString(riskfactorToRangeRecovered.get("Age")));
 //	}
 }

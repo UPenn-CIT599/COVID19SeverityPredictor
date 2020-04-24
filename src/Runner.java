@@ -14,7 +14,6 @@ public class Runner {
 	{
 		RiskFactorReader.readCSV();
 		PatientGenerator.generatePatients();
-		DataAnalysis.initializePatients();
 		WriteToCSV.write();
 
 		StackedBarChart chart = new StackedBarChart("Relationship Between Patient Characteristics at Admission and COVID-19 Mortality");
