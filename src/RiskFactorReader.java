@@ -8,8 +8,8 @@ import java.util.Scanner;
 import java.util.regex.*;
 
 /**
- * Reads in COVID19 mortality risk factors and their associated attributable risk
- * based on previously reported literature. 
+ * Reads in COVID19 mortality risk factors and their associated absolute, relative, and attributable
+ * risks of mortality based on previously reported literature:
  * F Zhou, et al. Clinical course and risk factors for mortality of 
  * adult inpatients with COVID-19 in Wuhan, China: a retrospective cohort 
  * study Lancet (2020 Mar 11), 10.1016/S0140-6736(20)30566-3
@@ -19,8 +19,11 @@ import java.util.regex.*;
  */
 public class RiskFactorReader {
 	
-	//Map boolean risk factors to their calculated attributable risk
+	//Map boolean risk factors to their calculated risks
 	private static Map<String, Double> riskfactorToAttributableRisk;
+	private static Map<String, Double> riskfactorToRelativeRisk;
+	private static Map<String, Double> riskfactorToAbsoluteRiskTrue;
+	private static Map<String, Double> riskfactorToAbsoluteRiskFalse;
 	//Map continuous risk factors to their reported range of values
 	private static Map<String, Double[]> riskfactorToRangeDeceased; 
 	private static Map<String, Double[]> riskfactorToRangeRecovered;
@@ -32,6 +35,9 @@ public class RiskFactorReader {
 	 */
 	public static void readCSV()
 	{
+		riskfactorToAbsoluteRiskTrue = new HashMap<String, Double>();
+		riskfactorToAbsoluteRiskFalse = new HashMap<String, Double>();
+		riskfactorToRelativeRisk = new HashMap<String, Double>();
 		riskfactorToAttributableRisk = new HashMap<String, Double>();
 		riskfactorToRangeDeceased = new HashMap<String, Double[]>();
 		riskfactorToRangeRecovered = new HashMap<String, Double[]>();
@@ -66,6 +72,9 @@ public class RiskFactorReader {
 					double c = totalDeceased - a;
 					double d = totalRecovered - b;
 					riskfactorToAttributableRisk.put("Current smoker", getAttributableRisk(a, b, c, d));
+					riskfactorToRelativeRisk.put("Current smoker", getRelativeRisk(a, b, c, d));
+					riskfactorToAbsoluteRiskTrue.put("Current smoker", getAbsoluteRiskTrue(a, b, c, d));
+					riskfactorToAbsoluteRiskFalse.put("Current smoker", getAbsoluteRiskFalse(a, b, c, d));
 				}
 				//Comorbidity is row 7. Boolean risk factor. 
 				if (row == 7)
@@ -75,6 +84,9 @@ public class RiskFactorReader {
 					double c = totalDeceased - a;
 					double d = totalRecovered - b;
 					riskfactorToAttributableRisk.put("Comorbidity", getAttributableRisk(a, b, c, d));
+					riskfactorToRelativeRisk.put("Comorbidity", getRelativeRisk(a, b, c, d));
+					riskfactorToAbsoluteRiskTrue.put("Comorbidity", getAbsoluteRiskTrue(a, b, c, d));
+					riskfactorToAbsoluteRiskFalse.put("Comorbidity", getAbsoluteRiskFalse(a, b, c, d));
 				}
 				//Respiratory rate is row 15. Boolean risk factor.
 				if (row == 15)
@@ -84,6 +96,9 @@ public class RiskFactorReader {
 					double c = totalDeceased - a;
 					double d = totalRecovered - b;
 					riskfactorToAttributableRisk.put("Respiratory rate > 24", getAttributableRisk(a, b, c, d));
+					riskfactorToRelativeRisk.put("Respiratory rate > 24", getRelativeRisk(a, b, c, d));
+					riskfactorToAbsoluteRiskTrue.put("Respiratory rate > 24", getAbsoluteRiskTrue(a, b, c, d));
+					riskfactorToAbsoluteRiskFalse.put("Respiratory rate > 24", getAbsoluteRiskFalse(a, b, c, d));
 				}
 				//Temperature is row 18. Boolean risk factor.
 				if (row == 18)
@@ -93,6 +108,9 @@ public class RiskFactorReader {
 					double c = totalDeceased - a;
 					double d = totalRecovered - b;
 					riskfactorToAttributableRisk.put("Temperature > 37.3", getAttributableRisk(a, b, c, d));
+					riskfactorToRelativeRisk.put("Temperature > 37.3", getRelativeRisk(a, b, c, d));
+					riskfactorToAbsoluteRiskTrue.put("Temperature > 37.3", getAbsoluteRiskTrue(a, b, c, d));
+					riskfactorToAbsoluteRiskFalse.put("Temperature > 37.3", getAbsoluteRiskFalse(a, b, c, d));
 				}
 				//Consolidation is row 72. Boolean risk factor. 
 				if (row == 72)
@@ -102,6 +120,9 @@ public class RiskFactorReader {
 					double c = totalDeceased - a;
 					double d = totalRecovered - b;
 					riskfactorToAttributableRisk.put("Consolidation on x-ray", getAttributableRisk(a, b, c, d));
+					riskfactorToRelativeRisk.put("Consolidation on x-ray", getRelativeRisk(a, b, c, d));
+					riskfactorToAbsoluteRiskTrue.put("Consolidation on x-ray", getAbsoluteRiskTrue(a, b, c, d));
+					riskfactorToAbsoluteRiskFalse.put("Consolidation on x-ray", getAbsoluteRiskFalse(a, b, c, d));
 				}
 				
 				//CONTINUOUS RISK FACTORS
@@ -226,6 +247,34 @@ public class RiskFactorReader {
 		
 		return num;
 	}
+	
+	
+	/**
+	 * Calculates absolute risk of mortality if feature is present
+	 * @param a
+	 * @param b
+	 * @param c
+	 * @param d
+	 * @return absolute risk of mortality if feature is present
+	 */
+	public static double getAbsoluteRiskTrue(double a, double b, double c, double d)
+	{
+		return ((a / (a + b)));
+	}
+	
+	/**
+	 * Get absolute risk of mortality if no feature is present
+	 * @param a
+	 * @param b
+	 * @param c
+	 * @param d
+	 * @return absolute risk of mortality if no feature is present
+	 */
+	public static double getAbsoluteRiskFalse(double a, double b, double c, double d)
+	{
+		return ((c / (c + d)));
+	}
+	
 	/**
 	 * Calculates attributable risk of a given risk factor. We will use this to extrapolate 
 	 * binary risk factors, given that there is not a range of values that we can read in. 
@@ -233,12 +282,35 @@ public class RiskFactorReader {
 	 * c = num deceased, without feature; d = num recovered, without feature
 	 * Attributable risk = (A / A + B) - (C / C + D)
 	 * In order words: (outcome risk among those with feature - outcome risk among those without feature)
+	 * @return attributable risk
 	 */
 	public static double getAttributableRisk(double a, double b, double c, double d)
 	{
-		return ((a / (a + b)) - (c / (c + d)));
+		return (getAbsoluteRiskTrue(a, b, c, d) - getAbsoluteRiskFalse(a, b, c, d));
+	}
+	
+	/**
+	 * Calculates relative risk. 
+	 * @param a
+	 * @param b
+	 * @param c
+	 * @param d
+	 * @return relative risk
+	 */
+	public static double getRelativeRisk(double a, double b, double c, double d)
+	{
+		return (getAbsoluteRiskTrue(a, b, c, d) / getAbsoluteRiskFalse(a, b, c, d));
 	}
 
+	/**
+	 * Gets mortality rate.
+	 * Mortality rate = deceased / (deceased + recovered)
+	 * @return mortality rate
+	 */
+	public static double getMortalityRate()
+	{
+		return mortalityRate;
+	}
 	public static Map<String, Double[]> getRiskfactorToRangeDeceased() {
 		return riskfactorToRangeDeceased;
 	}
@@ -251,19 +323,15 @@ public class RiskFactorReader {
 	{
 		return riskfactorToAttributableRisk;
 	}
-	/**
-	 * Calculates mortality rate.
-	 * Mortality rate = deceased / (deceased + recovered)
-	 * @return mortality rate
-	 */
-	public static double getMortalityRate()
-	{
-		return mortalityRate;
+	
+	public static Map<String, Double> getRiskfactorToRelativeRisk() {
+		return riskfactorToRelativeRisk;
 	}
-//	public static void main(String[] args)
-//	{
-//		RiskFactorReader.readCSV();
-//		System.out.println(Arrays.toString(riskfactorToRangeDeceased.get("Age")));
-//		System.out.println(Arrays.toString(riskfactorToRangeRecovered.get("Age")));
-//	}
+
+	public static Map<String, Double> getRiskfactorToAbsoluteRiskTrue() {
+		return riskfactorToAbsoluteRiskTrue;
+	}
+	public static Map<String, Double> getRiskfactorToAbsoluteRiskFalse() {
+		return riskfactorToAbsoluteRiskFalse;
+	}
 }

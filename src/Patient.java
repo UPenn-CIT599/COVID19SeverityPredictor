@@ -50,31 +50,20 @@ public class Patient {
 		this.procalcitonin = procalcitonin;
 		this.groundGlassOpacity = groundGlassOpacity;
 	}
-	/**
-	 * Gets gender
-	 * @return gender
-	 */
+
+	//Getters below
 	public boolean getGender() {
 		return gender;
 	}
-	/**
-	 * Gets age
-	 * @return age
-	 */
+
 	public double getAge() {
 		return age;
 	}
-	/**
-	 * Gets whether or not has co-morbid diseases
-	 * @return comorbid
-	 */
+
 	public boolean isComorbid() {
 		return comorbidity;
 	}
-	/**
-	 * Gets state
-	 * @return state
-	 */
+
 	public String getOutcome() {
 		return outcome;
 	}

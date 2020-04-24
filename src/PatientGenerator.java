@@ -9,15 +9,16 @@ import java.util.concurrent.ThreadLocalRandom;
 import java.util.regex.Pattern;
 
 /**
- * The KoreaPatientReader class reads in and stores in an arraylist of Patient
- * objects the csv data from the "Data Science for COVID-19 (DSC4)" dataset
- * available on Kaggle.com.
+ * Generates a patient database from trends in the predicate scientific article
+ * parsed by RiskFactorReader.
  * 
  * @author cbusc
  *
  */
 public class PatientGenerator {
     private static ArrayList<Patient> patients;
+	private static Map<String, Double> riskfactorToAbsoluteRiskTrue;
+	private static Map<String, Double> riskfactorToAbsoluteRiskFalse;
     private static Map<String, Double> riskfactorToAttributableRisk;
     private static Map<String, Double[]> riskfactorToRangeDeceased;
     private static Map<String, Double[]> riskfactorToRangeRecovered;
@@ -29,6 +30,8 @@ public class PatientGenerator {
     public static void generatePatients() {
 	// Initialize risk factors and read-in risk and range values associated
 	// therewith
+    riskfactorToAbsoluteRiskTrue = RiskFactorReader.getRiskfactorToAbsoluteRiskTrue();
+    riskfactorToAbsoluteRiskFalse = RiskFactorReader.getRiskfactorToAbsoluteRiskFalse();
 	riskfactorToAttributableRisk = RiskFactorReader.getRiskfactorToAttributableRisk();
 	riskfactorToRangeDeceased = RiskFactorReader.getRiskfactorToRangeDeceased();
 	riskfactorToRangeRecovered = RiskFactorReader.getRiskfactorToRangeRecovered();
@@ -45,26 +48,25 @@ public class PatientGenerator {
 		outcome = "recovered";
 	    }
 
-	    // Generate new data features substantiated to be associated with COVID-19
-	    // mortality.
+	    // Generate data features conjectured to be associated with COVID-19 mortality.
 	    // Binary data:
-	    // Eg. if "deceased" this patient will have a 0.8 probability of being rendered
-	    // a current smoker when initialized
-	    // Eg. if "released" he would then have a 0.2 probability of being rendered a
-	    // current smoker when initialized
-	    // Probability is defined as 0.5 + attributable risk for each individual risk
-	    // factor
-	    boolean comorbidity = generateBinaryRiskFactor(outcome,
-		    (0.5 + riskfactorToAttributableRisk.get("Comorbidity")));
-	    boolean currentSmoker = generateBinaryRiskFactor(outcome,
-		    (0.5 + riskfactorToAttributableRisk.get("Current smoker")));
-	    boolean respiratoryRateGreaterThan24 = generateBinaryRiskFactor(outcome,
-		    (0.5 + riskfactorToAttributableRisk.get("Respiratory rate > 24")));
-	    boolean temperatureGreaterThan37 = generateBinaryRiskFactor(outcome,
-		    (0.5 + riskfactorToAttributableRisk.get("Temperature > 37.3")));
-	    boolean groundGlassOpacity = generateBinaryRiskFactor(outcome,
-		    (0.5 + riskfactorToAttributableRisk.get("Consolidation on x-ray")));
-	    boolean gender = generateBinaryRiskFactor(outcome, 0.5);
+	    // For each boolean risk factor, if the outcome is "deceased", then generate true with a 
+	    // probability equivalent to absolute mortality risk of a patient with the risk factor. 
+	    // If the outcome is "recovered", then generate true with a probability equivalent to the
+	    // absolute mortality risk of a patient without that risk factor.
+	    // This method is not perfect by any means. 
+
+	    boolean comorbidity = generateBinary(outcome, riskfactorToAbsoluteRiskTrue.get("Comorbidity"), 
+	    				riskfactorToAbsoluteRiskFalse.get("Comorbidity"));
+	    boolean currentSmoker = generateBinary(outcome, riskfactorToAbsoluteRiskTrue.get("Current smoker"), 
+				riskfactorToAbsoluteRiskFalse.get("Current smoker"));
+	    boolean respiratoryRateGreaterThan24 = generateBinary(outcome, riskfactorToAbsoluteRiskTrue.get("Respiratory rate > 24"), 
+				riskfactorToAbsoluteRiskFalse.get("Respiratory rate > 24"));
+	    boolean temperatureGreaterThan37 = generateBinary(outcome, riskfactorToAbsoluteRiskTrue.get("Temperature > 37.3"), 
+				riskfactorToAbsoluteRiskFalse.get("Temperature > 37.3"));
+	    boolean groundGlassOpacity = generateBinary(outcome, riskfactorToAbsoluteRiskTrue.get("Consolidation on x-ray"), 
+					riskfactorToAbsoluteRiskFalse.get("Consolidation on x-ray"));
+	    boolean gender = generateBinary(outcome, 0.54, 0.54); //Random gender
 
 	    // Continuous data:
 	    // Pass in outcome. Based on whether the patient deceased or survived,
@@ -145,19 +147,17 @@ public class PatientGenerator {
     }
 
     /**
-     * Returns true with n probability if the outcome is "deceased," and with a 1 -
-     * n probability if the outcome is "released." This indicates that the factor
-     * being generated portends a relatively worse prognosis, and is hence a risk
-     * factor.
+     * Returns true with rPos (Mortality risk given risk factor) probability if the outcome is "deceased," and with probability
+     * rNeg (Mortality risk given absence of risk factor) if the outcome is "recovered." This is not a perfect estimation of prevalence. 
      * 
      * @param outcome, probability
      * @return true or false
      */
-    public static boolean generateBinaryRiskFactor(String outcome, double n) {
+    public static boolean generateBinary(String outcome, double rPos, double rNeg) {
 	if (outcome.equals("deceased")) {
-	    return probableBoolean(n);
+	    return probableBoolean(rPos);
 	} else {
-	    return !probableBoolean(n);
+	    return probableBoolean(rNeg);
 	}
     }
 
