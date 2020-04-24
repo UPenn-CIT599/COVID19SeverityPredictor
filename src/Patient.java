@@ -7,11 +7,9 @@
  */
 public class Patient {
 
-
 	private double age;
 	private boolean gender;
 	private boolean comorbidity;
-	private boolean healthcareRelatedExposure;
 	private boolean currentSmoker;
 	private boolean respiratoryRateGreaterThan24;
 	private boolean temperatureGreaterThan37;
@@ -25,18 +23,17 @@ public class Patient {
 	private double dDimer;
 	private double ferritin;
 	private double interleukin6;
-	
+	private double procalcitonin;
 	private String outcome;
 	
-	public Patient(boolean gender, double age, boolean comorbid, boolean healthcareRelatedExposure, 
-			String outcome, boolean currentSmoker, boolean respiratoryRateGreaterThan24, boolean temperatureGreaterThan37, 
+	public Patient(double age, boolean gender, boolean comorbid, boolean currentSmoker, boolean respiratoryRateGreaterThan24,
+			boolean temperatureGreaterThan37, boolean groundGlassOpacity,
 			double wbc, double lymphocyteCount, double platelets, double albumin, double lactateDehydrogenase, double troponinI, 
-			double dDimer, double ferritin, double interleukin6, boolean groundGlassOpacity)
+			double dDimer, double ferritin, double interleukin6, double procalcitonin, String outcome)
 	{
 		this.gender = gender;
 		this.age = age;
 		this.comorbidity = comorbid;
-		this.healthcareRelatedExposure = healthcareRelatedExposure;
 		this.outcome = outcome;
 		this.currentSmoker = currentSmoker;
 		this.respiratoryRateGreaterThan24 = respiratoryRateGreaterThan24;
@@ -50,6 +47,7 @@ public class Patient {
 		this.dDimer = dDimer;
 		this.ferritin = ferritin;
 		this.interleukin6 = interleukin6;
+		this.procalcitonin = procalcitonin;
 		this.groundGlassOpacity = groundGlassOpacity;
 	}
 	/**
@@ -72,13 +70,6 @@ public class Patient {
 	 */
 	public boolean isComorbid() {
 		return comorbidity;
-	}
-	/**
-	 * Gets whether or not exposure was healthcare related
-	 * @return healthcareRelatedExposure
-	 */
-	public boolean isHealthcareRelatedExposure() {
-		return healthcareRelatedExposure;
 	}
 	/**
 	 * Gets state
@@ -123,6 +114,9 @@ public class Patient {
 	}
 	public double getInterleukin6() {
 		return interleukin6;
+	}
+	public double getProcalcitonin() {
+		return procalcitonin;
 	}
 	public boolean isGroundGlassOpacity() {
 		return groundGlassOpacity;

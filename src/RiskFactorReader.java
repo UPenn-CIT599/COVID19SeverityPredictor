@@ -1,4 +1,5 @@
 import java.io.File;
+
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -18,11 +19,11 @@ import java.util.regex.*;
  */
 public class RiskFactorReader {
 	
-	//Map risk factors reported as boolean to attributable risk
+	//Map boolean risk factors to their calculated attributable risk
 	private static Map<String, Double> riskfactorToAttributableRisk;
-	//Map risk factors reported with continuous data to range of values
+	//Map continuous risk factors to their reported range of values
 	private static Map<String, Double[]> riskfactorToRangeDeceased; 
-	private static Map<String, Double[]> riskfactorToRangeAlive;
+	private static Map<String, Double[]> riskfactorToRangeRecovered;
 	private static double mortalityRate;
 	
 	/*
@@ -33,93 +34,144 @@ public class RiskFactorReader {
 	{
 		riskfactorToAttributableRisk = new HashMap<String, Double>();
 		riskfactorToRangeDeceased = new HashMap<String, Double[]>();
-		riskfactorToRangeAlive = new HashMap<String, Double[]>();
+		riskfactorToRangeRecovered = new HashMap<String, Double[]>();
 		
 		try
 		{
 			Scanner fileParser = new Scanner(new File("riskFactors.csv"));
-			//fileParser.nextLine();
-			int count = 0;
-			double totalDeceased;
-			double totalRecovered;
+			int row = 0;
+			double totalDeceased = 0;
+			double totalRecovered = 0;
 			while(fileParser.hasNextLine())
 			{
-				String row = fileParser.nextLine();
-				String[] rowElements = row.split(",");
+				String rowString = fileParser.nextLine();
+				String[] rowElements = rowString.split(",");
 				
-				//Total deceased and surivor values are in the first row
-				if (count == 0)
+				//Parse total deceased and total recovered patients and store in local variables
+				if (row == 0)
 				{
-					totalDeceased = getNum(rowElements[3]);
-					totalRecovered = getNum(rowElements[4]);
+					totalDeceased = getFirstNum(rowElements[3]);
+					totalRecovered = getFirstNum(rowElements[4]);
 					mortalityRate = totalDeceased / (totalDeceased + totalRecovered);
-					System.out.println(totalDeceased + "\n" + totalRecovered + "\n" + mortalityRate);
+				}
+
+				//BOOLEAN RISK FACTORS
+				//Current smoker is row 6. Boolean risk factor. 
+				//a = num deceased, with feature; b = num recovered, with feature
+				//c = num deceased, without feature; d = num recovered, without feature
+				if (row == 6)
+				{
+					double a = getFirstNum(rowElements[3]);
+					double b = getFirstNum(rowElements[4]);
+					double c = totalDeceased - a;
+					double d = totalRecovered - b;
+					riskfactorToAttributableRisk.put("Current smoker", getAttributableRisk(a, b, c, d));
+				}
+				//Comorbidity is row 7. Boolean risk factor. 
+				if (row == 7)
+				{
+					double a = getFirstNum(rowElements[3]);
+					double b = getFirstNum(rowElements[4]);
+					double c = totalDeceased - a;
+					double d = totalRecovered - b;
+					riskfactorToAttributableRisk.put("Comorbidity", getAttributableRisk(a, b, c, d));
+				}
+				//Respiratory rate is row 15. Boolean risk factor.
+				if (row == 15)
+				{
+					double a = getFirstNum(rowElements[3]);
+					double b = getFirstNum(rowElements[4]);
+					double c = totalDeceased - a;
+					double d = totalRecovered - b;
+					riskfactorToAttributableRisk.put("Respiratory rate > 24", getAttributableRisk(a, b, c, d));
+				}
+				//Temperature is row 18. Boolean risk factor.
+				if (row == 18)
+				{
+					double a = getFirstNum(rowElements[3]);
+					double b = getFirstNum(rowElements[4]);
+					double c = totalDeceased - a;
+					double d = totalRecovered - b;
+					riskfactorToAttributableRisk.put("Temperature > 37.3", getAttributableRisk(a, b, c, d));
+				}
+				//Consolidation is row 72. Boolean risk factor. 
+				if (row == 72)
+				{
+					double a = getFirstNum(rowElements[3]);
+					double b = getFirstNum(rowElements[4]);
+					double c = totalDeceased - a;
+					double d = totalRecovered - b;
+					riskfactorToAttributableRisk.put("Consolidation on x-ray", getAttributableRisk(a, b, c, d));
 				}
 				
+				//CONTINUOUS RISK FACTORS
 				//Age is row 1
-				if (count == 1)
+				if (row == 1)
 				{
 					riskfactorToRangeDeceased.put("Age", getRange(rowElements[4]));
-					riskfactorToRangeAlive.put("Age", getRange(rowElements[5]));
-					System.out.println("Age");
-				}
-				
+					riskfactorToRangeRecovered.put("Age", getRange(rowElements[5]));
+				}	
 				//White blood cell count is row 36
-				if (count == 36)
+				if (row == 36)
 				{
 					riskfactorToRangeDeceased.put("White blood cell count", getRange(rowElements[4]));
-					riskfactorToRangeAlive.put("White blood cell count", getRange(rowElements[5]));
+					riskfactorToRangeRecovered.put("White blood cell count", getRange(rowElements[5]));
 				}
 				//Lymphocyte count is row 40
-				if (count == 40)
+				if (row == 40)
 				{
 					riskfactorToRangeDeceased.put("Lymphocyte count", getRange(rowElements[4]));
-					riskfactorToRangeAlive.put("Lymphocyte count", getRange(rowElements[5]));
+					riskfactorToRangeRecovered.put("Lymphocyte count", getRange(rowElements[5]));
 				}
 				//Platelet count is row 44
-				if (count == 44)
+				if (row == 44)
 				{
 					riskfactorToRangeDeceased.put("Platelets", getRange(rowElements[4]));
-					riskfactorToRangeAlive.put("Platelets", getRange(rowElements[5]));
+					riskfactorToRangeRecovered.put("Platelets", getRange(rowElements[5]));
 				}
 				//Albumin is row 46
-				if (count == 46)
+				if (row == 46)
 				{
 					riskfactorToRangeDeceased.put("Albumin", getRange(rowElements[4]));
-					riskfactorToRangeAlive.put("Albumin", getRange(rowElements[5]));
-				}
-				
+					riskfactorToRangeRecovered.put("Albumin", getRange(rowElements[5]));
+				}		
 				//LactateDehydrogenase is row 50
-				if (count == 50)
+				if (row == 50)
 				{
 					riskfactorToRangeDeceased.put("Lactate Dehydrogenase", getRange(rowElements[4]));
-					riskfactorToRangeAlive.put("Lactate Dehydrogenase", getRange(rowElements[5]));
+					riskfactorToRangeRecovered.put("Lactate Dehydrogenase", getRange(rowElements[5]));
 				}
 				//TroponinI is row 54
-				if (count == 54)
+				if (row == 54)
 				{
 					riskfactorToRangeDeceased.put("Troponin I", getRange(rowElements[4]));
-					riskfactorToRangeAlive.put("Troponin I", getRange(rowElements[5]));
+					riskfactorToRangeRecovered.put("Troponin I", getRange(rowElements[5]));
 				}
 				//D-dimer is row 59
-				if (count == 59)
+				if (row == 59)
 				{
 					riskfactorToRangeDeceased.put("D-dimer", getRange(rowElements[4]));
-					riskfactorToRangeAlive.put("D-dimer", getRange(rowElements[5]));
+					riskfactorToRangeRecovered.put("D-dimer", getRange(rowElements[5]));
 				}
 				//Ferritin is row 64
-				if (count == 63)
+				if (row == 63)
 				{
 					riskfactorToRangeDeceased.put("Ferritin", getRange(rowElements[4]));
-					riskfactorToRangeAlive.put("Ferritin", getRange(rowElements[5]));
+					riskfactorToRangeRecovered.put("Ferritin", getRange(rowElements[5]));
 				}
 				//Interleukin6 is row 65
-				if (count == 65)
+				if (row == 65)
 				{
 					riskfactorToRangeDeceased.put("Interleukin 6", getRange(rowElements[4]));
-					riskfactorToRangeAlive.put("Interleukin 6", getRange(rowElements[5]));
+					riskfactorToRangeRecovered.put("Interleukin 6", getRange(rowElements[5]));
 				}
-				count++;
+				//Procalcitonin is row 66
+				if (row == 66)
+				{
+					riskfactorToRangeDeceased.put("Procalcitonin", getRange(rowElements[4]));
+					riskfactorToRangeRecovered.put("Procalcitonin", getRange(rowElements[5]));
+				}
+				row++;
 			}
 			fileParser.close();
 		}
@@ -131,7 +183,7 @@ public class RiskFactorReader {
 	}
 	
 	/**
-	 * Parses range of doubles from string in a table cell
+	 * Returns range of lab values (doubles) from string input
 	 * @param string
 	 * @return range of lab value
 	 */
@@ -156,44 +208,65 @@ public class RiskFactorReader {
 	}
 	
 	/**
-	 * Parses double from excel cell String
+	 * Parses and returns a double from parameterized string using regex
 	 * @param str
-	 * @return double
+	 * @return number
 	 */
-	public static double getNum(String str)
+	public static double getFirstNum(String str)
 	{
-		String s = str.substring(str.indexOf("=") + 1);
-		s = s.substring(0, s.indexOf(")"));
-		double sDouble = 0.0;
-		try { sDouble = Double.parseDouble(s); }
+		//Set regex
+		Pattern p = Pattern.compile("[\\d]+");
+		//Instantiate matcher
+		Matcher m = p.matcher(str);
+		//Find match
+		m.find();
+		//Converts number as string to double
+		double num = 0;
+		try { num = Double.parseDouble(m.group(0)); }
 		catch (NumberFormatException e) { }
 		
-		return sDouble;
+		return num;
 	}
 	
-//	/**
-//	 * Calculates attributable risk for a given risk factor
-//	 */
-//	public static double getAttributableRisk()
-//	{
-//		return 0.0;
-//	}
+	/**
+	 * Calculates attributable risk of a given risk factor. We will use this to extrapolate 
+	 * binary risk factors, given that there is not a range of values that we can read in. 
+	 * a = num deceased, with feature; b = num recovered, with feature
+	 * c = num deceased, without feature; d = num recovered, without feature
+	 * Attributable risk = (A / A + B) - (C / C + D)
+	 * In order words: (outcome risk among those with feature - outcome risk among those without feature)
+	 */
+	public static double getAttributableRisk(double a, double b, double c, double d)
+	{
+		return ((a / (a + b)) - (c / (c + d)));
+	}
 
 	public static Map<String, Double[]> getRiskfactorToRangeDeceased() {
 		return riskfactorToRangeDeceased;
 	}
 
-	public static Map<String, Double[]> getRiskfactorToRangeAlive() {
-		return riskfactorToRangeAlive;
+	public static Map<String, Double[]> getRiskfactorToRangeRecovered() {
+		return riskfactorToRangeRecovered;
 	}
 	
+	public static Map<String, Double> getRiskfactorToAttributableRisk()
+	{
+		return riskfactorToAttributableRisk;
+	}
+	
+	/**
+	 * Calculates mortality rate.
+	 * Mortality rate = deceased / (deceased + recovered)
+	 * @return mortality rate
+	 */
 	public static double getMortalityRate()
 	{
 		return mortalityRate;
 	}
-	
-	public static void main(String[] args)
-	{
-		RiskFactorReader.readCSV();
-	}
+//	public static void main(String[] args)
+//	{
+//		RiskFactorReader.readCSV();
+//		System.out.println(riskfactorToAttributableRisk.get("Temperature > 37.3"));
+//		System.out.println(riskfactorToAttributableRisk.get("Respiratory rate > 24"));
+//	}
 }

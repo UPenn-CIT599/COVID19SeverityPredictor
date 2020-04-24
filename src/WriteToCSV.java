@@ -22,17 +22,17 @@ public class WriteToCSV {
 			
 			//Get patient ArrayList
 			ArrayList<Patient> patients = PatientGenerator.getPatients();
-			out.print("Age," + "Gender," + "Comorbid," + "HealthcareRelatedExposure,"
-					+ "CurrentSmoker," + "RespiratoryRateGreaterThan24," + "TemperatureGreaterThan37," + "WBC," + 
+			out.print("Age," + "Gender," + "Comorbid,"
+					+ "CurrentSmoker," + "RespiratoryRateGreaterThan24," + "TemperatureGreaterThan37," + "GroundGlassOpacity," + "WBC," + 
 					"LymphocyteCount," + "Platelets," + "Albumin," + "LactateDehydrogenase," + "TroponinI," + "D-dimer," + "Ferritin," +
-					"Interleukin6," + "GroundGlassOpacity,"+ "Outcome\n");
+					"Interleukin6," + "Procalcitonin," + "Outcome\n");
 			for (Patient p : patients)
 			{
-				out.print(p.getAge() + "," + p.getGender() + "," + p.isComorbid() + "," + p.isHealthcareRelatedExposure()
-				+ "," + p.isCurrentSmoker() + "," + p.isRespiratoryRateGreaterThan24() + "," + p.isTemperatureGreaterThan37() + 
-				"," + p.getWbc() + "," + p.getLymphocyteCount() + "," + p.getPlatelets() + "," + p.getAlbumin() + "," + p.getLactateDehydrogenase() 
-				+ "," + p.getTroponinI() + "," + p.getdDimer() + "," + p.getFerritin() + "," + p.getInterleukin6() + "," 
-				+ p.isGroundGlassOpacity() + "," + p.getOutcome() + "\n");
+				out.print(p.getAge() + "," + p.getGender() + "," + p.isComorbid()
+				+ "," + p.isCurrentSmoker() + "," + p.isRespiratoryRateGreaterThan24() + "," + p.isTemperatureGreaterThan37() + "," + p.isGroundGlassOpacity() + ","
+				+ p.getWbc() + "," + p.getLymphocyteCount() + "," + p.getPlatelets() + "," + p.getAlbumin() + "," + p.getLactateDehydrogenase() 
+				+ "," + p.getTroponinI() + "," + p.getdDimer() + "," + p.getFerritin() + "," + p.getInterleukin6() + "," + p.getProcalcitonin() + ","
+				 + p.getOutcome() + "\n");
 			}	
 			out.flush();
 			out.close();

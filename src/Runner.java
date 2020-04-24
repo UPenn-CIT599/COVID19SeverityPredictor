@@ -17,7 +17,7 @@ public class Runner {
 		DataAnalysis.initializePatients();
 		WriteToCSV.write();
 
-		BarChart1 chart = new BarChart1("Relationship Between Patient Characteristics at Admission and COVID-19 Mortality");
+		StackedBarChart chart = new StackedBarChart("Relationship Between Patient Characteristics at Admission and COVID-19 Mortality");
 		//BarChart inherits .pack() and .setVisible() from the Window class
 		chart.pack();
 		RefineryUtilities.centerFrameOnScreen(chart);

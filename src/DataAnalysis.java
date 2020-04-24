@@ -6,9 +6,7 @@ import java.util.Map;
  * DataAnalysis class performs various analytic tests on outcomes data
  * read in from the patient dataset
  * 
- * 4/23: THIS CLASS NEEDS TO BE UPDATED GIVEN THAT BECAUSE THE KOREAN DATASET
- * ONLY HAD 28 "deceased" OUTCOMES I GENERATED OUR OWN DATASET. UPDATED METHODS 
- * WARRANTED.
+ * 4/23: THIS CLASS IS NOT USED SINCE PATIENT GENERATOR.  
  * 
  * @author cbusc
  *
@@ -51,31 +49,31 @@ public class DataAnalysis {
 		return outcomeToNumComorbid;
 	}
 	
-	/**
-	 * Maps patient outcome to number who had a healthcare-related exposure
-	 * 
-	 * @return outcomeToNumHealthcareRelated
-	 */
-	public static Map<String, Integer> initOutcomeToNumHealthcareRelated()
-	{
-		Map<String, Integer> outcomeToNumHealthcareRelated = new HashMap<>();
-		for (Patient p : patients)
-		{
-			if (p.isHealthcareRelatedExposure() == true)
-			{
-				if (outcomeToNumHealthcareRelated.containsKey(p.getOutcome()))
-				{
-					int currNum = outcomeToNumHealthcareRelated.get(p.getOutcome());
-					outcomeToNumHealthcareRelated.put(p.getOutcome(), currNum + 1);
-				}
-				else
-				{
-					outcomeToNumHealthcareRelated.put(p.getOutcome(), 1);
-				}
-			}
-		}
-		return outcomeToNumHealthcareRelated;
-	}
+//	/**
+//	 * Maps patient outcome to number who had a healthcare-related exposure
+//	 * 
+//	 * @return outcomeToNumHealthcareRelated
+//	 */
+//	public static Map<String, Integer> initOutcomeToNumHealthcareRelated()
+//	{
+//		Map<String, Integer> outcomeToNumHealthcareRelated = new HashMap<>();
+//		for (Patient p : patients)
+//		{
+//			if (p.isHealthcareRelatedExposure() == true)
+//			{
+//				if (outcomeToNumHealthcareRelated.containsKey(p.getOutcome()))
+//				{
+//					int currNum = outcomeToNumHealthcareRelated.get(p.getOutcome());
+//					outcomeToNumHealthcareRelated.put(p.getOutcome(), currNum + 1);
+//				}
+//				else
+//				{
+//					outcomeToNumHealthcareRelated.put(p.getOutcome(), 1);
+//				}
+//			}
+//		}
+//		return outcomeToNumHealthcareRelated;
+//	}
 	
 	/**
 	 * Maps patient outcome to number of current smokers

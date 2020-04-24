@@ -20,14 +20,14 @@ import org.jfree.ui.RefineryUtilities;
 	 * @author cbusc
 	 *
 	 */
-public class BarChart1 extends ApplicationFrame 
+public class StackedBarChart extends ApplicationFrame 
 {
 	/**
 	 * Creates a new BarChart instance
 	 * 
 	 * @param title (the frame title)
 	 */
-	public BarChart1(String title)
+	public StackedBarChart(String title)
 	{
 		//Superclass constructor
 		super(title);
@@ -50,35 +50,30 @@ public class BarChart1 extends ApplicationFrame
 	 */
 	private static CategoryDataset createDataset()
 	{
+		Map<String, Double> riskfactorToAttributableRisk = RiskFactorReader.getRiskfactorToAttributableRisk();
 		//Row keys
 		String deceased = "Deceased";
 		String recovered = "Recovered";
 		
-		//Column keys
+		//Column keys are the mortality risk factors, stored as the hash map keys
 		String comorbidity = "Comorbidity";
-		String healthcareRelated = "Healthcare worker";
 		String currentSmoker = "Current smoker";
-		String rrGreaterThan24 = "Respiratory Rate > 24";   //respiratory rate; respirations per minute
-		String tempGreaterThan37 = "T > 37.3 °C";   //degrees celsius
-		String ggoOnCXR = "GGO on chest x-ray";   //ground glass opacity
+		String rrGreaterThan24 = "Respiratory rate > 24";
+		String tempGreaterThan37 = "Temperature > 37.3";
 		
-		//Create the dataset by iterating through DataAnalysis hashmaps to enumerate patients with positive
-		//findings for each row key in each category. 
 		DefaultCategoryDataset dataset = new DefaultCategoryDataset();
 		
-		//Series1
-		dataset.addValue(DataAnalysis.initOutcomeToNumComorbid().get("deceased"), deceased, comorbidity);
-		dataset.addValue(DataAnalysis.initOutcomeToNumHealthcareRelated().get("deceased"), deceased, healthcareRelated);
-		dataset.addValue(DataAnalysis.initOutcomeToNumCurrentSmokers().get("deceased"), deceased, currentSmoker);
-		dataset.addValue(DataAnalysis.initOutcomeRespiratoryRate().get("deceased"), deceased, rrGreaterThan24);
-		dataset.addValue(DataAnalysis.initOutcomeToTempGreaterThan37().get("deceased"), deceased, tempGreaterThan37);
+		//Series1: risk factor to probability of death
+		dataset.addValue((0.5 + riskfactorToAttributableRisk.get(comorbidity)), deceased, comorbidity);
+		dataset.addValue((0.5 + riskfactorToAttributableRisk.get(currentSmoker)), deceased, currentSmoker);
+		dataset.addValue((0.5 + riskfactorToAttributableRisk.get(rrGreaterThan24)), deceased, rrGreaterThan24);
+		dataset.addValue((0.5 + riskfactorToAttributableRisk.get(tempGreaterThan37)), deceased, tempGreaterThan37);
 		
-		//Series2
-		dataset.addValue(DataAnalysis.initOutcomeToNumComorbid().get("recovered"), recovered, comorbidity);
-		dataset.addValue(DataAnalysis.initOutcomeToNumHealthcareRelated().get("recovered"), recovered, healthcareRelated);
-		dataset.addValue(DataAnalysis.initOutcomeToNumCurrentSmokers().get("recovered"), recovered, currentSmoker);
-		dataset.addValue(DataAnalysis.initOutcomeRespiratoryRate().get("recovered"), recovered, rrGreaterThan24);
-		dataset.addValue(DataAnalysis.initOutcomeToTempGreaterThan37().get("recovered"), recovered, tempGreaterThan37);
+		//Series2: risk factor to probability of recovery
+		dataset.addValue(1 - (0.5 + riskfactorToAttributableRisk.get(comorbidity)), recovered, comorbidity);
+		dataset.addValue(1 - ( 0.5 + riskfactorToAttributableRisk.get(currentSmoker)), recovered, currentSmoker);
+		dataset.addValue(1 - (0.5 + riskfactorToAttributableRisk.get(rrGreaterThan24)), recovered, rrGreaterThan24);
+		dataset.addValue(1 - ( 0.5 + riskfactorToAttributableRisk.get(tempGreaterThan37)), recovered, tempGreaterThan37);
 		
 		return dataset;
 		
@@ -91,12 +86,12 @@ public class BarChart1 extends ApplicationFrame
 	 */
 	private static JFreeChart createChart(CategoryDataset dataset)
 	{
-		JFreeChart chart = ChartFactory.createBarChart(
-			"Relationship Between Patient Characteristics at Admission and COVID-19 Mortality",  			//chart title
-			"Patient Feature",    					   				  //domain axis label
-			"Number Of Patients With Feature",		  				//range axis label
+		JFreeChart chart = ChartFactory.createStackedBarChart(
+			"Risk Factors at Admission and Probability of COVID-19 Mortality",  			//chart title
+			"Risk Factor",    					   				  //domain axis label
+			"Probability of Mortality",		  				//range axis label
 			dataset, 												  //data
-			PlotOrientation.VERTICAL,								  //orientation
+			PlotOrientation.HORIZONTAL,								  //orientation
 			true, 													  //include legend
 			true,													  //tooltips?
 			false													  //URLs?
@@ -130,7 +125,7 @@ public class BarChart1 extends ApplicationFrame
 		DataAnalysis.initializePatients();
 		
 		//Create a chart
-		BarChart1 chart1 = new BarChart1("Relationship Between Patient Characteristics at Admission and COVID-19 Mortality");
+		StackedBarChart chart1 = new StackedBarChart("Risk Factors at Admission and Probability of COVID-19 Mortality");
 		//Use .pack() and .setVisible() to visualize the chart. These methods are inherited from Window. 
 		chart1.pack();
 		RefineryUtilities.centerFrameOnScreen(chart1);
