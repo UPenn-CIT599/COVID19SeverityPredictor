@@ -14,6 +14,9 @@ public class Runner {
      */
     public static void main(String[] args) throws Exception
     {
+	PanelComponents panel = new PanelComponents();
+        panel.placeComponents();
+        
 //	RiskFactorReader.readCSV();
 //	PatientGenerator.generatePatients();
 //	WriteToCSV.write();
@@ -24,7 +27,7 @@ public class Runner {
 //	RefineryUtilities.centerFrameOnScreen(chart);
 //	chart.setVisible(true);
 
-	double[] userInput = {65.43, 0, 1, 0, 1, 1, 1, 12.27030957, 0.517313417, 187.0018316, 31.05054804, 439.3447699, 23.39339414, 9.134254356, 1800.799158, 7.746217501, 0.124234627};
-	ClickResponse.response(userInput);
+//	double[] userInput = {65.43, 0, 1, 0, 1, 1, 1, 12.27030957, 0.517313417, 187.0018316, 31.05054804, 439.3447699, 23.39339414, 9.134254356, 1800.799158, 7.746217501, 0.124234627};
+//	ClickResponse.response(userInput);
     }
 }
