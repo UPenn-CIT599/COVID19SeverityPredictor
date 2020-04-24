@@ -1,4 +1,6 @@
 
+import java.text.DecimalFormat;
+
 import weka.core.Instances;
 
 /**
@@ -32,8 +34,10 @@ public class ClickResponse {
 	double risk_score = WekaPipeline.predictOnUserInput(testing);
 	
 	System.out.println("Risk Score: " + Double.toString(risk_score));
-
-	return risk_score;
+	
+	DecimalFormat twoDForm = new DecimalFormat("#.##");
+	return Double.valueOf(twoDForm.format(risk_score));
+	//return risk_score;
     }
 
 }

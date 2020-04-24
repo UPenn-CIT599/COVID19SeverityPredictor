@@ -122,8 +122,12 @@ public class WekaPipeline {
     public static double predictOnUserInput(Instances testing) throws Exception {
 	double risk_score = 0.0;
 	
-	Classifier bestModel = WekaClassifier.train();
+//	Classifier bestModel = WekaClassifier.train();
 	
+	String modelPath = "mlp.model"; 
+	//load model
+        Classifier bestModel = (Classifier) weka.core.SerializationHelper.read(modelPath);
+
 	System.out.println("best model selected: " + bestModel.getClass().getSimpleName());
 	System.out.println("Starting classification");
 	
@@ -145,21 +149,21 @@ public class WekaPipeline {
         String distribution="";
         for(int i=0; i <percentage.length; i=i+1)
         {
-            System.out.println(i); 
+            //System.out.println(i); 
             if(i==myValue)
             {
-        	System.out.println("Percentage is: " + Double.toString(percentage[i]));
+        	//System.out.println("Percentage is: " + Double.toString(percentage[i]));
                 distribution=distribution+"*"+Double.toString(percentage[i])+",";
             }
             else
             {
-        	System.out.println("Percentage is: " + Double.toString(percentage[i]));
+        	//System.out.println("Percentage is: " + Double.toString(percentage[i]));
                 distribution=distribution+Double.toString(percentage[i])+",";
             }
         }
         distribution=distribution.substring(0, distribution.length()-1);
 
-        System.out.println("Distribution:"+ distribution);
+        //System.out.println("Distribution:"+ distribution);
 
 	return risk_score;
     }

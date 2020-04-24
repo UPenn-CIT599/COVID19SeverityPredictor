@@ -141,13 +141,13 @@ public class WekaClassifier {
     public static Classifier train() throws Exception {
 	Classifier[] models = WekaClassifier.getModels();
 	
-//	Double[] scores = WekaPipeline.pipeline();
-//	int bestModel_idx = WekaPipeline.selectBestModel(scores, models);
+	Double[] scores = WekaPipeline.pipeline();
+	int bestModel_idx = WekaPipeline.selectBestModel(scores, models);
 
 	Instances data = WekaPipeline.readData();
-	Classifier bestModel = models[0];
-//	Classifier bestModel = models[bestModel_idx];
+	Classifier bestModel = models[bestModel_idx];
 	bestModel.buildClassifier(data); 
+	weka.core.SerializationHelper.write("mlp.model", bestModel);
 	return bestModel;
     } 
 }
