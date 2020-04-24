@@ -1,5 +1,7 @@
+import org.jfree.ui.RefineryUtilities;
+
 /**
- * Driver class for the COVID19 risk predictor
+ * Driver class for the COVID19 prognosticator
  * @author cbusc
  *
  */
@@ -10,5 +12,15 @@ public class Runner {
 	 */
 	public static void main(String[] args)
 	{
+		RiskFactorReader.readCSV();
+		PatientGenerator.generatePatients();
+		DataAnalysis.initializePatients();
+		WriteToCSV.write();
+
+		StackedBarChart chart = new StackedBarChart("Relationship Between Patient Characteristics at Admission and COVID-19 Mortality");
+		//BarChart inherits .pack() and .setVisible() from the Window class
+		chart.pack();
+		RefineryUtilities.centerFrameOnScreen(chart);
+		chart.setVisible(true);
 	}
 }

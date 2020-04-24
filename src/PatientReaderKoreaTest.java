@@ -1,62 +1,56 @@
-import static org.junit.jupiter.api.Assertions.*;
+//import static org.junit.jupiter.api.Assertions.*;
+//
+//import org.junit.jupiter.api.Test;
+//
+//import junit.framework.Assert;
+///**
+// * Companion test class for the PatientReaderKorea class
+// * @author cbusc
 
-import org.junit.jupiter.api.Test;
-
-import junit.framework.Assert;
-/**
- * Companion test class for the PatientReaderKorea class
- * @author cbusc
- *
- */
-class PatientReaderKoreaTest {
-
-	@Test
-	void testGenderInput()
-	{
-		PatientReaderKorea.readCSV();
-		String expected = "female";
-		assertEquals(expected, PatientReaderKorea.getPatients().get(1000).getGender());
-	}
-	
-	@Test
-	void testAgeInput()
-	{
-		PatientReaderKorea.readCSV();
-		int expected = 40;
-		assertEquals(expected, PatientReaderKorea.getPatients().get(2246).getAge());
-	}
-	
-	@Test
-	void testAgeAsDecadeInput()
-	{
-		PatientReaderKorea.readCSV();
-		String expected = "20s";
-		assertEquals(expected, PatientReaderKorea.getPatients().get(2433).getAgeAsDecade());
-	}
-	
-	@Test
-	void testComorbidInput()
-	{
-		PatientReaderKorea.readCSV();
-		Boolean expected = true;
-		assertEquals(expected, PatientReaderKorea.getPatients().get(851).getComorbid());
-	}
-	
-	@Test
-	void testSymptomOnsetDateInput()
-	{
-		PatientReaderKorea.readCSV();
-		String expected = "";
-		assertEquals(expected, PatientReaderKorea.getPatients().get(240).getSymptomOnsetDate());
-	}
-
-	@Test
-	void testStateInput()
-	{
-		PatientReaderKorea.readCSV();
-		String expected = "deceased";
-		assertEquals(expected, PatientReaderKorea.getPatients().get(504).getState());
-	}
-
-}
-
+//  4/23 NEED TO UPDATE AFTER INCEPTION OF PATIENTGENERATOR CLASS
+// *
+// */
+//class PatientReaderKoreaTest {
+//
+//	@Test
+//	void testGenderInput()
+//	{
+//		PatientGenerator.generatePatients();
+//		String expected = "female";
+//		assertEquals(expected, PatientGenerator.getPatients().get(1000).getGender());
+//	}
+//	
+//	@Test
+//	void testAgeInput()
+//	{
+//		PatientGenerator.generatePatients();
+//		int expected = 40;
+//		assertEquals(expected, PatientGenerator.getPatients().get(2246).getAge());
+//	}
+//	
+//	@Test
+//	void testAgeAsDecadeInput()
+//	{
+//		PatientGenerator.generatePatients();
+//		String expected = "20s";
+//		assertEquals(expected, PatientGenerator.getPatients().get(2433).getAgeAsDecade());
+//	}
+//	
+//	@Test
+//	void testComorbidInput()
+//	{
+//		PatientGenerator.generatePatients();
+//		Boolean expected = true;
+//		assertEquals(expected, PatientGenerator.getPatients().get(851).isComorbid());
+//	}
+//
+//	@Test
+//	void testStateInput()
+//	{
+//		PatientGenerator.generatePatients();
+//		String expected = "deceased";
+//		assertEquals(expected, PatientGenerator.getPatients().get(504).getOutcome());
+//	}
+//
+//}
+//
