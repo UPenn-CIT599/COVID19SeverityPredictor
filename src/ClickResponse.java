@@ -13,12 +13,7 @@ import weka.core.Utils;
  *
  */
 public class ClickResponse {
-    
-	public ClickResponse() {
-		
-	}
-	
-	
+    	
 	/**
 	 * when user clicked the "calculation" button, this method will call UserInformationCollector
 	 * first, pass the array into classifier. Then call GraphGenerator to display the final result.
@@ -27,11 +22,13 @@ public class ClickResponse {
 	 * @return
 	 */
 	@SuppressWarnings("deprecation")
-	public double response(double[] userInput) throws Exception {
+	public static double response(Object[] userInput) throws Exception {
 	    FastVector attributes;
 	    FastVector attAge;
+	    FastVector attAgeNum;
+	    FastVector attGender;
 	    FastVector attClass;
-	    FastVector attInfection;
+	    FastVector attExposure;
 	    FastVector attComorbid;
 	    Instances testing;
 	    double[] values;
@@ -39,7 +36,18 @@ public class ClickResponse {
 	    // 1. set up attributes
 	    attributes = new FastVector();
 	    
+	    //age as decade
+	    attGender = new FastVector();
+	    attGender.addElement("male");
+	    attGender.addElement("female");
+	    attributes.addElement(new Attribute("gender", attGender));
+	    
+	    
 	    //age
+	    attAgeNum = new FastVector();
+	    attributes.addElement(new Attribute("ageAsNum", attAgeNum));
+	    
+	    //age as decade
 	    attAge = new FastVector();
 	    attAge.addElement("10s");
 	    attAge.addElement("20s");
@@ -50,23 +58,26 @@ public class ClickResponse {
 	    attAge.addElement("70s");
 	    attAge.addElement("80s");
 	    attAge.addElement("90s");
-	    attributes.addElement(new Attribute("age", attAge));
+	    attributes.addElement(new Attribute("ageAsDecade", attAge));
 	    
-	    //state
+	    //HealthcareRelatedExposure
+	    attExposure = new FastVector();
+	    attExposure.addElement("FALSE");
+	    attExposure.addElement("TRUE");
+	    attributes.addElement(new Attribute("exposure", attExposure));
+	    
+	    //comorbid
+	    attComorbid = new FastVector();
+	    attComorbid.addElement("FALSE");
+	    attComorbid.addElement("TRUE");
+	    attributes.addElement(new Attribute("comorbid", attComorbid));
+	    
+	    //class
 	    attClass = new FastVector();
 	    attClass.addElement("released");
 	    attClass.addElement("isolated");
 	    attClass.addElement("deceased");
-	    attributes.addElement(new Attribute("state", attClass));
-	    
-	    //Infection
-	    attInfection = new FastVector();
-	    attributes.addElement(new Attribute("infection_case", attInfection));
-	    
-	    //age
-	    attComorbid = new FastVector();
-	    
-	    attributes.addElement(new Attribute("comorbid", attComorbid));
+	    attributes.addElement(new Attribute("class", attClass));
 	    
 	    double risk_score = 0.0;
 	    
@@ -77,12 +88,16 @@ public class ClickResponse {
 	    values = new double[testing.numAttributes()];
 	    
 	    for (int i=0; i < userInput.length; i++) {
-		if (i==2) {
+		if (i==0) {
+		    values[i] = attGender.indexOf(userInput[i]);
+		} else if (i==2) {
 		    values[i] = attAge.indexOf(userInput[i]);
 		} else if (i==3) {
-		    values[i] = attClass.indexOf(userInput[i]);
-		} else {
-		    values[i] = userInput[i];
+		    values[i] = attComorbid.indexOf(userInput[i]);
+		}else if (i==4) {
+		    values[i] = attExposure.indexOf(userInput[i]);
+		}else {
+		    values[i] = (double) userInput[i];
 		}
 		
 	    }
@@ -94,8 +109,13 @@ public class ClickResponse {
 	    Classifier[] models = WekaClassifier.getModels();
 	    Classifier bestModel = WekaPipeline.selectBestModel(scores, models);
 	    
+	    System.out.println("best model done, now classify");
+	    
 	    // perform prediction
 	    double myValue = bestModel.classifyInstance(testing.lastInstance());
+	    
+	    System.out.println("classification done, now predict");
+	    
 	    // get the name of class value
 	    String prediction = testing.classAttribute().value((int) myValue);
 	    

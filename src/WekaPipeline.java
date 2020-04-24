@@ -26,7 +26,7 @@ public class WekaPipeline {
 	    	//loader.setSource(new File("filename.csv"));
 	    	//Instances trainingDataSet = loader.getDataSet();
 	    	
-	    	DataSource source = new DataSource("PatientInfo.csv");
+	    	DataSource source = new DataSource("PatientInfoClean.csv");
 	    	Instances data = source.getDataSet();
 
 		// Instances data = new Instances(datafile);
@@ -112,5 +112,6 @@ public class WekaPipeline {
 	    risk_score = predictions.size();
 	    return risk_score;
 	}
+	
 	
 }
