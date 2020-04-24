@@ -17,9 +17,9 @@ public class ClickResponse {
 	 * @param userInfo
 	 * @return
 	 */
-public double response(int[] userInfo){
-		double risk_score = 1.0;
-	    for (int i : userInfo) {
+public double response(double[] userInfo){
+		double risk_score = 0.0;
+	    for (double i : userInfo) {
 			risk_score += i;
 		}
 	    return risk_score;
