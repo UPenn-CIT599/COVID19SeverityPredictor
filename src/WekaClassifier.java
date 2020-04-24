@@ -107,13 +107,13 @@ public class WekaClassifier {
 
 	// Use a set of classifiers
 	Classifier[] models = { 
-		new J48(), // a decision tree
-		new PART(), 
-		new DecisionTable(),//decision table majority classifier
-		new DecisionStump(), //one-level decision tree
-		new NaiveBayes(),
-		rf,
-		new SimpleLogistic(),
+//		new J48(), // a decision tree
+//		new PART(), 
+//		new DecisionTable(),//decision table majority classifier
+//		new DecisionStump(), //one-level decision tree
+//		new NaiveBayes(),
+//		rf,
+//		new SimpleLogistic(),
 		mlp
 
 	};
@@ -131,11 +131,23 @@ public class WekaClassifier {
      * @return
      * @throws Exception
      */
-    public static Evaluation predict(Classifier model, Evaluation evaluation,
-	    Instances testingSet) throws Exception {
+    public static double predict(Classifier model,
+	    Instances testing) throws Exception {
 
-	evaluation.evaluateModel(model, testingSet);
-
-	return evaluation;
+	double myValue = model.classifyInstance(testing.lastInstance());
+	return myValue;
     }
+    
+    public static Classifier train() throws Exception {
+	Classifier[] models = WekaClassifier.getModels();
+	
+//	Double[] scores = WekaPipeline.pipeline();
+//	int bestModel_idx = WekaPipeline.selectBestModel(scores, models);
+
+	Instances data = WekaPipeline.readData();
+	Classifier bestModel = models[0];
+//	Classifier bestModel = models[bestModel_idx];
+	bestModel.buildClassifier(data); 
+	return bestModel;
+    } 
 }

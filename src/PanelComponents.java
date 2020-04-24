@@ -66,7 +66,7 @@ public class PanelComponents extends JFrame implements ActionListener{
     private JTextField  procalcitoninText;
 
     private JButton calculateButton;
-    Object[] userInfo = new Object[17];
+    double[] userInfo = new double[17];
 
     /**
      * This method create a JFrame and a JPanel. Then add components like label, text area, button, radio Button to the panel. 
@@ -351,7 +351,7 @@ public class PanelComponents extends JFrame implements ActionListener{
      * int[4] = Days since symptom onset.
      * int[5] = Days since tested positive.
      */
-    public Object[] collect() {
+    public double[] collect() {
 
 	String ageString = new String();
 	int Gender = 1;
