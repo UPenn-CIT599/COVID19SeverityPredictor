@@ -1,45 +1,43 @@
-import weka.classifiers.Classifier;
+
+import java.text.DecimalFormat;
+
 import weka.core.Instances;
 
 /**
- * Class to connect user response on click to classifier
- * Returns risk score
+ * Class to connect user response on click to classifier Returns risk score
+ * 
  * @author 1Air
  *
  */
 public class ClickResponse {
-	public ClickResponse() {
-		
-	}
+
+
+    /**
+     * when user clicks the "calculate" button, 
+     * submitted data is pre-processed, converted 
+     * an array of doubles and passed to the classifier
+     * to return a response.
+     * @param userInput
+     * @throws Exception
+     * @return
+     */
+    public static double response(double[] userInput) throws Exception {
+	System.out.println("Got User Response");
+	System.out.println("Begin risk score computation...");
+	System.out.println("Converting User Response to Instance...");
 	
-	/**
-	 * Just an example. This method will be replaced by Tobi's classifier.
-	 * @param userInfo
-	 * @return
-	 */
-public double response(double[] userInfo){
-		double risk_score = 0.0;
-	    for (double i : userInfo) {
-			risk_score += i;
-		}
-	    return risk_score;
-	}
+	Instances testing = WekaPipeline.userInputToInstance(userInput);
 	
+	System.out.println("Done converting");
+	System.out.println("Starting Prediction Pipeline...");
 	
+	double risk_score = WekaPipeline.predictOnUserInput(testing);
 	
-	/**
-	 * when user clicked the "calculation" button, this method will call UserInformationCollector
-	 * first, pass the array into classifier. Then call GraphGenerator to display the final result.
-	 * @param userInput 
-	 * @throws Exception 
-	 * @return
-	 */
-//	public double response(Instances userInput) throws Exception {
-//	    double risk_score = 0.0;
-//	    Double[] scores = WekaPipeline.pipeline();
-//	    Classifier[] models = WekaClassifier.getModels();
-//	    Classifier bestModel = WekaPipeline.selectBestModel(scores, models);
-//	    risk_score = WekaPipeline.predictOnUserInput(bestModel, userInput, null);
-//	    return risk_score;
-//	}
+	System.out.println("Risk Score: " + Double.toString(risk_score));
+	
+	DecimalFormat twoDForm = new DecimalFormat("#.##");
+	return Double.valueOf(twoDForm.format(risk_score));
+	//return risk_score;
+    }
+
 }
