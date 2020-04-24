@@ -1,3 +1,5 @@
+import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Arrays;
@@ -10,6 +12,8 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
+import org.jfree.ui.RefineryUtilities;
+
 
 public class PanelComponents extends JFrame implements ActionListener{
 
@@ -18,6 +22,7 @@ public class PanelComponents extends JFrame implements ActionListener{
      */
     private JFrame frame;
     private JPanel panel;
+    private JLabel title;
     private JLabel ageLabel;
     private JTextField ageText;
     private JLabel genderLabel;
@@ -46,24 +51,36 @@ public class PanelComponents extends JFrame implements ActionListener{
     private ButtonGroup bgXray;
     private JLabel whiteCellLabel;
     private JTextField whiteCellText;
+    private JLabel whiteCellNormalRange;
     private JLabel lymphocyteLabel;
     private JTextField lymphocyteText;
+    private JLabel lymphocyteRange;
     private JLabel plateletsLabel;
     private JTextField plateletsText;
+    private JLabel plateletsRange;
     private JLabel albuminLabel;
     private JTextField albuminText;
+    private JLabel albuminRange;
     private JLabel lactateLabel;
     private JTextField lactateText;
+    private JLabel lactateRange;
     private JLabel troponinLabel;
     private JTextField troponinText;
+    private JLabel troponinRange;
     private JLabel dDimerLabel;
     private JTextField dDimerText;
+    private JLabel dDimerRange;
     private JLabel ferritinLabel;
     private JTextField ferritinText;
+    private JLabel ferritinRange;
     private JLabel IL6Label;
     private JTextField IL6Text;
+    private JLabel IL6Range;
     private JLabel  procalcitoninLabel;
     private JTextField  procalcitoninText;
+    private JLabel procalcitoninRange;
+    private JLabel referenceRange;
+    private JLabel laboratoryTest;
 
     private JButton calculateButton;
     double[] userInfo = new double[17];
@@ -74,11 +91,11 @@ public class PanelComponents extends JFrame implements ActionListener{
     public void placeComponents() {
 
 	// Create JFrame
-	frame = new JFrame("COVID19 morality predictor");
+	frame = new JFrame("COVID19 severity predictor");
 	// Setting the width and height of frame
 	frame.setSize(450, 700);
 	frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
+	
 	/* 
 	 * Create a panel
 	 */
@@ -99,9 +116,16 @@ public class PanelComponents extends JFrame implements ActionListener{
 	 * Didn't use any special layout
 	 */
 	panel.setLayout(null);
+	
+//	//Title of tool
+//	title = new JLabel("Calculate your patient's COVID-19 severity score by entering data below."
+//			+ "If unavailable, leave the entry blank.");
+//	ageLabel.setBounds(10,20,80,25);
+//	title.setHorizontalAlignment(JLabel.CENTER);
+//	panel.add(title);
 
 	// create label for age
-	ageLabel = new JLabel("Age (years):");
+	ageLabel = new JLabel("Age (years)");
 	/* 
 	 * Set the size and position of label
 	 */
@@ -120,7 +144,7 @@ public class PanelComponents extends JFrame implements ActionListener{
 	/**
 	 * Create label for gender
 	 */
-	genderLabel = new JLabel("Gender:");
+	genderLabel = new JLabel("Gender");
 	genderLabel.setBounds(10,50,80,25);
 	panel.add(genderLabel);
 
@@ -152,7 +176,7 @@ public class PanelComponents extends JFrame implements ActionListener{
 	/**
 	 * History of chronic disease
 	 */
-	chronicLabel = new JLabel("History of chronic disease:");
+	chronicLabel = new JLabel("History of chronic disease");
 	chronicLabel.setBounds(10,80,200,25);
 	panel.add(chronicLabel);
 	rChronicDiseaseY = new JRadioButton("Yes");
@@ -168,7 +192,7 @@ public class PanelComponents extends JFrame implements ActionListener{
 	/**
 	 * Current smoker
 	 */
-	smokerLabel = new JLabel("Current smoker:");
+	smokerLabel = new JLabel("Current smoker");
 	smokerLabel.setBounds(10,110,200,25);
 	panel.add(smokerLabel);
 	smokerY = new JRadioButton("Yes");
@@ -184,7 +208,7 @@ public class PanelComponents extends JFrame implements ActionListener{
 	/**
 	 * Respiratory Rate > 24
 	 */
-	respiratoryRateLabel = new JLabel("Respiratory Rate > 24:");
+	respiratoryRateLabel = new JLabel("Respiratory Rate > 24");
 	respiratoryRateLabel.setBounds(10,140,200,25);
 	panel.add(respiratoryRateLabel);
 	respiratoryRateY = new JRadioButton("Yes");
@@ -200,7 +224,7 @@ public class PanelComponents extends JFrame implements ActionListener{
 	/**
 	 * Temperature > 37.3 C
 	 */
-	temperatureLabel = new JLabel("Temperature > 37.3 C:");
+	temperatureLabel = new JLabel("Temperature > 37.3 C");
 	temperatureLabel.setBounds(10,170,200,25);
 	panel.add(temperatureLabel);
 	temperatureY = new JRadioButton("Yes");
@@ -216,7 +240,7 @@ public class PanelComponents extends JFrame implements ActionListener{
 	/**
 	 * Ground glass opacity on chest x-ray
 	 */
-	xrayLabel = new JLabel("Ground glass opacity on chest x-ray:");
+	xrayLabel = new JLabel("Ground glass opacity on chest x-ray");
 	xrayLabel.setBounds(10,200,220,25);
 	panel.add(xrayLabel);
 	xrayY = new JRadioButton("Yes");
@@ -228,115 +252,169 @@ public class PanelComponents extends JFrame implements ActionListener{
 	bgXray.add(xrayN);
 	panel.add(xrayY);
 	panel.add(xrayN);
+	
+	/**
+	 * Laboratory test header
+	 */
+	laboratoryTest = new JLabel("Laboratory tests:");
+	laboratoryTest.setBounds(10, 230, 200, 25);
+	laboratoryTest.setFont(new Font(null, Font.BOLD, 12));
+	panel.add(laboratoryTest);
+	
+	
+	/**
+	 * Reference ranges header
+	 */
+	referenceRange = new JLabel("(Reference range)");
+	referenceRange.setBounds(320, 230, 200, 25);
+	referenceRange.setFont(new Font(null, Font.BOLD, 12));
+	panel.add(referenceRange);
 
 	/**
 	 * White blood cell count
 	 */
-	whiteCellLabel = new JLabel("White blood cell count:");
-	whiteCellLabel.setBounds(10,230,200,25);
+	whiteCellLabel = new JLabel("White blood cell count, x 10 ^ 9 per L");
+	whiteCellLabel.setBounds(10,260,220,25);
 	panel.add(whiteCellLabel);
 	whiteCellText = new JTextField(20);
-	whiteCellText.setBounds(240,230,60,25);
+	whiteCellText.setBounds(240,260,60,25);
 	panel.add(whiteCellText);
+	whiteCellNormalRange = new JLabel("(4-10)");
+	whiteCellNormalRange.setBounds(320, 260, 200, 25);
+	panel.add(whiteCellNormalRange);
 
 	/**
 	 * Lymphocyte count
 	 */
-	lymphocyteLabel = new JLabel("Lymphocyte count:");
-	lymphocyteLabel.setBounds(10,260,200,25);
+	lymphocyteLabel = new JLabel("Lymphocyte count, x 10 ^ 9 / L)");
+	lymphocyteLabel.setBounds(10,290,200,25);
 	panel.add(lymphocyteLabel);
 	lymphocyteText = new JTextField(20);
-	lymphocyteText.setBounds(240,260,60,25);
+	lymphocyteText.setBounds(240,290,60,25);
 	panel.add(lymphocyteText);
+	lymphocyteRange = new JLabel("(< 1.0)");
+	lymphocyteRange.setBounds(320, 290, 200, 25);
+	panel.add(lymphocyteRange);
 
 	/**
 	 * Platelets
 	 */
-	plateletsLabel = new JLabel("Platelets:");
-	plateletsLabel.setBounds(10,290,200,25);
+	plateletsLabel = new JLabel("Platelets, x 10 ^ 9 / L");
+	plateletsLabel.setBounds(10,320,200,25);
 	panel.add(plateletsLabel);
 	plateletsText = new JTextField(20);
-	plateletsText.setBounds(240,290,60,25);
+	plateletsText.setBounds(240,320,60,25);
 	panel.add(plateletsText);
+	plateletsRange = new JLabel("(150000 - 350000)");
+	plateletsRange.setBounds(320, 320, 200, 25);
+	panel.add(plateletsRange);
 
 	/**
 	 * Albumin
 	 */
-	albuminLabel = new JLabel("Albumin:");
-	albuminLabel.setBounds(10,320,200,25);
+	albuminLabel = new JLabel("Albumin, g/L");
+	albuminLabel.setBounds(10,350,200,25);
 	panel.add(albuminLabel);
 	albuminText = new JTextField(20);
-	albuminText.setBounds(240,320,60,25);
+	albuminText.setBounds(240,350,60,25);
 	panel.add(albuminText);
+	albuminRange = new JLabel("(3.5 - 5)");
+	albuminRange.setBounds(320, 350, 200, 25);
+	panel.add(albuminRange);
 
 	/**
 	 * Lactate dehydrogenase
 	 */
-	lactateLabel = new JLabel("Lactate dehydrogenase:");
-	lactateLabel.setBounds(10,350,200,25);
+	lactateLabel = new JLabel("Lactate dehydrogenase, U/L");
+	lactateLabel.setBounds(10,380,200,25);
 	panel.add(lactateLabel);
 	lactateText = new JTextField(20);
-	lactateText.setBounds(240,350,60,25);
+	lactateText.setBounds(240,380,60,25);
 	panel.add(lactateText);
+	lactateRange = new JLabel("(50 - 150)");
+	lactateRange.setBounds(320, 380, 200, 25);
+	panel.add(lactateRange);
 
 	/**
 	 * Troponin I
 	 */
-	troponinLabel = new JLabel("Troponin I:");
-	troponinLabel.setBounds(10,380,200,25);
+	troponinLabel = new JLabel("Troponin I, pg/mL");
+	troponinLabel.setBounds(10,410,200,25);
 	panel.add(troponinLabel);
 	troponinText = new JTextField(20);
-	troponinText.setBounds(240,380,60,25);
+	troponinText.setBounds(240,410,60,25);
 	panel.add(troponinText);
+	troponinRange = new JLabel("(< 1.0)");
+	troponinRange.setBounds(320, 410, 200, 25);
+	panel.add(troponinRange);
+	
+
 
 	/**
 	 * D-dimer
 	 */
-	dDimerLabel = new JLabel("D-dimer:");
-	dDimerLabel.setBounds(10,410,200,25);
+	dDimerLabel = new JLabel("D-dimer, ug/mL");
+	dDimerLabel.setBounds(10,440,200,25);
 	panel.add(dDimerLabel);
 	dDimerText = new JTextField(20);
-	dDimerText.setBounds(240,410,60,25);
+	dDimerText.setBounds(240,440,60,25);
 	panel.add(dDimerText);
+	dDimerRange = new JLabel("(< 0.5)");
+	dDimerRange.setBounds(320, 440, 200, 25);
+	panel.add(dDimerRange);
 
 	/**
 	 * Ferritin
 	 */
-	ferritinLabel = new JLabel("Ferritin:");
-	ferritinLabel.setBounds(10,440,200,25);
+	ferritinLabel = new JLabel("Ferritin, ug/mL");
+	ferritinLabel.setBounds(10,470,200,25);
 	panel.add(ferritinLabel);
 	ferritinText = new JTextField(20);
-	ferritinText.setBounds(240,440,60,25);
+	ferritinText.setBounds(240,470,60,25);
 	panel.add(ferritinText);
+	ferritinRange = new JLabel("(0.012 - 0.3)");
+	ferritinRange.setBounds(320, 470, 200, 25);
+	panel.add(ferritinRange);
 
 	/**
 	 * IL-6
 	 */
-	IL6Label = new JLabel("IL-6:");
-	IL6Label.setBounds(10,470,200,25);
+	IL6Label = new JLabel("IL-6, pg/mL");
+	IL6Label.setBounds(10,500,200,25);
 	panel.add(IL6Label);
 	IL6Text = new JTextField(20);
-	IL6Text.setBounds(240,470,60,25);
+	IL6Text.setBounds(240,500,60,25);
 	panel.add(IL6Text);
-
+	IL6Range = new JLabel("(< 10)");
+	IL6Range.setBounds(320, 500, 200, 25);
+	panel.add(IL6Range);
+	
 	/**
 	 * Procalcitonin
 	 */
-	procalcitoninLabel = new JLabel("Procalcitonin:");
-	procalcitoninLabel.setBounds(10,500,200,25);
+	procalcitoninLabel = new JLabel("Procalcitonin, ng/mL");
+	procalcitoninLabel.setBounds(10,530,200,25);
 	panel.add(procalcitoninLabel);
 	procalcitoninText = new JTextField(20);
-	procalcitoninText.setBounds(240,500,60,25);
+	procalcitoninText.setBounds(240,530,60,25);
 	panel.add(procalcitoninText);
-
+	procalcitoninRange = new JLabel("(0.1 - 0.49)");
+	procalcitoninRange.setBounds(320, 530, 200, 25);
+	panel.add(procalcitoninRange);
 
 	/**
 	 * Calculate
 	 */
 	calculateButton = new JButton("Calculate");
-	calculateButton.setBounds(150, 560, 100, 25);
+	calculateButton.setBounds(190, 590, 100, 25);
 	calculateButton.addActionListener(this);
 	panel.add(calculateButton);
+	
+	//Sets minimum frame size to the parameterized dimension
+	Dimension d = new Dimension(500, 400);
+	frame.setMinimumSize(d);
+	//Center frame on screen
+	RefineryUtilities.centerFrameOnScreen(frame);
     }
 
 
