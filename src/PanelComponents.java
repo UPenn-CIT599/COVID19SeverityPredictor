@@ -147,42 +147,24 @@ public class PanelComponents extends JFrame implements ActionListener{
         panel.add(rMale);
         panel.add(rFemale);
         
-      //History of chronic disease
         /**
-         * Create label for gender
+         * History of chronic disease
          */
         chronicLabel = new JLabel("History of chronic disease:");
         chronicLabel.setBounds(10,80,200,25);
         panel.add(chronicLabel);
-        /**
-         * Create radio button for ChronicDisease
-         */
         rChronicDiseaseY = new JRadioButton("Yes");
         rChronicDiseaseN = new JRadioButton("No");
-        
-        /**
-         * Set the size and position of buttons
-         */
         rChronicDiseaseY.setBounds(240, 80, 80, 25);
         rChronicDiseaseN.setBounds(320, 80, 80, 25);
-        
-        /**
-         * Group the buttons, so that only one in the group can be selected
-         */
         bgChronic = new ButtonGroup();
         bgChronic.add(rChronicDiseaseY);
         bgChronic.add(rChronicDiseaseN);
-        
-        /**
-         * Add button to the panel
-         */
         panel.add(rChronicDiseaseY);
         panel.add(rChronicDiseaseN);
         
-
-      //Healthcare-related exposure
         /**
-         * Create label for gender
+         * Current smoker
          */
         smokerLabel = new JLabel("Current smoker:");
         smokerLabel.setBounds(10,110,200,25);
@@ -197,6 +179,9 @@ public class PanelComponents extends JFrame implements ActionListener{
         panel.add(smokerY);
         panel.add(smokerN);
         
+        /**
+         * Respiratory Rate > 24
+         */
         respiratoryRateLabel = new JLabel("Respiratory Rate > 24:");
         respiratoryRateLabel.setBounds(10,140,200,25);
         panel.add(respiratoryRateLabel);
@@ -210,6 +195,9 @@ public class PanelComponents extends JFrame implements ActionListener{
         panel.add(respiratoryRateY);
         panel.add(respiratoryRateN);
         
+        /**
+         * Temperature > 37.3 C
+         */
         temperatureLabel = new JLabel("Temperature > 37.3 C:");
         temperatureLabel.setBounds(10,170,200,25);
         panel.add(temperatureLabel);
@@ -223,6 +211,9 @@ public class PanelComponents extends JFrame implements ActionListener{
         panel.add(temperatureY);
         panel.add(temperatureN);
         
+        /**
+         * Ground glass opacity on chest x-ray
+         */
         xrayLabel = new JLabel("Ground glass opacity on chest x-ray:");
         xrayLabel.setBounds(10,200,220,25);
         panel.add(xrayLabel);
@@ -236,6 +227,9 @@ public class PanelComponents extends JFrame implements ActionListener{
         panel.add(xrayY);
         panel.add(xrayN);
         
+        /**
+         * White blood cell count
+         */
         whiteCellLabel = new JLabel("White blood cell count:");
         whiteCellLabel.setBounds(10,230,200,25);
         panel.add(whiteCellLabel);
@@ -243,6 +237,9 @@ public class PanelComponents extends JFrame implements ActionListener{
         whiteCellText.setBounds(240,230,60,25);
         panel.add(whiteCellText);
         
+        /**
+         * Lymphocyte count
+         */
         lymphocyteLabel = new JLabel("Lymphocyte count:");
         lymphocyteLabel.setBounds(10,260,200,25);
         panel.add(lymphocyteLabel);
@@ -250,6 +247,9 @@ public class PanelComponents extends JFrame implements ActionListener{
         lymphocyteText.setBounds(240,260,60,25);
         panel.add(lymphocyteText);
         
+        /**
+         * Platelets
+         */
         plateletsLabel = new JLabel("Platelets:");
         plateletsLabel.setBounds(10,290,200,25);
         panel.add(plateletsLabel);
@@ -257,6 +257,9 @@ public class PanelComponents extends JFrame implements ActionListener{
         plateletsText.setBounds(240,290,60,25);
         panel.add(plateletsText);
         
+        /**
+         * Albumin
+         */
         albuminLabel = new JLabel("Albumin:");
         albuminLabel.setBounds(10,320,200,25);
         panel.add(albuminLabel);
@@ -264,6 +267,9 @@ public class PanelComponents extends JFrame implements ActionListener{
         albuminText.setBounds(240,320,60,25);
         panel.add(albuminText);
         
+        /**
+         * Lactate dehydrogenase
+         */
         lactateLabel = new JLabel("Lactate dehydrogenase:");
         lactateLabel.setBounds(10,350,200,25);
         panel.add(lactateLabel);
@@ -271,6 +277,9 @@ public class PanelComponents extends JFrame implements ActionListener{
         lactateText.setBounds(240,350,60,25);
         panel.add(lactateText);
         
+        /**
+         * Troponin I
+         */
         troponinLabel = new JLabel("Troponin I:");
         troponinLabel.setBounds(10,380,200,25);
         panel.add(troponinLabel);
@@ -278,6 +287,9 @@ public class PanelComponents extends JFrame implements ActionListener{
         troponinText.setBounds(240,380,60,25);
         panel.add(troponinText);
         
+        /**
+         * D-dimer
+         */
         dDimerLabel = new JLabel("D-dimer:");
         dDimerLabel.setBounds(10,410,200,25);
         panel.add(dDimerLabel);
@@ -285,6 +297,9 @@ public class PanelComponents extends JFrame implements ActionListener{
         dDimerText.setBounds(240,410,60,25);
         panel.add(dDimerText);
         
+        /**
+         * Ferritin
+         */
         ferritinLabel = new JLabel("Ferritin:");
         ferritinLabel.setBounds(10,440,200,25);
         panel.add(ferritinLabel);
@@ -292,6 +307,9 @@ public class PanelComponents extends JFrame implements ActionListener{
         ferritinText.setBounds(240,440,60,25);
         panel.add(ferritinText);
         
+        /**
+         * IL-6
+         */
         IL6Label = new JLabel("IL-6:");
         IL6Label.setBounds(10,470,200,25);
         panel.add(IL6Label);
@@ -299,6 +317,9 @@ public class PanelComponents extends JFrame implements ActionListener{
         IL6Text.setBounds(240,470,60,25);
         panel.add(IL6Text);
         
+        /**
+        * Procalcitonin
+        */
         procalcitoninLabel = new JLabel("Procalcitonin:");
         procalcitoninLabel.setBounds(10,500,200,25);
         panel.add(procalcitoninLabel);
@@ -307,7 +328,9 @@ public class PanelComponents extends JFrame implements ActionListener{
         panel.add(procalcitoninText);
         
 
-        //Create button
+        /**
+         * Calculate
+         */
         calculateButton = new JButton("Calculate");
         calculateButton.setBounds(150, 560, 100, 25);
         calculateButton.addActionListener(this);
@@ -373,7 +396,7 @@ public class PanelComponents extends JFrame implements ActionListener{
 		}
 		
 		/**
-		 * get user's health-care exposure information
+		 * get user's smoking information
 		 */
 		if( smokerY.isSelected()) {
 			smoker = 1;
@@ -382,6 +405,9 @@ public class PanelComponents extends JFrame implements ActionListener{
 			smoker = 0;
 		}
 		
+		/**
+		 * get user's Respiratory Rate information
+		 */
 		if( respiratoryRateY.isSelected()) {
 			respiratoryRate = 1;
 		}
@@ -389,6 +415,9 @@ public class PanelComponents extends JFrame implements ActionListener{
 			respiratoryRate = 0;
 		}
 		
+		/**
+		 * get user's Temperature information
+		 */
 		if( temperatureY.isSelected()) {
 			temperature = 1;
 		}
@@ -396,6 +425,9 @@ public class PanelComponents extends JFrame implements ActionListener{
 			temperature = 0;
 		}
 		
+		/**
+		 * get user's chest x-ray information
+		 */
 		if( xrayY.isSelected()) {
 			xray = 1;
 		}
@@ -403,37 +435,63 @@ public class PanelComponents extends JFrame implements ActionListener{
 			xray = 0;
 		}
 		
-		
 		/**
-		 * get days since symptom onset
+		 * get user's White blood cell count information
 		 */
 		whiteCellString = whiteCellText.getText();
 		double whiteCell = Double.parseDouble(whiteCellString);
 		
+		/**
+		 * get user's Lymphocyte count information
+		 */
 		lymphocyteString = lymphocyteText.getText();
 		double lymphocytePositive = Double.parseDouble(lymphocyteString);
 		
+		/**
+		 * get user's Platelets information
+		 */
 		plateletsString = plateletsText.getText();
 		double platelets = Double.parseDouble(plateletsString);
 		
+		/**
+		 * get user's Albumin information
+		 */
 		albuminString = albuminText.getText();
 		double albumin = Double.parseDouble(albuminString);
 		
+		/**
+		 * get user's Lactate dehydrogenase information
+		 */
 		lactateString = lactateText.getText();
 		double lactate = Double.parseDouble(lactateString);
 		
+		/**
+		 * get user's Troponin I information
+		 */
 		troponinString = troponinText.getText();
 		double troponin = Double.parseDouble(troponinString);
 		
+		/**
+		 * get user's D-dimer information
+		 */
 		dDimerString = dDimerText.getText();
 		double dDimer = Double.parseDouble(dDimerString);
 		
+		/**
+		 * get user's Ferritin information
+		 */
 		ferritinString = ferritinText.getText();
 		double ferritin = Double.parseDouble(ferritinString);
 		
+		/**
+		 * get user's IL-6 information
+		 */
 		IL6String = IL6Text.getText();
 		double IL6 = Double.parseDouble(IL6String);
 		
+		/**
+		 * get user's Procalcitonin information
+		 */
 		procalcitoninString = procalcitoninText.getText();
 		double procalcitonin = Double.parseDouble(procalcitoninString);
 		
@@ -441,7 +499,7 @@ public class PanelComponents extends JFrame implements ActionListener{
 		
 		
 		/**
-		 * add 6 elements to the array
+		 * add 17 elements to the array
 		 */
 		userInfo[0] = ageInt;
 		userInfo[1] = Double.valueOf(Gender);
@@ -453,7 +511,7 @@ public class PanelComponents extends JFrame implements ActionListener{
 		userInfo[7] = whiteCell;
 		userInfo[8] = lymphocytePositive;
 		userInfo[9] = platelets;
-		userInfo[10] = albumin ;
+		userInfo[10] = albumin;
 		userInfo[11] = lactate;
 		userInfo[12] = troponin;
 		userInfo[13] = dDimer;
