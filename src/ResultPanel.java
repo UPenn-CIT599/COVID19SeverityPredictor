@@ -56,13 +56,13 @@ public class ResultPanel{
         
         riskScoreLabel = new JLabel("The predicted risk of fatality is: ");
         riskScoreLabel.setFont(new Font("Arial", Font.PLAIN, 20));
-        riskScoreLabel.setBounds(100,100,200,100);
+        riskScoreLabel.setBounds(300,100,300,100);
         panel.add(riskScoreLabel);
         
         String scoreString = String.valueOf(score);
         riskScore = new JLabel(scoreString+"%");
-        riskScore.setFont(new Font("Arial", Font.PLAIN, 20));
-        riskScore.setBounds(300,100,200,100);
+        riskScore.setFont(new Font("Arial", Font.PLAIN, 30));
+        riskScore.setBounds(400,150,200,100);
         panel.add(riskScore);
         
         BufferedImage bimg;

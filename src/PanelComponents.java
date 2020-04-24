@@ -34,8 +34,6 @@ public class PanelComponents extends JFrame implements ActionListener{
     private JRadioButton respiratoryRateY;
     private JRadioButton respiratoryRateN;
     private ButtonGroup bgRespiratoryRate;
-    
-    
     private JLabel temperatureLabel;
     private JRadioButton temperatureY;
     private JRadioButton temperatureN;
