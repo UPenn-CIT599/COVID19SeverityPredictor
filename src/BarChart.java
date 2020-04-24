@@ -21,14 +21,14 @@ import org.jfree.ui.RefineryUtilities;
 	 * @author cbusc
 	 *
 	 */
-public class StackedBarChart extends ApplicationFrame 
+public class BarChart extends ApplicationFrame 
 {
 	/**
 	 * Creates a new BarChart instance
 	 * 
 	 * @param title (the frame title)
 	 */
-	public StackedBarChart(String title)
+	public BarChart(String title)
 	{
 		//Superclass constructor
 		super(title);
@@ -51,30 +51,34 @@ public class StackedBarChart extends ApplicationFrame
 	 */
 	private static CategoryDataset createDataset()
 	{
+		Map<String, Double> riskfactorToRelativeRisk = RiskFactorReader.getRiskfactorToRelativeRisk();
 		Map<String, Double> riskfactorToAttributableRisk = RiskFactorReader.getRiskfactorToAttributableRisk();
 		//Row keys
-		String deceased = "Deceased";
-		String recovered = "Recovered";
+		String rr = "Relative Risk";
+		String ar = "Attributable Risk";
 		
 		//Column keys are the mortality risk factors, stored as the hash map keys
 		String comorbidity = "Comorbidity";
 		String currentSmoker = "Current smoker";
 		String rrGreaterThan24 = "Respiratory rate > 24";
 		String tempGreaterThan37 = "Temperature > 37.3";
+		String xray = "Consolidation on x-ray";
 		
 		DefaultCategoryDataset dataset = new DefaultCategoryDataset();
 		
-		//Series1: risk factor to probability of death
-		dataset.addValue((0.5 + riskfactorToAttributableRisk.get(comorbidity)), deceased, comorbidity);
-		dataset.addValue((0.5 + riskfactorToAttributableRisk.get(currentSmoker)), deceased, currentSmoker);
-		dataset.addValue((0.5 + riskfactorToAttributableRisk.get(rrGreaterThan24)), deceased, rrGreaterThan24);
-		dataset.addValue((0.5 + riskfactorToAttributableRisk.get(tempGreaterThan37)), deceased, tempGreaterThan37);
+		//Series1: risk factor to relative risk of mortality
+		dataset.addValue((riskfactorToRelativeRisk.get(comorbidity)), rr, comorbidity);
+		dataset.addValue((riskfactorToRelativeRisk.get(currentSmoker)), rr, currentSmoker);
+		dataset.addValue((riskfactorToRelativeRisk.get(rrGreaterThan24)), rr, rrGreaterThan24);
+		dataset.addValue((riskfactorToRelativeRisk.get(tempGreaterThan37)), rr, tempGreaterThan37);
+		dataset.addValue((riskfactorToRelativeRisk.get(xray)), rr, xray);
 		
-		//Series2: risk factor to probability of recovery
-		dataset.addValue(1 - (0.5 + riskfactorToAttributableRisk.get(comorbidity)), recovered, comorbidity);
-		dataset.addValue(1 - ( 0.5 + riskfactorToAttributableRisk.get(currentSmoker)), recovered, currentSmoker);
-		dataset.addValue(1 - (0.5 + riskfactorToAttributableRisk.get(rrGreaterThan24)), recovered, rrGreaterThan24);
-		dataset.addValue(1 - ( 0.5 + riskfactorToAttributableRisk.get(tempGreaterThan37)), recovered, tempGreaterThan37);
+		//Series2: risk factor to attributable risk of mortality
+//		dataset.addValue(riskfactorToAttributableRisk.get(comorbidity), ar, comorbidity);
+//		dataset.addValue(riskfactorToAttributableRisk.get(currentSmoker), ar, currentSmoker);
+//		dataset.addValue(riskfactorToAttributableRisk.get(rrGreaterThan24), ar, rrGreaterThan24);
+//		dataset.addValue(riskfactorToAttributableRisk.get(tempGreaterThan37), ar, tempGreaterThan37);
+//		dataset.addValue(riskfactorToAttributableRisk.get(xray), ar, xray);
 		
 		return dataset;
 		
@@ -87,13 +91,13 @@ public class StackedBarChart extends ApplicationFrame
 	 */
 	private static JFreeChart createChart(CategoryDataset dataset)
 	{
-		JFreeChart chart = ChartFactory.createStackedBarChart(
-			"Risk Factors at Admission and Probability of COVID-19 Mortality",  			//chart title
+		JFreeChart chart = ChartFactory.createBarChart(
+			"Relative Risk of COVID19 Mortality at Day of Hospital Admission",  			//chart title
 			"Risk Factor",    					   				  //domain axis label
-			"Probability of Mortality",		  				//range axis label
+			"Relative Risk of Mortality",		  				//range axis label
 			dataset, 												  //data
-			PlotOrientation.HORIZONTAL,								  //orientation
-			true, 													  //include legend
+			PlotOrientation.VERTICAL,								  //orientation
+			false, 													  //include legend
 			true,													  //tooltips?
 			false													  //URLs?
 		);
@@ -119,21 +123,21 @@ public class StackedBarChart extends ApplicationFrame
 		return chart;
 	}
 
-	public static void main(String[] args)
-	{
-		RiskFactorReader.readCSV();
-		PatientGenerator.generatePatients();
-		
-		//Create a chart
-		StackedBarChart chart1 = new StackedBarChart("Risk Factors at Admission and Probability of COVID-19 Mortality");
-		//Use .pack() and .setVisible() to visualize the chart. These methods are inherited from Window. 
-		chart1.pack();
-		RefineryUtilities.centerFrameOnScreen(chart1);
-		chart1.setVisible(true);
-		
+//	public static void main(String[] args)
+//	{
+//		RiskFactorReader.readCSV();
+//		PatientGenerator.generatePatients();
+//		
+//		//Create a chart
+//		StackedBarChart chart1 = new StackedBarChart("Risk Factors at Admission and Probability of COVID-19 Mortality");
+//		//Use .pack() and .setVisible() to visualize the chart. These methods are inherited from Window. 
+//		chart1.pack();
+//		RefineryUtilities.centerFrameOnScreen(chart1);
+//		chart1.setVisible(true);
+//		
 //		BarChart2 chart2 = new BarChart2("Age Versus Probability of Mortality");
 //		chart2.pack();
 //		RefineryUtilities.centerFrameOnScreen(chart2);
 //		chart2.setVisible(true);
-	}
+//	}
 }

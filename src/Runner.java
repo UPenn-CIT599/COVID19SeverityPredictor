@@ -2,7 +2,7 @@ import org.jfree.ui.RefineryUtilities;
 
 
 /**
- * Driver class for the COVID19 severity predictor
+ * Driver class for the COVID19 mortality predictor
  * @author cbusc
  *
  */
@@ -14,12 +14,14 @@ public class Runner {
      */
     public static void main(String[] args) throws Exception
     {
-	PanelComponents panel = new PanelComponents();
+		RiskFactorReader.readCSV();
+		PatientGenerator.generatePatients();
+		PanelComponents panel = new PanelComponents();
         panel.placeComponents();
         
 //	RiskFactorReader.readCSV();
 //	PatientGenerator.generatePatients();
-//	WriteToCSV.write();
+        WriteToCSV.write();
 
 //	StackedBarChart chart = new StackedBarChart("Relationship Between Patient Characteristics at Admission and COVID-19 Mortality");
 //	//BarChart inherits .pack() and .setVisible() from the Window class
