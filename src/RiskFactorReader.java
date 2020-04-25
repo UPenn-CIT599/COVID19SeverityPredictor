@@ -200,6 +200,9 @@ public class RiskFactorReader {
 		{
 			e.printStackTrace();
 			System.out.println("'riskFactors.csv' not found. Please ensure that you have saved it in this project subfold of the eclipse-workspace");
+		} catch (Exception e) {
+			System.out.println("invalid input format..");
+			e.printStackTrace();
 		}
 	}
 	/**
@@ -207,7 +210,7 @@ public class RiskFactorReader {
 	 * @param string
 	 * @return range of lab value
 	 */
-	public static Double[] getRange(String string)
+	public static Double[] getRange(String string) throws Exception
 	{
 		Double[] range = new Double[2];
 		//String cleanString = string.replaceAll("·", ".");
@@ -232,7 +235,7 @@ public class RiskFactorReader {
 	 * @param str
 	 * @return number
 	 */
-	public static double getFirstNum(String str)
+	public static double getFirstNum(String str) throws Exception
 	{
 		//Set regex
 		Pattern p = Pattern.compile("[\\d]+");
@@ -257,7 +260,7 @@ public class RiskFactorReader {
 	 * @param d
 	 * @return absolute risk of mortality if feature is present
 	 */
-	public static double getAbsoluteRiskTrue(double a, double b, double c, double d)
+	public static double getAbsoluteRiskTrue(double a, double b, double c, double d) throws Exception
 	{
 		return ((a / (a + b)));
 	}
@@ -270,7 +273,7 @@ public class RiskFactorReader {
 	 * @param d
 	 * @return absolute risk of mortality if no feature is present
 	 */
-	public static double getAbsoluteRiskFalse(double a, double b, double c, double d)
+	public static double getAbsoluteRiskFalse(double a, double b, double c, double d) throws Exception
 	{
 		return ((c / (c + d)));
 	}
@@ -284,7 +287,7 @@ public class RiskFactorReader {
 	 * In order words: (outcome risk among those with feature - outcome risk among those without feature)
 	 * @return attributable risk
 	 */
-	public static double getAttributableRisk(double a, double b, double c, double d)
+	public static double getAttributableRisk(double a, double b, double c, double d) throws Exception
 	{
 		return (getAbsoluteRiskTrue(a, b, c, d) - getAbsoluteRiskFalse(a, b, c, d));
 	}
@@ -297,7 +300,7 @@ public class RiskFactorReader {
 	 * @param d
 	 * @return relative risk
 	 */
-	public static double getRelativeRisk(double a, double b, double c, double d)
+	public static double getRelativeRisk(double a, double b, double c, double d) throws Exception
 	{
 		return (getAbsoluteRiskTrue(a, b, c, d) / getAbsoluteRiskFalse(a, b, c, d));
 	}
