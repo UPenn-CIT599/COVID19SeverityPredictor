@@ -55,7 +55,7 @@ public class PatientGenerator {
 	    // If the outcome is "recovered", then generate true with a probability equivalent to the
 	    // absolute mortality risk of a patient without that risk factor.
 	    // This method is not perfect by any means. 
-
+	    
 	    boolean comorbidity = generateBinary(outcome, riskfactorToAbsoluteRiskTrue.get("Comorbidity"), 
 	    				riskfactorToAbsoluteRiskFalse.get("Comorbidity"));
 	    boolean currentSmoker = generateBinary(outcome, riskfactorToAbsoluteRiskTrue.get("Current smoker"), 

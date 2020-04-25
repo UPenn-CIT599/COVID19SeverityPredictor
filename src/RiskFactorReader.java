@@ -210,16 +210,16 @@ public class RiskFactorReader {
 	public static Double[] getRange(String string)
 	{
 		Double[] range = new Double[2];
-		String cleanString = string.replaceAll("·", ".");
+		//String cleanString = string.replaceAll("·", ".");
 		
 		//Extract minimum number
-		String min = cleanString.substring(cleanString.indexOf("(") + 1);
-		min = min.substring(0, min.indexOf("–"));
+		String min = string.substring(string.indexOf("(") + 1);
+		min = min.substring(0, min.indexOf("-"));
 		try { range[0] = new Double(Double.parseDouble(min)); }
 		catch (NumberFormatException e) { }
 		
 		//Extract maximum number
-		String max = cleanString.substring(cleanString.indexOf("–") + 1);
+		String max = string.substring(string.indexOf("-") + 1);
 		max = max.substring(0, max.indexOf(")"));
 		try { range[1] = new Double(Double.parseDouble(max)); }
 		catch (NumberFormatException e) { }
