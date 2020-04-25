@@ -716,6 +716,7 @@ public class PanelComponents extends JFrame implements ActionListener{
 			
 			if(!isNumeric(userinfoString[1])) {
 				JOptionPane.showMessageDialog(panel,"Input value for \"Gender\" is empty. Please choose one.","Error ",0);
+				break;
 			}
 			
 			if(!isNumeric(userinfoString[2])) {
