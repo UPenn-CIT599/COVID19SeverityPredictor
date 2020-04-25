@@ -594,7 +594,7 @@ public class PanelComponents extends JFrame implements ActionListener{
             double[] userInfo = new double[17];
             
 			
-            
+            while(true) {
             if(isNumeric(userinfoString[0]) && isNumeric(userinfoString[1]) && isNumeric(userinfoString[2]) && isNumeric(userinfoString[3]) && isNumeric(userinfoString[4])&& isNumeric(userinfoString[5])
             		&& isNumeric(userinfoString[6]) && isNumeric(userinfoString[7]) && isNumeric(userinfoString[8]) && isNumeric(userinfoString[9]) && isNumeric(userinfoString[10]) && isNumeric(userinfoString[11])
             		&& isNumeric(userinfoString[12]) && isNumeric(userinfoString[13]) && isNumeric(userinfoString[14]) && isNumeric(userinfoString[15]) && isNumeric(userinfoString[16]) 
@@ -629,10 +629,12 @@ public class PanelComponents extends JFrame implements ActionListener{
 			if(isNumeric(userinfoString[0])) {
 				if(!checkInput(Double.parseDouble(userinfoString[0]), 130.0, 0.0)) {
 					JOptionPane.showMessageDialog(panel,"Input value for \"Age\" is out of range. Please enter again.","Error ",0);
+					break;
 				}
 			}
 			else {
 				JOptionPane.showMessageDialog(panel,"Input value for \"Age\" is not a number. Please enter again.","Error ",0);
+				break;
 			}
 			
 			if(!isNumeric(userinfoString[1])) {
@@ -641,116 +643,142 @@ public class PanelComponents extends JFrame implements ActionListener{
 			
 			if(!isNumeric(userinfoString[2])) {
 				JOptionPane.showMessageDialog(panel,"Input value for \"History of chronic disease\" is empty. Please choose one.","Error ",0);
+				break;
 			}
 			
 			if(!isNumeric(userinfoString[3])) {
 				JOptionPane.showMessageDialog(panel,"Input value for \"Current smoker\" is empty. Please choose one.","Error ",0);
+				break;
 			}
 			
 			if(!isNumeric(userinfoString[4])) {
 				JOptionPane.showMessageDialog(panel,"Input value for \"Respiratory Rate > 24\" is empty. Please choose one.","Error ",0);
+				break;
 			}
 			
 			if(!isNumeric(userinfoString[5])) {
 				JOptionPane.showMessageDialog(panel,"Input value for \"Temperature > 37.3 C\" is empty. Please choose one.","Error ",0);
+				break;
 			}
 			
 			if(!isNumeric(userinfoString[6])) {
 				JOptionPane.showMessageDialog(panel,"Input value for \"Ground glass opacity on chest x-ray\" is empty. Please choose one.","Error ",0);
+				break;
 			}
 			
 			if(isNumeric(userinfoString[7])) {
 				if(!checkInput(Double.parseDouble(userinfoString[7]), 130.0, 0.0)) {
 					JOptionPane.showMessageDialog(panel,"Input value for \"White blood cell count\" is out of range. Please enter again.","Error ",0);
+					break;
 				}
 			}
 			else {
 				JOptionPane.showMessageDialog(panel,"Input value for \"White blood cell count\" is not a number. Please enter again.","Error ",0);
+				break;
 			}
 			
 			if(isNumeric(userinfoString[8])) {
 				if(!checkInput(Double.parseDouble(userinfoString[8]), 130.0, 0.0)) {
 					JOptionPane.showMessageDialog(panel,"Input value for \"Lymphocyte count\" is out of range. Please enter again.","Error ",0);
+					break;
 				}
 			}
 			else {
 				JOptionPane.showMessageDialog(panel,"Input value for \"Lymphocyte count\" is not a number. Please enter again.","Error ",0);
+				break;
 			}
 			
 			if(isNumeric(userinfoString[9])) {
 				if(!checkInput(Double.parseDouble(userinfoString[9]), 130.0, 0.0)) {
 					JOptionPane.showMessageDialog(panel,"Input value for \"Platelets\" is out of range. Please enter again.","Error ",0);
+					break;
 				}
 			}
 			else {
 				JOptionPane.showMessageDialog(panel,"Input value for \"Platelets\" is not a number. Please enter again.","Error ",0);
+				break;
 			}
 			
 			if(isNumeric(userinfoString[10])) {
 				if(!checkInput(Double.parseDouble(userinfoString[10]), 130.0, 0.0)) {
 					JOptionPane.showMessageDialog(panel,"Input value for \"Albumin\" is out of range. Please enter again.","Error ",0);
+					break;
 				}
 			}
 			else {
 				JOptionPane.showMessageDialog(panel,"Input value for \"Albumin\" is not a number. Please enter again.","Error ",0);
+				break;
 			}
 			
 			if(isNumeric(userinfoString[11])) {
 				if(!checkInput(Double.parseDouble(userinfoString[11]), 130.0, 0.0)) {
 					JOptionPane.showMessageDialog(panel,"Input value for \"Lactate dehydrogenase\" is out of range. Please enter again.","Error ",0);
+					break;
 				}
 			}
 			else {
 				JOptionPane.showMessageDialog(panel,"Input value for \"Lactate dehydrogenase\" is not a number. Please enter again.","Error ",0);
+				break;
 			}
 			
 			if(isNumeric(userinfoString[12])) {
 				if(!checkInput(Double.parseDouble(userinfoString[12]), 130.0, 0.0)) {
 					JOptionPane.showMessageDialog(panel,"Input value for \"Troponin I\" is out of range. Please enter again.","Error ",0);
+					break;
 				}
 			}
 			else {
 				JOptionPane.showMessageDialog(panel,"Input value for \"Troponin I\" is not a number. Please enter again.","Error ",0);
+				break;
 			}
 			
 			if(isNumeric(userinfoString[13])) {
 				if(!checkInput(Double.parseDouble(userinfoString[13]), 130.0, 0.0)) {
 					JOptionPane.showMessageDialog(panel,"Input value for \"D-dimer\" is out of range. Please enter again.","Error ",0);
+					break;
 				}
 			}
 			else {
 				JOptionPane.showMessageDialog(panel,"Input value for \"D-dimer\" is not a number. Please enter again.","Error ",0);
+				break;
 			}
 			
 			if(isNumeric(userinfoString[14])) {
 				if(!checkInput(Double.parseDouble(userinfoString[14]), 130.0, 0.0)) {
 					JOptionPane.showMessageDialog(panel,"Input value for \"Ferritin\" is out of range. Please enter again.","Error ",0);
+					break;
 				}
 			}
 			else {
 				JOptionPane.showMessageDialog(panel,"Input value for \"Ferritin\" is not a number. Please enter again.","Error ",0);
+				break;
 			}
 			
 			if(isNumeric(userinfoString[15])) {
 				if(!checkInput(Double.parseDouble(userinfoString[15]), 130.0, 0.0)) {
 					JOptionPane.showMessageDialog(panel,"Input value for \"IL-6\" is out of range. Please enter again.","Error ",0);
+					break;
 				}
 			}
 			else {
 				JOptionPane.showMessageDialog(panel,"Input value for \"IL-6\" is not a number. Please enter again.","Error ",0);
+				break;
 			}
 			
 			if(isNumeric(userinfoString[16])) {
 				if(!checkInput(Double.parseDouble(userinfoString[16]), 130.0, 0.0)) {
 					JOptionPane.showMessageDialog(panel,"Input value for \"Procalcitonin\" is out of range. Please enter again.","Error ",0);
+					break;
 				}
 			}
 			else {
 				JOptionPane.showMessageDialog(panel,"Input value for \"Procalcitonin\" is not a number. Please enter again.","Error ",0);
+				break;
 			}
 			
             }
-			
+			break;
+		}
 		}
 	}
 
