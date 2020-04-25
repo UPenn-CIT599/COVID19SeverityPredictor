@@ -16,8 +16,6 @@ public class ResultPanel{
 	public ResultPanel() {
 		
 	}
-	
-	
 	/**
 	 * This method will create a new JFrame and a JPanel. Then take the output from classifier and data analysis class, add the final risk score and two
 	 * graphs as three components.
@@ -30,13 +28,17 @@ public class ResultPanel{
 		JLabel riskScore;
 		JLabel Chart1;
 		
-		//Create a stacked bar chart with patient data loaded
-		BarChart chart1 = new BarChart("Risk Factors Associated With COVID-19 Mortality");
-		//Use .pack() and .setVisible() to visualize the chart. These methods are inherited from Window. 
-		chart1.setSize(1000, 800);
-		RefineryUtilities.centerFrameOnScreen(chart1);
-		chart1.setVisible(true);
+		//Create a stacked bar chart with loaded patient data
+		BarChart barChart = new BarChart("Risk Factors Associated With COVID-19 Mortality"); 
+		barChart.setSize(700, 400);
+		RefineryUtilities.centerFrameOnScreen(barChart);
+		barChart.setVisible(true);
 		
+		//Create a box and whisker plot with loaded patient data
+		BoxAndWhiskerPlot boxWhisk = new BoxAndWhiskerPlot("Box and Whisker Plot");
+		boxWhisk.setSize(1000, 800);
+		//RefineryUtilities.centerFrameOnScreen(boxWhisk);
+		boxWhisk.setVisible(true);
 		
 		// Create JFrame
         frame = new JFrame("Result Panel");

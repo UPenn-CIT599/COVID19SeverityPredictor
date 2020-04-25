@@ -49,7 +49,7 @@ public class BarChart extends ApplicationFrame
 	 * 
 	 * @return a dataset implementing the CategoryDataset interface
 	 */
-	private static CategoryDataset createDataset()
+	private CategoryDataset createDataset()
 	{
 		Map<String, Double> riskfactorToRelativeRisk = RiskFactorReader.getRiskfactorToRelativeRisk();
 		Map<String, Double> riskfactorToAttributableRisk = RiskFactorReader.getRiskfactorToAttributableRisk();
@@ -92,11 +92,11 @@ public class BarChart extends ApplicationFrame
 	private static JFreeChart createChart(CategoryDataset dataset)
 	{
 		JFreeChart chart = ChartFactory.createBarChart(
-			"Relative Risk of COVID19 Mortality at Day of Hospital Admission",  			//chart title
-			"Risk Factor",    					   				  //domain axis label
+			"Relative Risk of In-Hospital COVID19 Mortality",  			//chart title
+			"Positive Risk Factor",    					   				  //domain axis label
 			"Relative Risk of Mortality",		  				//range axis label
 			dataset, 												  //data
-			PlotOrientation.VERTICAL,								  //orientation
+			PlotOrientation.HORIZONTAL,								  //orientation
 			false, 													  //include legend
 			true,													  //tooltips?
 			false													  //URLs?
@@ -113,10 +113,10 @@ public class BarChart extends ApplicationFrame
 		plot.setBackgroundPaint(Color.lightGray);
 		
 		//Set gradient paint for series
-		GradientPaint gpRecovered = new GradientPaint(0.0f, 0.0f, Color.blue, 0.0f, 0.0f, 
-				new Color(0, 0, 64));
-		renderer.setSeriesPaint(1, gpRecovered);
-		GradientPaint gpDeceased = new GradientPaint(0.0f, 0.0f, Color.red, 0.0f, 0.0f, 
+//		GradientPaint gpRecovered = new GradientPaint(0.0f, 0.0f, Color.blue, 0.0f, 0.0f, 
+//				new Color(0, 0, 64));
+//		renderer.setSeriesPaint(1, gpRecovered);
+		GradientPaint gpDeceased = new GradientPaint(0.0f, 0.0f, Color.lightGray, 0.0f, 0.0f, 
 				new Color(0, 0, 64));
 		renderer.setSeriesPaint(0, gpDeceased);
 				
