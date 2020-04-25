@@ -46,8 +46,7 @@ public class ResultPanel{
          */
         //placeComponents(panel);
 
-        // set the panel to be visible
-        frame.setVisible(true);
+        
 
         /* 
          * don't use any specific layout
@@ -79,7 +78,8 @@ public class ResultPanel{
 			e.printStackTrace();
 		}
         
-		
+		// set the panel to be visible
+        frame.setVisible(true);
 		
 	}
 	
