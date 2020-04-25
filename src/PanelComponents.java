@@ -8,6 +8,7 @@ import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
@@ -417,210 +418,445 @@ public class PanelComponents extends JFrame implements ActionListener{
 	RefineryUtilities.centerFrameOnScreen(frame);
     }
 
-
+    
     /**
-     *This method will go through the textFields and radio buttons in PanelCompoents and collect the
-     *informations user puts in. Then return an array of integers as inputs for classifier.
-     * @return int[]:This array contains 6 elements. 
-     * int[0] = age
-     * int[1] = Gender, 1 for male and 0 for female.
-     * int[2] = History of chronic disease, 1 for Yea and 0 for No.
-     * int[3] = Healthcare-related exposure, 1 for Yes and 0 for No.
-     * int[4] = Days since symptom onset.
-     * int[5] = Days since tested positive.
-     */
-    public double[] collect() {
-
-	String ageString = new String();
-	int Gender = 1;
-	int chronicDisease = 1;
-	int smoker = 1;
-	int respiratoryRate = 1;
-	int temperature = 1;
-	int xray = 1;
-	String  whiteCellString = new String();
-	String lymphocyteString = new String();
-	String plateletsString = new String();
-	String albuminString = new String();
-	String lactateString = new String();
-
-	String troponinString = new String();
-	String dDimerString = new String();
-	String ferritinString = new String();
-	String IL6String = new String();
-	String procalcitoninString = new String();
-	/**
-	 * get user's age
+	 *This method will go through the textFields and radio buttons in PanelCompoents and collect the
+	 *informations user puts in. Then return an array of integers as inputs for classifier.
+	 * @return double[]:This array contains 17 elements. 
+	 * double [0] = age
+	 * double [1] = Gender, 1 for male and 0 for female.
+	 * double [2] = History of chronic disease, 1 for Yea and 0 for No.
+	 * double [3] = Current smoker, 1 for Yes and 0 for No.
+	 * double [4] = Respiratory Rate > 24, 1 for Yes and 0 for No.
+	 * double [5] = Temperature > 37.3 C, 1 for Yes and 0 for No.
+	 * double [6] = Ground glass opacity on chest x-ray, 1 for Yes and 0 for No.
+	 * double [7] = White blood cell count
+	 * double [8] = Lymphocyte count
+	 * double [9] = Platelets
+	 * double [10] = Albumin
+	 * double [11] = Lactate dehydrogenase
+	 * double [12] = Troponin I
+	 * double [13] = D-dimer
+	 * double [14] = Ferritin
+	 * double [15] = IL-6
+	 * double [16] = Procalcitonin
 	 */
-	ageString = ageText.getText();
-	double ageInt = Double.parseDouble(ageString);
+    public String[] collect() {
+		
+    	
+    	String[] userInfoString = new String[17];
+    	String ageString = new String();
 
-	/**
-	 * get user's gender information
-	 */
-	if(rMale.isSelected()) {
-	    Gender = 1;
-	}
-	else if (rFemale.isSelected()) {
-	    Gender = 0;
-	}
+		
+		String GenderString = new String();
+		String chronicDiseaseString = new String();
+		String smokerString = new String();
+		String respiratoryRateString = new String();
+		String temperatureString = new String();
+		String xrayString = new String();
+		
+		String whiteCellString = new String();
+		String lymphocyteString = new String();
+		String plateletsString = new String();
+		String albuminString = new String();
+		String lactateString = new String();
+		String troponinString = new String();
+		String dDimerString = new String();
+		String ferritinString = new String();
+		String IL6String = new String();
+		String procalcitoninString = new String();
+		/**
+		 * get user's age
+		 */
+		ageString = ageText.getText();
+		/**
+		 * get user's gender information
+		 */
+		if(rMale.isSelected()) {
+			GenderString = "1";
+		}
+		else if (rFemale.isSelected()) {
+			GenderString = "0";
+		}
+		else {
+			GenderString = "empty";
+		}
+		
+		/**
+		 * get user's history of chronic disease information
+		 */
+		if(rChronicDiseaseY.isSelected()) {
+			chronicDiseaseString = "1";
+		}
+		else if (rChronicDiseaseN.isSelected()) {
+			chronicDiseaseString = "0";
+		}
+		else {
+			chronicDiseaseString = "empty";
+		}
+		
+		/**
+		 * get user's smoking information
+		 */
+		if( smokerY.isSelected()) {
+			smokerString = "1";
+		}
+		else if ( smokerN.isSelected()) {
+			smokerString = "0";
+		}
+		else {
+			smokerString = "empty";
+		}
+		
+		/**
+		 * get user's Respiratory Rate information
+		 */
+		if( respiratoryRateY.isSelected()) {
+			respiratoryRateString = "1";
+		}
+		else if ( respiratoryRateN.isSelected()) {
+			respiratoryRateString = "0";
+		}
+		else {
+			respiratoryRateString = "empty";
+		}
+		
+		/**
+		 * get user's Temperature information
+		 */
+		if( temperatureY.isSelected()) {
+			temperatureString = "1";
+		}
+		else if ( temperatureN.isSelected()) {
+			temperatureString = "0";
+		}
+		else {
+			temperatureString = "empty";
+		}
+		
+		/**
+		 * get user's chest x-ray information
+		 */
+		if( xrayY.isSelected()) {
+			xrayString = "1";
+		}
+		else if ( xrayN.isSelected()) {
+			xrayString = "0";
+		}
+		else {
+			xrayString = "empty";
+		}
+		
+		/**
+		 * get user's White blood cell count information
+		 */
+		whiteCellString = whiteCellText.getText();
+		
+		/**
+		 * get user's Lymphocyte count information
+		 */
+		lymphocyteString = lymphocyteText.getText();
+		
+		/**
+		 * get user's Platelets information
+		 */
+		plateletsString = plateletsText.getText();
+		
+		/**
+		 * get user's Albumin information
+		 */
+		albuminString = albuminText.getText();
+		
+		/**
+		 * get user's Lactate dehydrogenase information
+		 */
+		lactateString = lactateText.getText();
+		
+		/**
+		 * get user's Troponin I information
+		 */
+		troponinString = troponinText.getText();
+		
+		/**
+		 * get user's D-dimer information
+		 */
+		dDimerString = dDimerText.getText();
+		
+		/**
+		 * get user's Ferritin information
+		 */
+		ferritinString = ferritinText.getText();
+		
+		/**
+		 * get user's IL-6 information
+		 */
+		IL6String = IL6Text.getText();
+		
+		/**
+		 * get user's Procalcitonin information
+		 */
+		procalcitoninString = procalcitoninText.getText();
+		
+		
+		
+		
+		/**
+		 * add 17 elements to the array
+		 */
+		userInfoString[0] = ageString;
+		userInfoString[1] = GenderString;
+		userInfoString[2] = chronicDiseaseString;
+		userInfoString[3] = smokerString;
+		userInfoString[4] = respiratoryRateString;
+		userInfoString[5] = temperatureString;
+		userInfoString[6] = xrayString;
+		userInfoString[7] = whiteCellString;
+		userInfoString[8] = lymphocyteString;
+		userInfoString[9] = plateletsString;
+		userInfoString[10] = albuminString;
+		userInfoString[11] = lactateString;
+		userInfoString[12] = troponinString;
+		userInfoString[13] = dDimerString;
+		userInfoString[14] = ferritinString;
+		userInfoString[15] = IL6String;
+		userInfoString[16] = procalcitoninString;
+		
+		return userInfoString;
+    }
+    
+    public static boolean checkInput(double num, double upper, double lower) {
+		
+    	if(num >= lower && num <= upper) {
+    		return true;
+    	}
+    	else {
+    	return false;
+    	}
+    }
+    
+    public static boolean isNumeric(final String str) {
 
-	/**
-	 * get user's history of chronic disease information
-	 */
-	if(rChronicDiseaseY.isSelected()) {
-	    chronicDisease = 1;
-	}
-	else if (rChronicDiseaseN.isSelected()) {
-	    chronicDisease = 0;
-	}
+        // null or empty
+        if (str == null || str.length() == 0) {
+            return false;
+        }
 
-	/**
-	 * get user's smoking information
-	 */
-	if( smokerY.isSelected()) {
-	    smoker = 1;
-	}
-	else if ( smokerN.isSelected()) {
-	    smoker = 0;
-	}
+        for (char c : str.toCharArray()) {
+            if (!Character.isDigit(c)) {
+                return false;
+            }
+        }
 
-	/**
-	 * get user's Respiratory Rate information
-	 */
-	if( respiratoryRateY.isSelected()) {
-	    respiratoryRate = 1;
-	}
-	else if ( respiratoryRateN.isSelected()) {
-	    respiratoryRate = 0;
-	}
+        return true;
 
-	/**
-	 * get user's Temperature information
-	 */
-	if( temperatureY.isSelected()) {
-	    temperature = 1;
-	}
-	else if ( temperatureN.isSelected()) {
-	    temperature = 0;
-	}
-
-	/**
-	 * get user's chest x-ray information
-	 */
-	if( xrayY.isSelected()) {
-	    xray = 1;
-	}
-	else if ( xrayN.isSelected()) {
-	    xray = 0;
-	}
-
-	/**
-	 * get user's White blood cell count information
-	 */
-	whiteCellString = whiteCellText.getText();
-	double whiteCell = Double.parseDouble(whiteCellString);
-
-	/**
-	 * get user's Lymphocyte count information
-	 */
-	lymphocyteString = lymphocyteText.getText();
-	double lymphocytePositive = Double.parseDouble(lymphocyteString);
-
-	/**
-	 * get user's Platelets information
-	 */
-	plateletsString = plateletsText.getText();
-	double platelets = Double.parseDouble(plateletsString);
-
-	/**
-	 * get user's Albumin information
-	 */
-	albuminString = albuminText.getText();
-	double albumin = Double.parseDouble(albuminString);
-
-	/**
-	 * get user's Lactate dehydrogenase information
-	 */
-	lactateString = lactateText.getText();
-	double lactate = Double.parseDouble(lactateString);
-
-	/**
-	 * get user's Troponin I information
-	 */
-	troponinString = troponinText.getText();
-	double troponin = Double.parseDouble(troponinString);
-
-	/**
-	 * get user's D-dimer information
-	 */
-	dDimerString = dDimerText.getText();
-	double dDimer = Double.parseDouble(dDimerString);
-
-	/**
-	 * get user's Ferritin information
-	 */
-	ferritinString = ferritinText.getText();
-	double ferritin = Double.parseDouble(ferritinString);
-
-	/**
-	 * get user's IL-6 information
-	 */
-	IL6String = IL6Text.getText();
-	double IL6 = Double.parseDouble(IL6String);
-
-	/**
-	 * get user's Procalcitonin information
-	 */
-	procalcitoninString = procalcitoninText.getText();
-	double procalcitonin = Double.parseDouble(procalcitoninString);
-
-
-
-
-	/**
-	 * add 17 elements to the array
-	 */
-	userInfo[0] = ageInt;
-	userInfo[1] = Double.valueOf(Gender);
-	userInfo[2] = Double.valueOf(chronicDisease);
-	userInfo[3] = Double.valueOf(smoker);
-	userInfo[4] = Double.valueOf(respiratoryRate);
-	userInfo[5] = Double.valueOf(temperature);
-	userInfo[6] = Double.valueOf(xray);
-	userInfo[7] = whiteCell;
-	userInfo[8] = lymphocytePositive;
-	userInfo[9] = platelets;
-	userInfo[10] = albumin;
-	userInfo[11] = lactate;
-	userInfo[12] = troponin;
-	userInfo[13] = dDimer;
-	userInfo[14] = ferritin;
-	userInfo[15] = IL6;
-	userInfo[16] = procalcitonin;
-
-	//System.out.println(Arrays.toString(userInfo));
-	return userInfo;
     }
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
-	ResultPanel resultPanel = new ResultPanel();
-	double score; 
-	if(e.getSource() == calculateButton) {
-
-	    try {
-		score = ClickResponse.response(this.collect());
-	    } catch (Exception e1) {
-		score = 0.0;
-		// TODO Auto-generated catch block
-		e1.printStackTrace();
-	    }
-	    System.out.println(score);
-	    resultPanel.placeComponents(score);
-
-
+		@Override
+		public void actionPerformed(ActionEvent e) {
+		
+		//ClickResponse resp = new ClickResponse();
+		ResultPanel resultPanel = new ResultPanel();
+		double score; 
+		if(e.getSource() == calculateButton) {
+	        
+			
+			String[] userinfoString = this.collect();
+            double[] userInfo = new double[17];
+            
+			
+            while(true) {
+            if(isNumeric(userinfoString[0]) && isNumeric(userinfoString[1]) && isNumeric(userinfoString[2]) && isNumeric(userinfoString[3]) && isNumeric(userinfoString[4])&& isNumeric(userinfoString[5])
+            		&& isNumeric(userinfoString[6]) && isNumeric(userinfoString[7]) && isNumeric(userinfoString[8]) && isNumeric(userinfoString[9]) && isNumeric(userinfoString[10]) && isNumeric(userinfoString[11])
+            		&& isNumeric(userinfoString[12]) && isNumeric(userinfoString[13]) && isNumeric(userinfoString[14]) && isNumeric(userinfoString[15]) && isNumeric(userinfoString[16]) 
+            		&& checkInput(Double.parseDouble(userinfoString[0]), 130.0, 0.0) && checkInput(Double.parseDouble(userinfoString[7]), 130.0, 0.0) && checkInput(Double.parseDouble(userinfoString[8]), 130.0, 0.0) 
+            		&& checkInput(Double.parseDouble(userinfoString[9]), 130.0, 0.0) && checkInput(Double.parseDouble(userinfoString[10]), 130.0, 0.0) && checkInput(Double.parseDouble(userinfoString[11]), 130.0, 0.0)
+            		&& checkInput(Double.parseDouble(userinfoString[12]), 130.0, 0.0) && checkInput(Double.parseDouble(userinfoString[13]), 130.0, 0.0) && checkInput(Double.parseDouble(userinfoString[14]), 130.0, 0.0)
+            		&& checkInput(Double.parseDouble(userinfoString[15]), 130.0, 0.0) && checkInput(Double.parseDouble(userinfoString[16]), 130.0, 0.0)) {
+            	
+            	
+    			userInfo[0] = Double.parseDouble(userinfoString[0]);
+    			userInfo[1] = Double.parseDouble(userinfoString[1]);
+    			userInfo[2] = Double.parseDouble(userinfoString[2]);
+    			userInfo[3] = Double.parseDouble(userinfoString[3]);
+    			userInfo[4] = Double.parseDouble(userinfoString[4]);
+    			userInfo[5] = Double.parseDouble(userinfoString[5]);
+    			userInfo[6] = Double.parseDouble(userinfoString[6]);
+    			userInfo[7] = Double.parseDouble(userinfoString[7]);
+    			userInfo[8] = Double.parseDouble(userinfoString[8]);
+    			userInfo[9] = Double.parseDouble(userinfoString[9]);
+    			userInfo[10] = Double.parseDouble(userinfoString[10]);
+    			userInfo[11] = Double.parseDouble(userinfoString[11]);
+    			userInfo[12] = Double.parseDouble(userinfoString[12]);
+    			userInfo[13] = Double.parseDouble(userinfoString[13]);
+    			userInfo[14] = Double.parseDouble(userinfoString[14]);
+    			userInfo[15] = Double.parseDouble(userinfoString[15]);
+    			userInfo[16] = Double.parseDouble(userinfoString[16]);
+            	
+            	try {
+					score = ClickResponse.response(userInfo);
+				} catch (Exception e1) {
+					score = 0.0;
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+            	System.out.println(score);
+    		    resultPanel.placeComponents(score);
+            }
+            else {
+			if(isNumeric(userinfoString[0])) {
+				if(!checkInput(Double.parseDouble(userinfoString[0]), 150.0, 0.0)) {
+					JOptionPane.showMessageDialog(panel,"Input value for \"Age\" is out of range. Please enter again.","Error ",0);
+					break;
+				}
+			}
+			else {
+				JOptionPane.showMessageDialog(panel,"Input value for \"Age\" is not a number. Please enter again.","Error ",0);
+				break;
+			}
+			
+			if(!isNumeric(userinfoString[1])) {
+				JOptionPane.showMessageDialog(panel,"Input value for \"Gender\" is empty. Please choose one.","Error ",0);
+				break;
+			}
+			
+			if(!isNumeric(userinfoString[2])) {
+				JOptionPane.showMessageDialog(panel,"Input value for \"History of chronic disease\" is empty. Please choose one.","Error ",0);
+				break;
+			}
+			
+			if(!isNumeric(userinfoString[3])) {
+				JOptionPane.showMessageDialog(panel,"Input value for \"Current smoker\" is empty. Please choose one.","Error ",0);
+				break;
+			}
+			
+			if(!isNumeric(userinfoString[4])) {
+				JOptionPane.showMessageDialog(panel,"Input value for \"Respiratory Rate > 24\" is empty. Please choose one.","Error ",0);
+				break;
+			}
+			
+			if(!isNumeric(userinfoString[5])) {
+				JOptionPane.showMessageDialog(panel,"Input value for \"Temperature > 37.3 C\" is empty. Please choose one.","Error ",0);
+				break;
+			}
+			
+			if(!isNumeric(userinfoString[6])) {
+				JOptionPane.showMessageDialog(panel,"Input value for \"Ground glass opacity on chest x-ray\" is empty. Please choose one.","Error ",0);
+				break;
+			}
+			
+			if(isNumeric(userinfoString[7])) {
+				if(!checkInput(Double.parseDouble(userinfoString[7]), Double.MAX_VALUE, 0.0)) {
+					JOptionPane.showMessageDialog(panel,"Input value for \"White blood cell count\" is out of range. Please enter again.","Error ",0);
+					break;
+				}
+			}
+			else {
+				JOptionPane.showMessageDialog(panel,"Input value for \"White blood cell count\" is not a number. Please enter again.","Error ",0);
+				break;
+			}
+			
+			if(isNumeric(userinfoString[8])) {
+				if(!checkInput(Double.parseDouble(userinfoString[8]), Double.MAX_VALUE, 0.0)) {
+					JOptionPane.showMessageDialog(panel,"Input value for \"Lymphocyte count\" is out of range. Please enter again.","Error ",0);
+					break;
+				}
+			}
+			else {
+				JOptionPane.showMessageDialog(panel,"Input value for \"Lymphocyte count\" is not a number. Please enter again.","Error ",0);
+				break;
+			}
+			
+			if(isNumeric(userinfoString[9])) {
+				if(!checkInput(Double.parseDouble(userinfoString[9]), Double.MAX_VALUE, 0.0)) {
+					JOptionPane.showMessageDialog(panel,"Input value for \"Platelets\" is out of range. Please enter again.","Error ",0);
+					break;
+				}
+			}
+			else {
+				JOptionPane.showMessageDialog(panel,"Input value for \"Platelets\" is not a number. Please enter again.","Error ",0);
+				break;
+			}
+			
+			if(isNumeric(userinfoString[10])) {
+				if(!checkInput(Double.parseDouble(userinfoString[10]), Double.MAX_VALUE, 0.0)) {
+					JOptionPane.showMessageDialog(panel,"Input value for \"Albumin\" is out of range. Please enter again.","Error ",0);
+					break;
+				}
+			}
+			else {
+				JOptionPane.showMessageDialog(panel,"Input value for \"Albumin\" is not a number. Please enter again.","Error ",0);
+				break;
+			}
+			
+			if(isNumeric(userinfoString[11])) {
+				if(!checkInput(Double.parseDouble(userinfoString[11]), Double.MAX_VALUE, 0.0)) {
+					JOptionPane.showMessageDialog(panel,"Input value for \"Lactate dehydrogenase\" is out of range. Please enter again.","Error ",0);
+					break;
+				}
+			}
+			else {
+				JOptionPane.showMessageDialog(panel,"Input value for \"Lactate dehydrogenase\" is not a number. Please enter again.","Error ",0);
+				break;
+			}
+			
+			if(isNumeric(userinfoString[12])) {
+				if(!checkInput(Double.parseDouble(userinfoString[12]), Double.MAX_VALUE, 0.0)) {
+					JOptionPane.showMessageDialog(panel,"Input value for \"Troponin I\" is out of range. Please enter again.","Error ",0);
+					break;
+				}
+			}
+			else {
+				JOptionPane.showMessageDialog(panel,"Input value for \"Troponin I\" is not a number. Please enter again.","Error ",0);
+				break;
+			}
+			
+			if(isNumeric(userinfoString[13])) {
+				if(!checkInput(Double.parseDouble(userinfoString[13]), Double.MAX_VALUE, 0.0)) {
+					JOptionPane.showMessageDialog(panel,"Input value for \"D-dimer\" is out of range. Please enter again.","Error ",0);
+					break;
+				}
+			}
+			else {
+				JOptionPane.showMessageDialog(panel,"Input value for \"D-dimer\" is not a number. Please enter again.","Error ",0);
+				break;
+			}
+			
+			if(isNumeric(userinfoString[14])) {
+				if(!checkInput(Double.parseDouble(userinfoString[14]), Double.MAX_VALUE, 0.0)) {
+					JOptionPane.showMessageDialog(panel,"Input value for \"Ferritin\" is out of range. Please enter again.","Error ",0);
+					break;
+				}
+			}
+			else {
+				JOptionPane.showMessageDialog(panel,"Input value for \"Ferritin\" is not a number. Please enter again.","Error ",0);
+				break;
+			}
+			
+			if(isNumeric(userinfoString[15])) {
+				if(!checkInput(Double.parseDouble(userinfoString[15]), Double.MAX_VALUE, 0.0)) {
+					JOptionPane.showMessageDialog(panel,"Input value for \"IL-6\" is out of range. Please enter again.","Error ",0);
+					break;
+				}
+			}
+			else {
+				JOptionPane.showMessageDialog(panel,"Input value for \"IL-6\" is not a number. Please enter again.","Error ",0);
+				break;
+			}
+			
+			if(isNumeric(userinfoString[16])) {
+				if(!checkInput(Double.parseDouble(userinfoString[16]), Double.MAX_VALUE, 0.0)) {
+					JOptionPane.showMessageDialog(panel,"Input value for \"Procalcitonin\" is out of range. Please enter again.","Error ",0);
+					break;
+				}
+			}
+			else {
+				JOptionPane.showMessageDialog(panel,"Input value for \"Procalcitonin\" is not a number. Please enter again.","Error ",0);
+				break;
+			}
+			
+            }
+			break;
+		}
+		}
 	}
-    }
-
 }
