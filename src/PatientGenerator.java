@@ -48,8 +48,8 @@ public class PatientGenerator {
 		outcome = "recovered";
 	    }
 
-	    // Generate data features conjectured to be associated with COVID-19 mortality.
-	    // Binary data:
+	    // Generate data features seen to be associated with COVID-19 mortality.
+	    // Binary features:
 	    // For each boolean risk factor, if the outcome is "deceased", then generate true with a 
 	    // probability equivalent to absolute mortality risk of a patient with the risk factor. 
 	    // If the outcome is "recovered", then generate true with a probability equivalent to the
@@ -68,7 +68,7 @@ public class PatientGenerator {
 					riskfactorToAbsoluteRiskFalse.get("Consolidation on x-ray"));
 	    boolean gender = generateBinary(outcome, 0.54, 0.54); //Random gender
 
-	    // Continuous data:
+	    // Continuous features:
 	    // Pass in outcome. Based on whether the patient deceased or survived,
 	    // assign a randomly generated risk factor value generated from the published
 	    // range.
