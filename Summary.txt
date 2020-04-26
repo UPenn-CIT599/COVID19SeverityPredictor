@@ -1,0 +1,36 @@
+Background
+On 29 December 2019, a cluster of severe respiratory diseases emerged in Wuhan, China of unknown cause. 
+A novel coronavirus was soon isolated from these patients as the causative agent of viral pneumonia (1). 
+This clinical entity, designated coronavirus disease 19 (COVID-19) by the World Health Organization in 
+February, 2020, has since spread at an alarming rate across the globe (2). The clinical spectrum of COVID-19 
+has been reported as broad, ranging from asymptomatic infection, to mild upper respiratory tract illness, 
+to severe viral pneumonia with respiratory failure, and death. Risk factors have preliminarily
+been outlined for severe disease and in-hospital death among patients who have confirmed disease (2). 
+Prediction of a patient’s future in-hospital mortality from the time of initial presentation 
+could afford clinicians early valuable prognostic information as well as inform future status of the 
+intensive care unit. Machine learning may be leveraged to make predictions from the myriad data features 
+collected at this initial patient healthcare interface with a high degree of accuracy.
+
+Design
+Detailed information about COVID-19 patients was first read in from an authoratitive retrospective cohort study
+(2), which included demographics and physical examination and laboratory findings at hospital admission.
+A unique patient database was then generated based on the relative risks of mortality (binary features) and 
+ranges of values (continuous features) for patients who were reported as either deceased or recovered. 
+Next, a machine learning model was trained on the database to predict based on the given features the probability
+of a deceased outcome, ie. the likeliehood of mortality. User input is collected from a simple GUI which inquires
+of patient features whereon the model trained, such as white blood cell count or age. The inputted values are passed
+to the model and a results screen displays the predicted mortality rate for the new patient, along with graphs of
+trends in the generated database.
+
+Team members and their contributions
+Caleb Busch: File input/output, data analysis and risk calculation, generation of patient database, graphical display 
+of trends. 
+Tobi Olatunji:
+Zhiming Liu: 
+
+
+References
+1. Zhu N, Zhang D, Wang W, et al. A novel coronavirus from patients with pneumonia in China, 2019. N Engl J Med. 
+2020;382:727-733.
+2. F Zhou, et al. Clinical course and risk factors for mortality of adult inpatients with COVID-19 in Wuhan, China:
+a retrospective cohort study. Lancet (2020 Mar 11), 10.1016/S0140-6736(20)30566-3
