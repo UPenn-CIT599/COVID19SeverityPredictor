@@ -121,16 +121,4 @@ public class BoxAndWhiskerPlot extends ApplicationFrame
 		
 		return dataset;	
 	}
-//	
-//	public static void main(String[] args)
-//	{
-//		RiskFactorReader.readCSV();
-//		PatientGenerator.generatePatients();
-//		BoxAndWhiskerPlot bw = new BoxAndWhiskerPlot("BWChart");
-//		bw.pack();
-//		RefineryUtilities.centerFrameOnScreen(bw);
-//		bw.setVisible(true);
-//	}
-//	
-//	
 }
