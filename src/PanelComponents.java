@@ -306,7 +306,7 @@ public class PanelComponents extends JFrame implements ActionListener{
 	plateletsText = new JTextField(20);
 	plateletsText.setBounds(240,320,60,25);
 	panel.add(plateletsText);
-	plateletsRange = new JLabel("(150000 - 350000)");
+	plateletsRange = new JLabel("(150 - 350)");
 	plateletsRange.setBounds(320, 320, 200, 25);
 	panel.add(plateletsRange);
 
