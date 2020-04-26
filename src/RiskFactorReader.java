@@ -8,62 +8,64 @@ import java.util.Scanner;
 import java.util.regex.*;
 
 /**
- * Reads in COVID19 mortality risk factors and their associated absolute, relative, and attributable
- * risks of mortality based on previously reported literature:
- * F Zhou, et al. Clinical course and risk factors for mortality of 
- * adult inpatients with COVID-19 in Wuhan, China: a retrospective cohort 
- * study Lancet (2020 Mar 11), 10.1016/S0140-6736(20)30566-3
+ * Reads in COVID19 mortality risk factors and their associated absolute,
+ * relative, and attributable risks of mortality based on previously reported
+ * literature: F Zhou, et al. Clinical course and risk factors for mortality of
+ * adult inpatients with COVID-19 in Wuhan, China: a retrospective cohort study
+ * Lancet (2020 Mar 11), 10.1016/S0140-6736(20)30566-3
  * 
  * @author cbusc
  *
  */
 public class RiskFactorReader {
 	
-	//Map boolean risk factors to their calculated risks
-	private static Map<String, Double> riskfactorToAttributableRisk;
-	private static Map<String, Double> riskfactorToRelativeRisk;
-	private static Map<String, Double> riskfactorToAbsoluteRiskTrue;
-	private static Map<String, Double> riskfactorToAbsoluteRiskFalse;
-	//Map continuous risk factors to their reported range of values
-	private static Map<String, Double[]> riskfactorToRangeDeceased; 
-	private static Map<String, Double[]> riskfactorToRangeRecovered;
-	private static double mortalityRate;
-	
-	/*
-	 * Reads in data from CSV file and stores risk factor 
-	 * key value pairs in hashmap.
-	 */
-	public static void readCSV()
-	{
+    // Map boolean risk factors to their calculated risks
+    private static Map<String, Double> riskfactorToAttributableRisk;
+    private static Map<String, Double> riskfactorToRelativeRisk;
+    private static Map<String, Double> riskfactorToAbsoluteRiskTrue;
+    private static Map<String, Double> riskfactorToAbsoluteRiskFalse;
+    // Map continuous risk factors to their reported range of values
+    private static Map<String, Double[]> riskfactorToRangeDeceased;
+    private static Map<String, Double[]> riskfactorToRangeRecovered;
+    private static double mortalityRate;
+
+    /*
+     * Reads in data from CSV file and stores risk factor key value pairs in
+     * hashmap.
+     */
+    public static void readCSV() 
+    {
 		riskfactorToAbsoluteRiskTrue = new HashMap<String, Double>();
 		riskfactorToAbsoluteRiskFalse = new HashMap<String, Double>();
 		riskfactorToRelativeRisk = new HashMap<String, Double>();
 		riskfactorToAttributableRisk = new HashMap<String, Double>();
 		riskfactorToRangeDeceased = new HashMap<String, Double[]>();
 		riskfactorToRangeRecovered = new HashMap<String, Double[]>();
-		
-		try
+	
+		try 
 		{
-			Scanner fileParser = new Scanner(new File("riskFactors.csv"));
-			int row = 0;
-			double totalDeceased = 0;
-			double totalRecovered = 0;
-			while(fileParser.hasNextLine())
-			{
+		    Scanner fileParser = new Scanner(new File("PatientInfoClean.csv"));
+		    int row = 0;
+		    double totalDeceased = 0;
+		    double totalRecovered = 0;
+		    while (fileParser.hasNextLine()) 
+		    {
 				String rowString = fileParser.nextLine();
 				String[] rowElements = rowString.split(",");
-				
-				//Parse total deceased and total recovered patients and store in local variables
-				//Note: these values were subsequently hard-coded in due to formatting changes that occured to the table .csv
-				//from the cited study when uploading to github; these values can be found in Table 1 of the study. 
-				//The methods remain in the source code. Previously, this data was extracted as, eg.: double a = getFirstNum(rowElements[3]);
-				if (row == 0)
-				{
-					totalDeceased = 54.0;
-					totalRecovered = 137.0;
-					mortalityRate = totalDeceased / (totalDeceased + totalRecovered);
+	
+				// Parse total deceased and total recovered patients and store in local
+				// variables
+				// Note: these values were subsequently hard-coded in due to formatting changes
+				// that occured to the table .csv
+				// from the cited study when uploading to github; these values can be found in
+				// Table 1 of the study.
+				// The methods remain in the source code. Previously, this data was extracted
+				// as, eg.: double a = getFirstNum(rowElements[3]);
+				if (row == 0) {
+				    totalDeceased = 54.0;
+				    totalRecovered = 137.0;
+				    mortalityRate = totalDeceased / (totalDeceased + totalRecovered);
 				}
-
 				//BOOLEAN RISK FACTORS
 				//Current smoker is row 6. Boolean risk factor. 
 				//a = num deceased, with feature; b = num recovered, with feature
@@ -200,15 +202,13 @@ public class RiskFactorReader {
 			}
 			fileParser.close();
 		}
-		catch (IOException e)
+		catch (IOException e) 
 		{
-			e.printStackTrace();
-			System.out.println("'riskFactors.csv' not found. Please ensure that you have saved it in this project subfold of the eclipse-workspace");
-		} catch (Exception e) {
-			System.out.println("invalid input format..");
-			e.printStackTrace();
+		    e.printStackTrace();
+		    System.out.println("'riskFactors.csv' not found. Please ensure that you have saved it in this project subfold of the eclipse-workspace");
 		}
 	}
+    
 	/**
 	 * Returns range of lab values (doubles) from string input
 	 * @param string
@@ -310,36 +310,36 @@ public class RiskFactorReader {
 		return (getAbsoluteRiskTrue(a, b) / getAbsoluteRiskFalse(c, d));
 	}
 
-	/**
-	 * Gets mortality rate.
-	 * Mortality rate = deceased / (deceased + recovered)
-	 * @return mortality rate
-	 */
-	public static double getMortalityRate()
-	{
-		return mortalityRate;
-	}
-	public static Map<String, Double[]> getRiskfactorToRangeDeceased() {
-		return riskfactorToRangeDeceased;
-	}
+    /**
+     * Gets mortality rate. Mortality rate = deceased / (deceased + recovered)
+     * 
+     * @return mortality rate
+     */
+    public static double getMortalityRate() {
+	return mortalityRate;
+    }
 
-	public static Map<String, Double[]> getRiskfactorToRangeRecovered() {
-		return riskfactorToRangeRecovered;
-	}
-	
-	public static Map<String, Double> getRiskfactorToAttributableRisk()
-	{
-		return riskfactorToAttributableRisk;
-	}
-	
-	public static Map<String, Double> getRiskfactorToRelativeRisk() {
-		return riskfactorToRelativeRisk;
-	}
+    public static Map<String, Double[]> getRiskfactorToRangeDeceased() {
+	return riskfactorToRangeDeceased;
+    }
 
-	public static Map<String, Double> getRiskfactorToAbsoluteRiskTrue() {
-		return riskfactorToAbsoluteRiskTrue;
-	}
-	public static Map<String, Double> getRiskfactorToAbsoluteRiskFalse() {
-		return riskfactorToAbsoluteRiskFalse;
-	}
+    public static Map<String, Double[]> getRiskfactorToRangeRecovered() {
+	return riskfactorToRangeRecovered;
+    }
+
+    public static Map<String, Double> getRiskfactorToAttributableRisk() {
+	return riskfactorToAttributableRisk;
+    }
+
+    public static Map<String, Double> getRiskfactorToRelativeRisk() {
+	return riskfactorToRelativeRisk;
+    }
+
+    public static Map<String, Double> getRiskfactorToAbsoluteRiskTrue() {
+	return riskfactorToAbsoluteRiskTrue;
+    }
+
+    public static Map<String, Double> getRiskfactorToAbsoluteRiskFalse() {
+	return riskfactorToAbsoluteRiskFalse;
+    }
 }
