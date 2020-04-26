@@ -1,11 +1,4 @@
 import java.awt.Font;
-import java.awt.Image;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-
-import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -26,7 +19,6 @@ public class ResultPanel{
 		JPanel panel;
 		JLabel riskScoreLabel;
 		JLabel riskScore;
-		JLabel Chart1;
 		
 		//Create a stacked bar chart with loaded patient data
 		BarChart barChart = new BarChart("Risk Factors Associated With COVID-19 Mortality"); 
@@ -56,10 +48,6 @@ public class ResultPanel{
          * Add panel to frame
          */
         frame.add(panel);
-        /* 
-         * place components in panel
-         */
-        //placeComponents(panel);
 
         // set the panel to be visible
         frame.setVisible(true);
@@ -69,11 +57,17 @@ public class ResultPanel{
          */
         panel.setLayout(null);
         
+        /**
+         * Set the label content, size, and font.
+         */
         riskScoreLabel = new JLabel("The predicted risk of mortality is: ");
         riskScoreLabel.setFont(new Font("Arial", Font.PLAIN, 20));
         riskScoreLabel.setBounds(60,100,300,100);
         panel.add(riskScoreLabel);
         
+        /**
+         * Take the output from classifier and display in the final panel.
+         */
         String scoreString = String.valueOf(score);
         riskScore = new JLabel(scoreString+"%");
         riskScore.setFont(new Font("Arial", Font.PLAIN, 30));

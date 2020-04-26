@@ -23,7 +23,6 @@ public class PanelComponents extends JFrame implements ActionListener{
      */
     private JFrame frame;
     private JPanel panel;
-    private JLabel title;
     private JLabel ageLabel;
     private JTextField ageText;
     private JLabel genderLabel;
@@ -118,13 +117,6 @@ public class PanelComponents extends JFrame implements ActionListener{
 	 */
 	panel.setLayout(null);
 	
-//	//Title of tool
-//	title = new JLabel("Calculate your patient's COVID-19 severity score by entering data below."
-//			+ "If unavailable, leave the entry blank.");
-//	ageLabel.setBounds(10,20,80,25);
-//	title.setHorizontalAlignment(JLabel.CENTER);
-//	panel.add(title);
-
 	// create label for age
 	ageLabel = new JLabel("Age (years)");
 	/* 
@@ -624,6 +616,13 @@ public class PanelComponents extends JFrame implements ActionListener{
 		return userInfoString;
     }
     
+    /**
+     * This method will check if the input is within the given range.
+     * @param num
+     * @param upper
+     * @param lower
+     * @return
+     */
     public static boolean checkInput(double num, double upper, double lower) {
 		
     	if(num >= lower && num <= upper) {
@@ -634,6 +633,14 @@ public class PanelComponents extends JFrame implements ActionListener{
     	}
     }
     
+    
+    /**This method will check whether the user's input is a number. It will return false if the input String is Blank of contain any punctuation marks other than period.
+     * 
+     * @param num
+     * @param upper
+     * @param lower
+     * @return 
+     */
     public static boolean isNumeric(final String str) {
 
         // null or empty
@@ -650,7 +657,12 @@ public class PanelComponents extends JFrame implements ActionListener{
         return true;
 
     }
-
+    	/**
+    	 * This method will perform the following action once the calculation button is clicked.
+    	 * 1. Check if all the inputs are validate. If yes, collect user's input. If not, send out corresponding error message.
+    	 * 2. Pass user's input into ClickResponse.
+    	 * 3. Call ResultPanel.
+    	 */
 		@Override
 		public void actionPerformed(ActionEvent e) {
 		
@@ -659,19 +671,20 @@ public class PanelComponents extends JFrame implements ActionListener{
 		double score; 
 		if(e.getSource() == calculateButton) {
 	        
-			
 			String[] userinfoString = this.collect();
             double[] userInfo = new double[17];
             
-			
+			/**
+			 * Check if all the inputs are validate.
+			 */
             while(true) {
             if(isNumeric(userinfoString[0]) && isNumeric(userinfoString[1]) && isNumeric(userinfoString[2]) && isNumeric(userinfoString[3]) && isNumeric(userinfoString[4])&& isNumeric(userinfoString[5])
             		&& isNumeric(userinfoString[6]) && isNumeric(userinfoString[7]) && isNumeric(userinfoString[8]) && isNumeric(userinfoString[9]) && isNumeric(userinfoString[10]) && isNumeric(userinfoString[11])
             		&& isNumeric(userinfoString[12]) && isNumeric(userinfoString[13]) && isNumeric(userinfoString[14]) && isNumeric(userinfoString[15]) && isNumeric(userinfoString[16]) 
-            		&& checkInput(Double.parseDouble(userinfoString[0]), 130.0, 0.0) && checkInput(Double.parseDouble(userinfoString[7]), 130.0, 0.0) && checkInput(Double.parseDouble(userinfoString[8]), 130.0, 0.0) 
-            		&& checkInput(Double.parseDouble(userinfoString[9]), 130.0, 0.0) && checkInput(Double.parseDouble(userinfoString[10]), 130.0, 0.0) && checkInput(Double.parseDouble(userinfoString[11]), 130.0, 0.0)
-            		&& checkInput(Double.parseDouble(userinfoString[12]), 130.0, 0.0) && checkInput(Double.parseDouble(userinfoString[13]), 130.0, 0.0) && checkInput(Double.parseDouble(userinfoString[14]), 130.0, 0.0)
-            		&& checkInput(Double.parseDouble(userinfoString[15]), 130.0, 0.0) && checkInput(Double.parseDouble(userinfoString[16]), 130.0, 0.0)) {
+            		&& checkInput(Double.parseDouble(userinfoString[0]), 200.0, 0.0) && checkInput(Double.parseDouble(userinfoString[7]), 10.0, 4.0) && checkInput(Double.parseDouble(userinfoString[8]), 1.0, 0.0) 
+            		&& checkInput(Double.parseDouble(userinfoString[9]), 350.0, 150.0) && checkInput(Double.parseDouble(userinfoString[10]), 5.0, 3.5) && checkInput(Double.parseDouble(userinfoString[11]), 150.0, 50.0)
+            		&& checkInput(Double.parseDouble(userinfoString[12]), 1.0, 0.0) && checkInput(Double.parseDouble(userinfoString[13]), 0.5, 0.0) && checkInput(Double.parseDouble(userinfoString[14]), 0.3, 0.012)
+            		&& checkInput(Double.parseDouble(userinfoString[15]), 10.0, 0.0) && checkInput(Double.parseDouble(userinfoString[16]), 0.49, 0.1)) {
             	
             	
     			userInfo[0] = Double.parseDouble(userinfoString[0]);
@@ -702,9 +715,12 @@ public class PanelComponents extends JFrame implements ActionListener{
             	System.out.println(score);
     		    resultPanel.placeComponents(score);
             }
+            /**
+             * send out corresponding error messages
+             */
             else {
 			if(isNumeric(userinfoString[0])) {
-				if(!checkInput(Double.parseDouble(userinfoString[0]), 150.0, 0.0)) {
+				if(!checkInput(Double.parseDouble(userinfoString[0]), 200.0, 0.0)) {
 					JOptionPane.showMessageDialog(panel,"Input value for \"Age\" is out of range. Please enter again.","Error ",0);
 					break;
 				}
@@ -745,7 +761,7 @@ public class PanelComponents extends JFrame implements ActionListener{
 			}
 			
 			if(isNumeric(userinfoString[7])) {
-				if(!checkInput(Double.parseDouble(userinfoString[7]), Double.MAX_VALUE, 0.0)) {
+				if(!checkInput(Double.parseDouble(userinfoString[7]), 10, 4.0)) {
 					JOptionPane.showMessageDialog(panel,"Input value for \"White blood cell count\" is out of range. Please enter again.","Error ",0);
 					break;
 				}
@@ -756,7 +772,7 @@ public class PanelComponents extends JFrame implements ActionListener{
 			}
 			
 			if(isNumeric(userinfoString[8])) {
-				if(!checkInput(Double.parseDouble(userinfoString[8]), Double.MAX_VALUE, 0.0)) {
+				if(!checkInput(Double.parseDouble(userinfoString[8]), 1.0, 0.0)) {
 					JOptionPane.showMessageDialog(panel,"Input value for \"Lymphocyte count\" is out of range. Please enter again.","Error ",0);
 					break;
 				}
@@ -767,7 +783,7 @@ public class PanelComponents extends JFrame implements ActionListener{
 			}
 			
 			if(isNumeric(userinfoString[9])) {
-				if(!checkInput(Double.parseDouble(userinfoString[9]), Double.MAX_VALUE, 0.0)) {
+				if(!checkInput(Double.parseDouble(userinfoString[9]), 350.0, 150.0)) {
 					JOptionPane.showMessageDialog(panel,"Input value for \"Platelets\" is out of range. Please enter again.","Error ",0);
 					break;
 				}
@@ -778,7 +794,7 @@ public class PanelComponents extends JFrame implements ActionListener{
 			}
 			
 			if(isNumeric(userinfoString[10])) {
-				if(!checkInput(Double.parseDouble(userinfoString[10]), Double.MAX_VALUE, 0.0)) {
+				if(!checkInput(Double.parseDouble(userinfoString[10]), 5.0, 3.5)) {
 					JOptionPane.showMessageDialog(panel,"Input value for \"Albumin\" is out of range. Please enter again.","Error ",0);
 					break;
 				}
@@ -789,7 +805,7 @@ public class PanelComponents extends JFrame implements ActionListener{
 			}
 			
 			if(isNumeric(userinfoString[11])) {
-				if(!checkInput(Double.parseDouble(userinfoString[11]), Double.MAX_VALUE, 0.0)) {
+				if(!checkInput(Double.parseDouble(userinfoString[11]), 150.0, 50.0)) {
 					JOptionPane.showMessageDialog(panel,"Input value for \"Lactate dehydrogenase\" is out of range. Please enter again.","Error ",0);
 					break;
 				}
@@ -800,7 +816,7 @@ public class PanelComponents extends JFrame implements ActionListener{
 			}
 			
 			if(isNumeric(userinfoString[12])) {
-				if(!checkInput(Double.parseDouble(userinfoString[12]), Double.MAX_VALUE, 0.0)) {
+				if(!checkInput(Double.parseDouble(userinfoString[12]), 1.0, 0.0)) {
 					JOptionPane.showMessageDialog(panel,"Input value for \"Troponin I\" is out of range. Please enter again.","Error ",0);
 					break;
 				}
@@ -811,7 +827,7 @@ public class PanelComponents extends JFrame implements ActionListener{
 			}
 			
 			if(isNumeric(userinfoString[13])) {
-				if(!checkInput(Double.parseDouble(userinfoString[13]), Double.MAX_VALUE, 0.0)) {
+				if(!checkInput(Double.parseDouble(userinfoString[13]), 0.5, 0.0)) {
 					JOptionPane.showMessageDialog(panel,"Input value for \"D-dimer\" is out of range. Please enter again.","Error ",0);
 					break;
 				}
@@ -822,7 +838,7 @@ public class PanelComponents extends JFrame implements ActionListener{
 			}
 			
 			if(isNumeric(userinfoString[14])) {
-				if(!checkInput(Double.parseDouble(userinfoString[14]), Double.MAX_VALUE, 0.0)) {
+				if(!checkInput(Double.parseDouble(userinfoString[14]), 0.3, 0.012)) {
 					JOptionPane.showMessageDialog(panel,"Input value for \"Ferritin\" is out of range. Please enter again.","Error ",0);
 					break;
 				}
@@ -833,7 +849,7 @@ public class PanelComponents extends JFrame implements ActionListener{
 			}
 			
 			if(isNumeric(userinfoString[15])) {
-				if(!checkInput(Double.parseDouble(userinfoString[15]), Double.MAX_VALUE, 0.0)) {
+				if(!checkInput(Double.parseDouble(userinfoString[15]), 10.0, 0.0)) {
 					JOptionPane.showMessageDialog(panel,"Input value for \"IL-6\" is out of range. Please enter again.","Error ",0);
 					break;
 				}
@@ -844,7 +860,7 @@ public class PanelComponents extends JFrame implements ActionListener{
 			}
 			
 			if(isNumeric(userinfoString[16])) {
-				if(!checkInput(Double.parseDouble(userinfoString[16]), Double.MAX_VALUE, 0.0)) {
+				if(!checkInput(Double.parseDouble(userinfoString[16]), 0.49, 0.1)) {
 					JOptionPane.showMessageDialog(panel,"Input value for \"Procalcitonin\" is out of range. Please enter again.","Error ",0);
 					break;
 				}
