@@ -29,7 +29,7 @@ Tobi Olatunji:
 Zhiming Liu: 
 
 
-
+References
 1. Zhu N, Zhang D, Wang W, et al. A novel coronavirus from patients with pneumonia in China, 2019. N Engl J Med. 
 2020;382:727-733.
 2. F Zhou, et al. Clinical course and risk factors for mortality of adult inpatients with COVID-19 in Wuhan, China:
