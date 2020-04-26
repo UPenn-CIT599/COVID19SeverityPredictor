@@ -12,15 +12,11 @@ intensive care unit. Machine learning may be leveraged to make predictions from 
 collected at this initial patient healthcare interface with a high degree of accuracy.
 
 Design
-Detailed information about COVID-19 patients was first read in from an authoratitive retrospective cohort study
-(2), which included demographics and physical examination and laboratory findings at hospital admission.
-A unique patient database was then generated based on the relative risks of mortality (binary features) and 
-ranges of values (continuous features) for patients who were reported as either deceased or recovered. 
-Next, a machine learning model was trained on the database to predict based on the given features the probability
-of a deceased outcome, ie. the likeliehood of mortality. User input is collected from a simple GUI which inquires
-of patient features whereon the model trained, such as white blood cell count or age. The inputted values are passed
-to the model and a results screen displays the predicted mortality rate for the new patient, along with graphs of
-trends in the generated database.
+Detailed information about COVID-19 patients was first read in from an authoratitive retrospective cohort study (2), which included demographics and physical examination and laboratory findings at hospital admission. A database of 10,000 patients was then generated (simulated) based on the distributions described in the paper, relative risks of mortality (binary features), and ranges of values (continuous features) for patients who were reported as either deceased or recovered. 
+
+Next, a machine learning model (multilayer perceptron) was trained on the database to predict the probability of a deceased outcome (ie. the likeliehood of mortality) based on the given features. 7 weka classifiers were trained and evaluated on the dataset using 5-fold cross-validation. Models were compared using their accuracy on the held-out portion of the data. The best model was selected, serialized to disk and made available for subsequent use.
+
+User input is collected from a simple GUI which inquires of 17 patient features whereon the model trained, such as white blood cell count, age, smoking history, etc. The inputted values are passed to the saved model and a results screen displays the predicted mortality risk for the new patient, along with graphs of trends in the generated database.
 
 Path to Repo:
 https://github.com/UPenn-CIT599/final-project-team_37_covid_19
@@ -30,13 +26,9 @@ Team members and their contributions
 Caleb Busch: File input/output, data analysis and risk calculation, generation of patient database, graphical display 
 of trends. 
 
-Tobi Olatunji: Built Machine Learning Pipeline using Weka. Trained several classifiers on patient data, 
-selected best model, wrote trained model to disk, converted user input to instance, 
-loaded model at test time, predict and return risk score to GUI
+Tobi Olatunji: Built Machine Learning Pipeline using Weka. Trained several classifiers on patient data, selected best model based on accuracy metric, wrote trained model to disk, converted user input to instance, loaded model at test time, predict and return risk score to GUI
 
-Zhiming Liu: built the entire GUI for the application, designed the form with user input validation, 
-collected and submitted user input, converted these values into an array for easy ingestion 
-by the machine learning classifier.
+Zhiming Liu: built the entire GUI for the application, designed the form with user input validation, collected and submitted user input, converted these values into an array for easy ingestion by the machine learning classifier.
 
 
 References
