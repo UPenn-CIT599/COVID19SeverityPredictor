@@ -138,6 +138,15 @@ public class WekaClassifier {
 	return myValue;
     }
     
+    /**
+     * Iterates through a preselected number of models
+     * Trains and evaluates each model on the training test
+     * selects the best model,
+     * writes the model to file
+     * and returns the best model
+     * @return
+     * @throws Exception
+     */
     public static Classifier train() throws Exception {
 	Classifier[] models = WekaClassifier.getModels();
 	
