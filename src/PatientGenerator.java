@@ -66,7 +66,7 @@ public class PatientGenerator {
 				riskfactorToAbsoluteRiskFalse.get("Temperature > 37.3"));
 	    boolean groundGlassOpacity = generateBinary(outcome, riskfactorToAbsoluteRiskTrue.get("Consolidation on x-ray"), 
 					riskfactorToAbsoluteRiskFalse.get("Consolidation on x-ray"));
-	    boolean gender = generateBinary(outcome, 0.54, 0.54); //Random gender
+	    boolean gender = generateBinary(outcome, 0.50, 0.50); //Gender is hard-coded to be random
 
 	    // Continuous features:
 	    // Pass in outcome. Based on whether the patient deceased or survived,

@@ -78,25 +78,6 @@ public class ResultPanel{
         riskScore = new JLabel(scoreString+"%");
         riskScore.setFont(new Font("Arial", Font.PLAIN, 30));
         riskScore.setBounds(160,150,200,100);
-        panel.add(riskScore);
-           
-//        BufferedImage bimg;
-//		try {
-//			bimg = ImageIO.read(new File("images.jpg"));
-//			//ImageIcon icon = new ImageIcon("images.jpg");
-//	        Image scaleImage = bimg.getScaledInstance(500, 500,Image.SCALE_DEFAULT);
-//	        ImageIcon resizedIcon = new ImageIcon(scaleImage);
-//	        Chart1 = new JLabel(resizedIcon);
-//	        Chart1.setBounds(250,250,500,500);
-//	        panel.add(Chart1);
-//		} catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//        
-		
-		
-	}
-	
-	
+        panel.add(riskScore);	
+	}	
 }
