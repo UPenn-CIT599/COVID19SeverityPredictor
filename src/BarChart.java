@@ -63,7 +63,7 @@ public class BarChart extends ApplicationFrame
 		String rrGreaterThan24 = "Respiratory rate > 24";
 		String tempGreaterThan37 = "Temperature > 37.3";
 		String xray = "Consolidation on x-ray";
-		
+	
 		DefaultCategoryDataset dataset = new DefaultCategoryDataset();
 		
 		//Series1: risk factor to relative risk of mortality
