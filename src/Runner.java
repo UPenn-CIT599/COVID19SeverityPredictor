@@ -20,5 +20,8 @@ public class Runner {
 	panel.placeComponents();
     }
 }
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> 984c0fedeef383b045b4b09b4022e1f7b798530c

@@ -22,11 +22,21 @@ of patient features whereon the model trained, such as white blood cell count or
 to the model and a results screen displays the predicted mortality rate for the new patient, along with graphs of
 trends in the generated database.
 
+Path to Repo:
+https://github.com/UPenn-CIT599/final-project-team_37_covid_19
+
 Team members and their contributions
+
 Caleb Busch: File input/output, data analysis and risk calculation, generation of patient database, graphical display 
 of trends. 
-Tobi Olatunji:
-Zhiming Liu: 
+
+Tobi Olatunji: Built Machine Learning Pipeline using Weka. Trained several classifiers on patient data, 
+selected best model, wrote trained model to disk, converted user input to instance, 
+loaded model at test time, predict and return risk score to GUI
+
+Zhiming Liu: built the entire GUI for the application, designed the form with user input validation, 
+collected and submitted user input, converted these values into an array for easy ingestion 
+by the machine learning classifier.
 
 
 References
