@@ -54,10 +54,13 @@ public class RiskFactorReader {
 				String[] rowElements = rowString.split(",");
 				
 				//Parse total deceased and total recovered patients and store in local variables
+				//Note: these values were subsequently hard-coded in due to formatting changes that occured to the table .csv
+				//from the cited study when uploading to github; these values can be found in Table 1 of the study. 
+				//The methods remain in the source code. Previously, this data was extracted as, eg.: double a = getFirstNum(rowElements[3]);
 				if (row == 0)
 				{
-					totalDeceased = getFirstNum(rowElements[3]);
-					totalRecovered = getFirstNum(rowElements[4]);
+					totalDeceased = 54.0;
+					totalRecovered = 137.0;
 					mortalityRate = totalDeceased / (totalDeceased + totalRecovered);
 				}
 
@@ -67,8 +70,8 @@ public class RiskFactorReader {
 				//c = num deceased, without feature; d = num recovered, without feature
 				if (row == 6)
 				{
-					double a = getFirstNum(rowElements[3]);
-					double b = getFirstNum(rowElements[4]);
+					double a = 5.0;
+					double b = 6.0;
 					double c = totalDeceased - a;
 					double d = totalRecovered - b;
 					riskfactorToAttributableRisk.put("Current smoker", getAttributableRisk(a, b, c, d));
@@ -79,8 +82,8 @@ public class RiskFactorReader {
 				//Comorbidity is row 7. Boolean risk factor. 
 				if (row == 7)
 				{
-					double a = getFirstNum(rowElements[3]);
-					double b = getFirstNum(rowElements[4]);
+					double a = 36.0;
+					double b = 55.0;
 					double c = totalDeceased - a;
 					double d = totalRecovered - b;
 					riskfactorToAttributableRisk.put("Comorbidity", getAttributableRisk(a, b, c, d));
@@ -91,8 +94,8 @@ public class RiskFactorReader {
 				//Respiratory rate is row 15. Boolean risk factor.
 				if (row == 15)
 				{
-					double a = getFirstNum(rowElements[3]);
-					double b = getFirstNum(rowElements[4]);
+					double a = 34.0;
+					double b = 22.0;
 					double c = totalDeceased - a;
 					double d = totalRecovered - b;
 					riskfactorToAttributableRisk.put("Respiratory rate > 24", getAttributableRisk(a, b, c, d));
@@ -103,8 +106,8 @@ public class RiskFactorReader {
 				//Temperature is row 18. Boolean risk factor.
 				if (row == 18)
 				{
-					double a = getFirstNum(rowElements[3]);
-					double b = getFirstNum(rowElements[4]);
+					double a = 51.0;
+					double b = 129.0;
 					double c = totalDeceased - a;
 					double d = totalRecovered - b;
 					riskfactorToAttributableRisk.put("Temperature > 37.3", getAttributableRisk(a, b, c, d));
@@ -115,8 +118,8 @@ public class RiskFactorReader {
 				//Consolidation is row 72. Boolean risk factor. 
 				if (row == 72)
 				{
-					double a = getFirstNum(rowElements[3]);
-					double b = getFirstNum(rowElements[4]);
+					double a = 40.0;
+					double b = 72.0;
 					double c = totalDeceased - a;
 					double d = totalRecovered - b;
 					riskfactorToAttributableRisk.put("Consolidation on x-ray", getAttributableRisk(a, b, c, d));
@@ -126,71 +129,72 @@ public class RiskFactorReader {
 				}
 				
 				//CONTINUOUS RISK FACTORS
+				//Before hard-coding, eg: riskfactorToRangeDeceased.put("Age", getRange(rowElements[5]));
 				//Age is row 1
 				if (row == 1)
 				{
-					riskfactorToRangeDeceased.put("Age", getRange(rowElements[4]));
-					riskfactorToRangeRecovered.put("Age", getRange(rowElements[5]));
+					riskfactorToRangeDeceased.put("Age", new Double[]{63.0, 76.0});
+					riskfactorToRangeRecovered.put("Age", new Double[]{45.0, 58.0});
 				}	
 				//White blood cell count is row 36
 				if (row == 36)
 				{
-					riskfactorToRangeDeceased.put("White blood cell count", getRange(rowElements[4]));
-					riskfactorToRangeRecovered.put("White blood cell count", getRange(rowElements[5]));
+					riskfactorToRangeDeceased.put("White blood cell count", new Double[]{6.9, 13.9});
+					riskfactorToRangeRecovered.put("White blood cell count", new Double[]{4.3, 7.7});
 				}
 				//Lymphocyte count is row 40
 				if (row == 40)
 				{
-					riskfactorToRangeDeceased.put("Lymphocyte count", getRange(rowElements[4]));
-					riskfactorToRangeRecovered.put("Lymphocyte count", getRange(rowElements[5]));
+					riskfactorToRangeDeceased.put("Lymphocyte count", new Double[]{0.5, 0.8});
+					riskfactorToRangeRecovered.put("Lymphocyte count", new Double[]{0.8, 1.5});
 				}
 				//Platelet count is row 44
 				if (row == 44)
 				{
-					riskfactorToRangeDeceased.put("Platelets", getRange(rowElements[4]));
-					riskfactorToRangeRecovered.put("Platelets", getRange(rowElements[5]));
+					riskfactorToRangeDeceased.put("Platelets", new Double[]{107.0, 229.0});
+					riskfactorToRangeRecovered.put("Platelets", new Double[]{168.0, 271.0});
 				}
 				//Albumin is row 46
 				if (row == 46)
 				{
-					riskfactorToRangeDeceased.put("Albumin", getRange(rowElements[4]));
-					riskfactorToRangeRecovered.put("Albumin", getRange(rowElements[5]));
+					riskfactorToRangeDeceased.put("Albumin", new Double[]{26.5, 31.3});
+					riskfactorToRangeRecovered.put("Albumin", new Double[]{30.6, 36.4});
 				}		
 				//LactateDehydrogenase is row 50
 				if (row == 50)
 				{
-					riskfactorToRangeDeceased.put("Lactate Dehydrogenase", getRange(rowElements[4]));
-					riskfactorToRangeRecovered.put("Lactate Dehydrogenase", getRange(rowElements[5]));
+					riskfactorToRangeDeceased.put("Lactate Dehydrogenase", new Double[]{363.0, 669.0});
+					riskfactorToRangeRecovered.put("Lactate Dehydrogenase", new Double[]{219.0, 318.0});
 				}
 				//TroponinI is row 54
 				if (row == 54)
 				{
-					riskfactorToRangeDeceased.put("Troponin I", getRange(rowElements[4]));
-					riskfactorToRangeRecovered.put("Troponin I", getRange(rowElements[5]));
+					riskfactorToRangeDeceased.put("Troponin I", new Double[]{5.6, 83.1});
+					riskfactorToRangeRecovered.put("Troponin I", new Double[]{1.1, 5.5});
 				}
 				//D-dimer is row 59
 				if (row == 59)
 				{
-					riskfactorToRangeDeceased.put("D-dimer", getRange(rowElements[4]));
-					riskfactorToRangeRecovered.put("D-dimer", getRange(rowElements[5]));
+					riskfactorToRangeDeceased.put("D-dimer", new Double[]{1.5, 21.1});
+					riskfactorToRangeRecovered.put("D-dimer", new Double[]{0.3, 1.0});
 				}
 				//Ferritin is row 64
 				if (row == 63)
 				{
-					riskfactorToRangeDeceased.put("Ferritin", getRange(rowElements[4]));
-					riskfactorToRangeRecovered.put("Ferritin", getRange(rowElements[5]));
+					riskfactorToRangeDeceased.put("Ferritin", new Double[]{728.9, 2000.0});
+					riskfactorToRangeRecovered.put("Ferritin", new Double[]{264.0, 921.5});
 				}
 				//Interleukin6 is row 65
 				if (row == 65)
 				{
-					riskfactorToRangeDeceased.put("Interleukin 6", getRange(rowElements[4]));
-					riskfactorToRangeRecovered.put("Interleukin 6", getRange(rowElements[5]));
+					riskfactorToRangeDeceased.put("Interleukin 6", new Double[]{7.5, 14.4});
+					riskfactorToRangeRecovered.put("Interleukin 6", new Double[]{5.0, 7.9});
 				}
 				//Procalcitonin is row 66
 				if (row == 66)
 				{
-					riskfactorToRangeDeceased.put("Procalcitonin", getRange(rowElements[4]));
-					riskfactorToRangeRecovered.put("Procalcitonin", getRange(rowElements[5]));
+					riskfactorToRangeDeceased.put("Procalcitonin", new Double[]{0.1, 0.5});
+					riskfactorToRangeRecovered.put("Procalcitonin", new Double[]{0.1, 0.1});
 				}
 				row++;
 			}
@@ -294,6 +298,7 @@ public class RiskFactorReader {
 	
 	/**
 	 * Calculates relative risk. 
+	 * Relative risk = (A / A + B) / (C / C + D)
 	 * @param a
 	 * @param b
 	 * @param c
