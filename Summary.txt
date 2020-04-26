@@ -22,6 +22,9 @@ of patient features whereon the model trained, such as white blood cell count or
 to the model and a results screen displays the predicted mortality rate for the new patient, along with graphs of
 trends in the generated database.
 
+Path to Repo:
+https://github.com/UPenn-CIT599/final-project-team_37_covid_19
+
 Team members and their contributions
 
 Caleb Busch: File input/output, data analysis and risk calculation, generation of patient database, graphical display 
