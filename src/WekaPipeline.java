@@ -149,23 +149,20 @@ public class WekaPipeline {
         String distribution="";
         for(int i=0; i <percentage.length; i=i+1)
         {
-            //System.out.println(i); 
             if(i==myValue)
             {
-        	//System.out.println("Percentage is: " + Double.toString(percentage[i]));
                 distribution=distribution+"*"+Double.toString(percentage[i])+",";
+                
             }
             else
             {
-        	//System.out.println("Percentage is: " + Double.toString(percentage[i]));
                 distribution=distribution+Double.toString(percentage[i])+",";
             }
         }
         distribution=distribution.substring(0, distribution.length()-1);
 
-        //System.out.println("Distribution:"+ distribution);
 
-	return risk_score;
+	return 1 - risk_score;
     }
 
     
@@ -208,8 +205,8 @@ public class WekaPipeline {
 
 	// GENDER
 	attGender = new FastVector();
-	attGender.addElement("TRUE");
 	attGender.addElement("FALSE");
+	attGender.addElement("TRUE");
 	attributes.addElement(new Attribute("Gender", attGender));
 
 	// comorbid
