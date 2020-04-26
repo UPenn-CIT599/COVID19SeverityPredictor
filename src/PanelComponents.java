@@ -642,7 +642,7 @@ public class PanelComponents extends JFrame implements ActionListener{
         }
 
         for (char c : str.toCharArray()) {
-            if (!Character.isDigit(c)) {
+            if (!Character.isDigit(c) && !Character.toString(c).equals(".")) {
                 return false;
             }
         }
