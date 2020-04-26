@@ -76,8 +76,8 @@ public class RiskFactorReader {
 					double d = totalRecovered - b;
 					riskfactorToAttributableRisk.put("Current smoker", getAttributableRisk(a, b, c, d));
 					riskfactorToRelativeRisk.put("Current smoker", getRelativeRisk(a, b, c, d));
-					riskfactorToAbsoluteRiskTrue.put("Current smoker", getAbsoluteRiskTrue(a, b, c, d));
-					riskfactorToAbsoluteRiskFalse.put("Current smoker", getAbsoluteRiskFalse(a, b, c, d));
+					riskfactorToAbsoluteRiskTrue.put("Current smoker", getAbsoluteRiskTrue(a, b));
+					riskfactorToAbsoluteRiskFalse.put("Current smoker", getAbsoluteRiskFalse(c, d));
 				}
 				//Comorbidity is row 7. Boolean risk factor. 
 				if (row == 7)
@@ -88,8 +88,8 @@ public class RiskFactorReader {
 					double d = totalRecovered - b;
 					riskfactorToAttributableRisk.put("Comorbidity", getAttributableRisk(a, b, c, d));
 					riskfactorToRelativeRisk.put("Comorbidity", getRelativeRisk(a, b, c, d));
-					riskfactorToAbsoluteRiskTrue.put("Comorbidity", getAbsoluteRiskTrue(a, b, c, d));
-					riskfactorToAbsoluteRiskFalse.put("Comorbidity", getAbsoluteRiskFalse(a, b, c, d));
+					riskfactorToAbsoluteRiskTrue.put("Comorbidity", getAbsoluteRiskTrue(a, b));
+					riskfactorToAbsoluteRiskFalse.put("Comorbidity", getAbsoluteRiskFalse(c, d));
 				}
 				//Respiratory rate is row 15. Boolean risk factor.
 				if (row == 15)
@@ -100,8 +100,8 @@ public class RiskFactorReader {
 					double d = totalRecovered - b;
 					riskfactorToAttributableRisk.put("Respiratory rate > 24", getAttributableRisk(a, b, c, d));
 					riskfactorToRelativeRisk.put("Respiratory rate > 24", getRelativeRisk(a, b, c, d));
-					riskfactorToAbsoluteRiskTrue.put("Respiratory rate > 24", getAbsoluteRiskTrue(a, b, c, d));
-					riskfactorToAbsoluteRiskFalse.put("Respiratory rate > 24", getAbsoluteRiskFalse(a, b, c, d));
+					riskfactorToAbsoluteRiskTrue.put("Respiratory rate > 24", getAbsoluteRiskTrue(a, b));
+					riskfactorToAbsoluteRiskFalse.put("Respiratory rate > 24", getAbsoluteRiskFalse(c, d));
 				}
 				//Temperature is row 18. Boolean risk factor.
 				if (row == 18)
@@ -112,8 +112,8 @@ public class RiskFactorReader {
 					double d = totalRecovered - b;
 					riskfactorToAttributableRisk.put("Temperature > 37.3", getAttributableRisk(a, b, c, d));
 					riskfactorToRelativeRisk.put("Temperature > 37.3", getRelativeRisk(a, b, c, d));
-					riskfactorToAbsoluteRiskTrue.put("Temperature > 37.3", getAbsoluteRiskTrue(a, b, c, d));
-					riskfactorToAbsoluteRiskFalse.put("Temperature > 37.3", getAbsoluteRiskFalse(a, b, c, d));
+					riskfactorToAbsoluteRiskTrue.put("Temperature > 37.3", getAbsoluteRiskTrue(a, b));
+					riskfactorToAbsoluteRiskFalse.put("Temperature > 37.3", getAbsoluteRiskFalse(c, d));
 				}
 				//Consolidation is row 72. Boolean risk factor. 
 				if (row == 72)
@@ -124,8 +124,8 @@ public class RiskFactorReader {
 					double d = totalRecovered - b;
 					riskfactorToAttributableRisk.put("Consolidation on x-ray", getAttributableRisk(a, b, c, d));
 					riskfactorToRelativeRisk.put("Consolidation on x-ray", getRelativeRisk(a, b, c, d));
-					riskfactorToAbsoluteRiskTrue.put("Consolidation on x-ray", getAbsoluteRiskTrue(a, b, c, d));
-					riskfactorToAbsoluteRiskFalse.put("Consolidation on x-ray", getAbsoluteRiskFalse(a, b, c, d));
+					riskfactorToAbsoluteRiskTrue.put("Consolidation on x-ray", getAbsoluteRiskTrue(a, b));
+					riskfactorToAbsoluteRiskFalse.put("Consolidation on x-ray", getAbsoluteRiskFalse(c, d));
 				}
 				
 				//CONTINUOUS RISK FACTORS
@@ -214,7 +214,7 @@ public class RiskFactorReader {
 	 * @param string
 	 * @return range of lab value
 	 */
-	public static Double[] getRange(String string) throws Exception
+	public static Double[] getRange(String string)
 	{
 		Double[] range = new Double[2];
 		//String cleanString = string.replaceAll("·", ".");
@@ -239,7 +239,7 @@ public class RiskFactorReader {
 	 * @param str
 	 * @return number
 	 */
-	public static double getFirstNum(String str) throws Exception
+	public static double getFirstNum(String str)
 	{
 		//Set regex
 		Pattern p = Pattern.compile("[\\d]+");
@@ -264,7 +264,7 @@ public class RiskFactorReader {
 	 * @param d
 	 * @return absolute risk of mortality if feature is present
 	 */
-	public static double getAbsoluteRiskTrue(double a, double b, double c, double d) throws Exception
+	public static double getAbsoluteRiskTrue(double a, double b)
 	{
 		return ((a / (a + b)));
 	}
@@ -277,7 +277,7 @@ public class RiskFactorReader {
 	 * @param d
 	 * @return absolute risk of mortality if no feature is present
 	 */
-	public static double getAbsoluteRiskFalse(double a, double b, double c, double d) throws Exception
+	public static double getAbsoluteRiskFalse(double c, double d)
 	{
 		return ((c / (c + d)));
 	}
@@ -291,9 +291,9 @@ public class RiskFactorReader {
 	 * In order words: (outcome risk among those with feature - outcome risk among those without feature)
 	 * @return attributable risk
 	 */
-	public static double getAttributableRisk(double a, double b, double c, double d) throws Exception
+	public static double getAttributableRisk(double a, double b, double c, double d)
 	{
-		return (getAbsoluteRiskTrue(a, b, c, d) - getAbsoluteRiskFalse(a, b, c, d));
+		return (getAbsoluteRiskTrue(a, b) - getAbsoluteRiskFalse(c, d));
 	}
 	
 	/**
@@ -305,9 +305,9 @@ public class RiskFactorReader {
 	 * @param d
 	 * @return relative risk
 	 */
-	public static double getRelativeRisk(double a, double b, double c, double d) throws Exception
+	public static double getRelativeRisk(double a, double b, double c, double d)
 	{
-		return (getAbsoluteRiskTrue(a, b, c, d) / getAbsoluteRiskFalse(a, b, c, d));
+		return (getAbsoluteRiskTrue(a, b) / getAbsoluteRiskFalse(c, d));
 	}
 
 	/**

@@ -30,7 +30,6 @@ public class BarChart extends ApplicationFrame
 	 */
 	public BarChart(String title)
 	{
-		//Superclass constructor
 		super(title);
 		CategoryDataset dataset = createDataset();
 		JFreeChart chart = createChart(dataset);
@@ -73,13 +72,6 @@ public class BarChart extends ApplicationFrame
 		dataset.addValue((riskfactorToRelativeRisk.get(tempGreaterThan37)), rr, tempGreaterThan37);
 		dataset.addValue((riskfactorToRelativeRisk.get(xray)), rr, xray);
 		
-		//Series2: risk factor to attributable risk of mortality
-//		dataset.addValue(riskfactorToAttributableRisk.get(comorbidity), ar, comorbidity);
-//		dataset.addValue(riskfactorToAttributableRisk.get(currentSmoker), ar, currentSmoker);
-//		dataset.addValue(riskfactorToAttributableRisk.get(rrGreaterThan24), ar, rrGreaterThan24);
-//		dataset.addValue(riskfactorToAttributableRisk.get(tempGreaterThan37), ar, tempGreaterThan37);
-//		dataset.addValue(riskfactorToAttributableRisk.get(xray), ar, xray);
-		
 		return dataset;
 		
 	}
@@ -113,31 +105,10 @@ public class BarChart extends ApplicationFrame
 		plot.setBackgroundPaint(Color.lightGray);
 		
 		//Set gradient paint for series
-//		GradientPaint gpRecovered = new GradientPaint(0.0f, 0.0f, Color.blue, 0.0f, 0.0f, 
-//				new Color(0, 0, 64));
-//		renderer.setSeriesPaint(1, gpRecovered);
 		GradientPaint gpDeceased = new GradientPaint(0.0f, 0.0f, Color.lightGray, 0.0f, 0.0f, 
 				new Color(0, 0, 64));
 		renderer.setSeriesPaint(0, gpDeceased);
 				
 		return chart;
 	}
-
-//	public static void main(String[] args)
-//	{
-//		RiskFactorReader.readCSV();
-//		PatientGenerator.generatePatients();
-//		
-//		//Create a chart
-//		StackedBarChart chart1 = new StackedBarChart("Risk Factors at Admission and Probability of COVID-19 Mortality");
-//		//Use .pack() and .setVisible() to visualize the chart. These methods are inherited from Window. 
-//		chart1.pack();
-//		RefineryUtilities.centerFrameOnScreen(chart1);
-//		chart1.setVisible(true);
-//		
-//		BarChart2 chart2 = new BarChart2("Age Versus Probability of Mortality");
-//		chart2.pack();
-//		RefineryUtilities.centerFrameOnScreen(chart2);
-//		chart2.setVisible(true);
-//	}
 }
