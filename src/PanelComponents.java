@@ -23,7 +23,6 @@ public class PanelComponents extends JFrame implements ActionListener{
      */
     private JFrame frame;
     private JPanel panel;
-    private JLabel title;
     private JLabel ageLabel;
     private JTextField ageText;
     private JLabel genderLabel;
@@ -118,13 +117,6 @@ public class PanelComponents extends JFrame implements ActionListener{
 	 */
 	panel.setLayout(null);
 	
-//	//Title of tool
-//	title = new JLabel("Calculate your patient's COVID-19 severity score by entering data below."
-//			+ "If unavailable, leave the entry blank.");
-//	ageLabel.setBounds(10,20,80,25);
-//	title.setHorizontalAlignment(JLabel.CENTER);
-//	panel.add(title);
-
 	// create label for age
 	ageLabel = new JLabel("Age (years)");
 	/* 
@@ -624,6 +616,13 @@ public class PanelComponents extends JFrame implements ActionListener{
 		return userInfoString;
     }
     
+    /**
+     * This method will check if the input is within the given range.
+     * @param num
+     * @param upper
+     * @param lower
+     * @return
+     */
     public static boolean checkInput(double num, double upper, double lower) {
 		
     	if(num >= lower && num <= upper) {
@@ -634,6 +633,14 @@ public class PanelComponents extends JFrame implements ActionListener{
     	}
     }
     
+    
+    /**This method will check whether the user's input is a number. It will return false if the input String is Blank of contain any punctuation marks other than period.
+     * 
+     * @param num
+     * @param upper
+     * @param lower
+     * @return 
+     */
     public static boolean isNumeric(final String str) {
 
         // null or empty
@@ -650,7 +657,12 @@ public class PanelComponents extends JFrame implements ActionListener{
         return true;
 
     }
-
+    	/**
+    	 * This method will perform the following action once the calculation button is clicked.
+    	 * 1. Check if all the inputs are validate. If yes, collect user's input. If not, send out corresponding error message.
+    	 * 2. Pass user's input into ClickResponse.
+    	 * 3. Call ResultPanel.
+    	 */
 		@Override
 		public void actionPerformed(ActionEvent e) {
 		
@@ -662,7 +674,9 @@ public class PanelComponents extends JFrame implements ActionListener{
 			String[] userinfoString = this.collect();
             double[] userInfo = new double[17];
             
-			
+			/**
+			 * Check if all the inputs are validate.
+			 */
             while(true) {
             if(isNumeric(userinfoString[0]) && isNumeric(userinfoString[1]) && isNumeric(userinfoString[2]) && isNumeric(userinfoString[3]) && isNumeric(userinfoString[4])&& isNumeric(userinfoString[5])
             		&& isNumeric(userinfoString[6]) && isNumeric(userinfoString[7]) && isNumeric(userinfoString[8]) && isNumeric(userinfoString[9]) && isNumeric(userinfoString[10]) && isNumeric(userinfoString[11])
@@ -701,6 +715,9 @@ public class PanelComponents extends JFrame implements ActionListener{
             	System.out.println(score);
     		    resultPanel.placeComponents(score);
             }
+            /**
+             * send out corresponding error messages
+             */
             else {
 			if(isNumeric(userinfoString[0])) {
 				if(!checkInput(Double.parseDouble(userinfoString[0]), 200.0, 0.0)) {
