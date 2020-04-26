@@ -1,8 +1,25 @@
 # COVID-19 SEVERITY PREDICTOR
-### final-project-team_37_covid_19
 
-### Project Description/Objectives (Here)
+### Project Description/Objectives
+
+### Background
+- The COVID-19 pandemic is overwhelming healthcare institutions across the globe
+- Little is known about its disease course
+- A model which predicts disease severity at hospital admission could profoundly influence clinical decision making e.g. Whether or not the patient should be admitted to the intensive care unit 
+
+### Design
+- Read in COVID-19 risk factors
+ - Boolean: calculate and store associated mortality risk
+ - Continuous: store reported range of values
+- Generate/simulate patient database from risk factors
+- Display risk calculator, accept user input (GUI)
+- Pass input to machine learning model (Weka)
+- Display results panel
+ - Weka prediction (mortality risk)
+ - Graphs showing trends in patient data
+
 ![](images/app-user-input-screen-408x567.jpg)
+
 
 ## How to run this application
 
@@ -48,4 +65,6 @@ To enable the JFreeChart library, go to https://sourceforge.net/projects/jfreech
 13. Please fill all fields-- numbers in the text input fields, and select radio buttons for each risk factor as appropriate.
 14. Hit `calculate`
 15. The application will return the patient mortality risk based on the inputs provided along with trend plots for important features on which the classifier (multilayer perceptron) was trained.
+
+
 ![](images/app-result-screen-326x324.jpg)
