@@ -697,7 +697,7 @@ public class PanelComponents extends JFrame implements ActionListener{
     			userInfo[7] = Double.parseDouble(userinfoString[7]);
     			userInfo[8] = Double.parseDouble(userinfoString[8]);
     			userInfo[9] = Double.parseDouble(userinfoString[9]);
-    			userInfo[10] = Double.parseDouble(userinfoString[10]) / 10; //Added unit conversion
+    			userInfo[10] = Double.parseDouble(userinfoString[10]) * 10; //Added unit conversion
     			userInfo[11] = Double.parseDouble(userinfoString[11]);
     			userInfo[12] = Double.parseDouble(userinfoString[12]);
     			userInfo[13] = Double.parseDouble(userinfoString[13]);
