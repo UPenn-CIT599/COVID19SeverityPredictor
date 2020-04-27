@@ -4,9 +4,8 @@
 
 ### Background
 - The COVID-19 pandemic is profoundly influencing global society and healthcare institutions
-- Little is known about the disease course; learning is ongoing
-- A model which predicts disease severity at hospital admission could avail clinical decision making
-    -For example, whether an immediate ICU admission is warranted
+- Little is known about its disease course and learning is ongoing
+- A model which predicts disease severity at hospital admission could avail clinical decision making; for example, whether an immediate ICU admission is warranted
 
 ### Design
 - Read in COVID-19 risk factors
