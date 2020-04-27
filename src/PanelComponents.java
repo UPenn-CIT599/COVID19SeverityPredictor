@@ -365,7 +365,7 @@ public class PanelComponents extends JFrame implements ActionListener{
 	ferritinText = new JTextField(20);
 	ferritinText.setBounds(240,470,60,25);
 	panel.add(ferritinText);
-	ferritinRange = new JLabel("(0.012 - 0.3)");
+	ferritinRange = new JLabel("(12 - 300)");
 	ferritinRange.setBounds(320, 470, 200, 25);
 	panel.add(ferritinRange);
 
