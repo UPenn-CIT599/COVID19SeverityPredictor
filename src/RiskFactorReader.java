@@ -147,14 +147,14 @@ public class RiskFactorReader {
 				//Lymphocyte count is row 40
 				if (row == 40)
 				{
-					riskfactorToRangeDeceased.put("Lymphocyte count", new Double[]{0.5, 0.8});
-					riskfactorToRangeRecovered.put("Lymphocyte count", new Double[]{0.8, 1.5});
+					riskfactorToRangeDeceased.put("Lymphocyte count", new Double[]{0.8, 1.5});
+					riskfactorToRangeRecovered.put("Lymphocyte count", new Double[]{0.5, 0.8});
 				}
 				//Platelet count is row 44
 				if (row == 44)
 				{
-					riskfactorToRangeDeceased.put("Platelets", new Double[]{107.0, 229.0});
-					riskfactorToRangeRecovered.put("Platelets", new Double[]{168.0, 271.0});
+					riskfactorToRangeDeceased.put("Platelets", new Double[]{168.0, 271.0});
+					riskfactorToRangeRecovered.put("Platelets", new Double[]{107.0, 229.0});
 				}
 				//Albumin is row 46
 				if (row == 46)

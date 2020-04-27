@@ -29,7 +29,7 @@ public class ResultPanel{
 		//Create a box and whisker plot with loaded patient data
 		BoxAndWhiskerPlot boxWhisk = new BoxAndWhiskerPlot("Box and Whisker Plot");
 		boxWhisk.setSize(1000, 800);
-		//RefineryUtilities.centerFrameOnScreen(boxWhisk);
+		RefineryUtilities.centerFrameOnScreen(boxWhisk);
 		boxWhisk.setVisible(true);
 		
 		// Create JFrame
