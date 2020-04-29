@@ -9,7 +9,7 @@ been outlined for severe disease and in-hospital death among patients who have c
 Prediction of a patient’s future in-hospital mortality from the time of initial presentation 
 could afford clinicians early valuable prognostic information as well as inform future status of the 
 intensive care unit. Machine learning may be leveraged to make predictions from the myriad data features 
-collected at this initial patient healthcare interface with a high degree of accuracy.
+collected at the initial patient provider interface with a high degree of accuracy.
 
 Design
 Detailed information about COVID-19 patients was first read in from an authoratitive retrospective cohort study (2), which included demographics and physical examination and laboratory findings at hospital admission. A database of 10,000 patients was then generated (simulated) based on the distributions described in the paper, relative risks of mortality (binary features), and ranges of values (continuous features) for patients who were reported as either deceased or recovered. 
@@ -23,8 +23,8 @@ https://github.com/UPenn-CIT599/final-project-team_37_covid_19
 
 Team members and their contributions
 
-Caleb Busch: File input/output, data analysis and risk calculation, generation of patient database, graphical display 
-of trends. 
+Caleb Busch: Performed file input/output, data analysis and risk calculations, simulation of patient database, graphical display 
+of risk factor to outcome trends, and literature review
 
 Tobi Olatunji: Built Machine Learning Pipeline using Weka. Trained several classifiers on patient data, selected best model based on accuracy metric, wrote trained model to disk, converted user input to instance, loaded model at test time, predict and return risk score to GUI
 
