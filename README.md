@@ -3,9 +3,9 @@
 ### Project Description/Objectives
 
 ### Background
-- The COVID-19 pandemic is profoundly influencing global society and healthcare institutions
-- Little is known about its disease course and learning is ongoing
-- A model which predicts disease severity at hospital admission could avail clinical decision making; for example, whether an immediate ICU admission is warranted
+- The COVID-19 pandemic is profoundly impacting healthcare institutions worldwide
+- Little is known about its disease course and learning is ongoing daily
+- A model which predicts disease severity at hospital admission could benefit clinical decision making; for example, whether an immediate ICU admission is warranted for a patient presenting to the emergency department
 
 ### Design
 - Read in COVID-19 risk factors
