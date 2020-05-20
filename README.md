@@ -73,4 +73,4 @@ To enable the JFreeChart library, go to https://sourceforge.net/projects/jfreech
 ![](images/app-result-screen-326x324.jpg)
 
 ## References
-1. 2. F Zhou, et al. Clinical course and risk factors for mortality of adult inpatients with COVID-19 in Wuhan, China: a retrospective cohort study. Lancet (2020 Mar 11), 10.1016/S0140-6736(20)30566-3
+1. F Zhou, et al. Clinical course and risk factors for mortality of adult inpatients with COVID-19 in Wuhan, China: a retrospective cohort study. Lancet (2020 Mar 11), 10.1016/S0140-6736(20)30566-3
