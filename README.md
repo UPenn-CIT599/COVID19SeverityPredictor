@@ -11,7 +11,7 @@ WARNING: This tool is strictly prohibited from clinical use. It has not been ext
 
 
 ### Design
-- Read in COVID-19 risk factors from previously published literature (1).
+- Read in COVID-19 risk factors from published literature (1)
  - Boolean: calculate and store relative risk of mortality
  - Continuous: store reported range of values
 - Simulate patient database based on risk factors
