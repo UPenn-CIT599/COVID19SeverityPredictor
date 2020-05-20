@@ -11,9 +11,7 @@ WARNING: This tool is strictly prohibited from clinical use. It has not been ext
 
 
 ### Design
-- Read in COVID-19 risk factors from published literature (1)
- - Boolean: calculate and store relative risk of mortality
- - Continuous: store reported range of values
+- Read in COVID-19 risk factors from published literature (1): boolean, calculate and store relative risk of mortality; continuous, store ranges of values
 - Simulate patient database based on risk factors
 - Display risk calculator, accept user input (GUI)
 - Pass input to machine learning model (Weka)
