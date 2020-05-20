@@ -2,7 +2,7 @@
 
 ### Project Description/Objectives
 
-WARNING: This tool is STRICTLY PROHIBITED FROM CLINICAL USE. It has not been externally validated. 
+WARNING: This tool is strictly prohibited from clinical use. It has not been externally validated and is under no circumstance to be used to guide decision making in the healthcare context. 
 
 ### Background
 - The COVID-19 pandemic is profoundly impacting healthcare institutions worldwide
