@@ -7,10 +7,11 @@ WARNING: This tool is strictly prohibited from clinical use. It has not been ext
 ### Background
 - The COVID-19 pandemic is profoundly impacting healthcare institutions worldwide
 - At present, little is known about its clinical course and discovery is ongoing daily
-- A model which predicts disease severity at hospital admission could augment clinical decision making; for example, whether an immediate intensive care unit admission is warranted for a patient presenting to the emergency department
+- A model which predicts a patient’s future in-hospital mortality from the time of initial presentation could afford clinicians early prognostic information and inform decisions for admission to the intensive care unit.
+
 
 ### Design
-- Read in COVID-19 risk factors from previously published literature
+- Read in COVID-19 risk factors from previously published literature (1).
  - Boolean: calculate and store relative risk of mortality
  - Continuous: store reported range of values
 - Simulate patient database based on risk factors
@@ -70,3 +71,6 @@ To enable the JFreeChart library, go to https://sourceforge.net/projects/jfreech
 
 
 ![](images/app-result-screen-326x324.jpg)
+
+##References:
+1. 
