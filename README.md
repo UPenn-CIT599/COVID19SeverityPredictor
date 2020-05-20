@@ -10,7 +10,7 @@ WARNING: This tool is strictly prohibited from clinical use. It has not been ext
 - A model which predicts disease severity at hospital admission could augment clinical decision making; for example, whether an immediate intensive care unit admission is warranted for a patient presenting to the emergency department
 
 ### Design
-- Read in COVID-19 risk factors
+- Read in COVID-19 risk factors from previously published literature
  - Boolean: calculate and store relative risk of mortality
  - Continuous: store reported range of values
 - Simulate patient database based on risk factors
